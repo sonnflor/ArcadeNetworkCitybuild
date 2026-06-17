@@ -63,6 +63,9 @@ commands:
   sign:
     usage: /sign <text>
     description: "signs the item in your hand"
+    position:
+      usage: /position <set|get|delete|getCompass|share|list|addToMinimap> [args]
+      description: "Save and manage named positions"
   invsee:
     usage: /invsee <player>
     description: "Opens another player's inventory"

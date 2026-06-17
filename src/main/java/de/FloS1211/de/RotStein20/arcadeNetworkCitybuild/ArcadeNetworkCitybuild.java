@@ -21,6 +21,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.OfflinePla
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.CustomGuiHolder;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.PositionExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.GetCustomItemTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.PlayerTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.ColorcodesExecutor;
@@ -135,6 +136,9 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
 
     getCommand("invsee").setExecutor(new InvseeExecutor());
     getCommand("invsee").setTabCompleter(new PlayerTabCompleter());
+
+    getCommand("position").setExecutor(new PositionExecutor());
+    getCommand("position").setTabCompleter(new PlayerTabCompleter());
 
     getCommand("sign").setExecutor(new SignExecutor());
     getCommand("sign").setTabCompleter(new EmptyTabCompleter());

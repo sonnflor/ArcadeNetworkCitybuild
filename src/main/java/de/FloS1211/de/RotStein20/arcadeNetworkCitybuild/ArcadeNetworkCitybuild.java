@@ -5,6 +5,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.AuszahlenExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.CoinRightclickListener;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.PayAllExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.PayExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorExecutor;
@@ -14,10 +15,12 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PlayerNameManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.*;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sign.SignExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.EmptyTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.OfflinePlayerTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaTabCompleter;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.CustomGuiHolder;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.GetCustomItemTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.PlayerTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.ColorcodesExecutor;
@@ -124,11 +127,16 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
 
     SidebarManager.startUpdateCycle();
 
+    Bukkit.getPluginManager().registerEvents(new CustomGuiHolder(), this);
+
     getCommand("tpa").setExecutor(new TpaExecutor());
     getCommand("tpa").setTabCompleter(new TpaTabCompleter());
     getCommand("performaction").setExecutor(new PerformactionExecutor());
-    // invsee command (open another player's inventory)
-    getCommand("invsee").setExecutor(new de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeExecutor());
-    getCommand("invsee").setTabCompleter(new de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeTabCompleter());
+
+    getCommand("invsee").setExecutor(new InvseeExecutor());
+    getCommand("invsee").setTabCompleter(new PlayerTabCompleter());
+
+    getCommand("sign").setExecutor(new SignExecutor());
+    getCommand("sign").setTabCompleter(new EmptyTabCompleter());
   }
 }

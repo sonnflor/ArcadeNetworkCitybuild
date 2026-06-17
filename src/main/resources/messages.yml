@@ -24,3 +24,6 @@ tpa-me_to-target: "<white>[<green>TPA<white>]<gray> {player} fragt dich, ob er s
 tpa-me_to-sender: "<white>[<green>TPA<white>]<gray> Du hast {targetPlayer} gefragt, ob du dich zu ihm teleportieren darfst"
 
 clickablemessage-invalid-token: "<red>Token invalid: {token}"
+
+sign-invalid-item: "<white>[<green>Sign<white>]<gray> Du musst ein Item in der Hand halten, um es zu signieren"
+sign-succeed: "<white>[<green>Sign<white>]<gray> Du hast dein Item signiert"

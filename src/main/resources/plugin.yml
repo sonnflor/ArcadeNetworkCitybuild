@@ -60,6 +60,9 @@ commands:
   performaction:
     usage: /performaction <token>
     description: "interacts with the server"
+  sign:
+    usage: /sign <text>
+    description: "signs the item in your hand"
 
 permissions:
   ac.crafter:

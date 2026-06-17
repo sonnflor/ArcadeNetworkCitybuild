@@ -17,6 +17,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.EmptyTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.OfflinePlayerTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.GetCustomItemTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.PlayerTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.ColorcodesExecutor;
@@ -124,6 +125,7 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     SidebarManager.startUpdateCycle();
 
     getCommand("tpa").setExecutor(new TpaExecutor());
+    getCommand("tpa").setTabCompleter(new TpaTabCompleter());
     getCommand("performaction").setExecutor(new PerformactionExecutor());
     // invsee command (open another player's inventory)
     getCommand("invsee").setExecutor(new de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeExecutor());

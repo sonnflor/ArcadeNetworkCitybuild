@@ -1,0 +1,26 @@
+general-invalid-player: "<red>Bitte gib einen gültigen Spieler an"
+general-invalid-number: "<red>Bitte gib eine gültige Zahl an"
+general-invalid-executor: "<red>Dieser Command kann nur von einem Spieler ausgeführt werden"
+
+coins-auszahlen-succeed: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins in {coinValue}er-Coins ausgezahlt"
+coins-auszahlen-failed-negative: "<white>[<green>Mute<white>]<gray> Du darfst keine negativen Coins auszahlen"
+coins-auszahlen-failed-poor: "<white>[<green>Mute<white>]<gray> Du hast nicht genug Coins"
+coins-deposit: "<white>[<green>Mute<white>]<gray> Du hast {amount} Coins eingezahlt"
+coins-pay-negative: "<white>[<green>Mute<white>]<gray> Du kannst keine negativen Coins verschenken"
+
+
+mute-unmute-sender: "<white>[<green>Mute<white>]<gray> Du hast {player} unmutet"
+mute-unmute-target: "<white>[<green>Mute<white>]<gray> Du wurdest unmutet (Du darftst dich jetzt freuen yay!! :D)"
+mute-mute-sender: "<white>[<green>Mute<white>]<gray> Du hast {player} permanet gemuted. Begründung: {reason}"
+mute-mute-target: "<white>[<green>Mute<white>]<gray> Du wurdest permanet gemuted. Begründung: {reason}"
+mute-tempmute-sender: "<white>[<green>Mute<white>]<gray> Du hast {player} temporär für {days} Tage, {hours} Stunden und {minutes} Minuten gemuted. Begründung: {reason}"
+mute-tempmute-target: "<white>[<green>Mute<white>]<gray> Du wurdest temporär für {days} Tage, {hours} Stunden und {minutes} Minuten gemuted. Begründung: {reason}"
+mute-reject-message: "<white>[<green>Mute<white>]<gray> Du bist gemuted und kannst keine Nachrichten senden. Details: /muteinfo"
+mute-muteinfo-isnt-muted: "<white>[<green>Mute<white>]<gray> Der Spieler {player} ist nicht gemuted. "
+
+tpa-to_me-target: "<white>[<green>TPA<white>]<gray> Du wurdest von {player} eingeladen, dich zu ihm zu teleportieren. <green><hover:show_text:'<gray>Teleportiert dich zu {player}</gray>'><click:run_command:'/performaction {token}'>[Annehmen]</click></hover></green></gray>"
+tpa-to_me-sender: "<white>[<green>TPA<white>]<gray> Du hast {targetPlayer} eingeladen, sich zu dir zu teleportieren."
+tpa-me_to-target: "<white>[<green>TPA<white>]<gray> {player} fragt dich, ob er sich zu dir teleportieren darf. <green><hover:show_text:'<gray>Teleportiert dich zu {player}</gray>'><click:run_command:'/performaction {token}'>[Annehmen]</click></hover></green></gray>"
+tpa-me_to-sender: "<white>[<green>TPA<white>]<gray> Du hast {targetPlayer} gefragt, ob du dich zu ihm teleportieren darfst"
+
+clickablemessage-invalid-token: "<red>Token invalid: {token}"

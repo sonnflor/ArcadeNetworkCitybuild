@@ -1,0 +1,127 @@
+name: ArcadeNetworkCitybuild
+version: '1.0-SNAPSHOT'
+main: de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.ArcadeNetworkCitybuild
+api-version: '1.21'
+authors: [ FloS1211, RotStein20 ]
+commands:
+  auszahlen:
+    usage: /auszahlen <coins>
+  pay:
+    usage: /pay <player> <coins>
+  payall:
+    usage: /payall <coins>
+  colorcodes:
+    usage: /colorcodes
+  citybuild:
+    usage: /citybuild
+    description: "Teleports you to the citybuild world"
+    aliases: [cb,tpcb]
+  farming:
+    usage: /farming
+    description: "Teleports you to the farming world"
+    aliases: [farmwelt, tpfarming]
+  lobby:
+    usage: /lobby
+    description: "Teleports you to the lobby world"
+    aliases: [hub]
+  arcadeattack:
+    usage: /arcadeattack
+    description: "Teleports you to the arcade attack world"
+    aliases: [aa, tpaa]
+  setrank:
+    usage: /setrank <player> <rankType> <rank>
+    description: "Sets the rank of a player"
+    permission: ac.admin
+  getcustomitem:
+    usage: /getcustomitem <itemName> ([itemProperties])
+    description: "Gives you a custom item"
+    permission: ac.admin
+  namecolor:
+    usage: /namecolor
+    description: "Opens the menu for namecolors"
+    aliases: [namensfarben]
+  tempmute:
+    usage: /tempmute <player> <days> <hours> <minutes> <reason>
+    permission: ac.supporter
+    description: "Mutes a player for a specific time"
+  mute:
+    usage: /mute <player> <reason>
+    permission: ac.supporter
+    description: "Mutes a player permanent"
+  unmute:
+    usage: /unmute <player>
+    permission: ac.supporter
+    description: "Unmutes a player"
+  muteinfo:
+    usage: /muteinfo <player>
+    description: "Gives specific information about a mute"
+  tpa:
+    usage: /tpa [me_to|to_me] <player>
+  performaction:
+    usage: /performaction <token>
+    description: "interacts with the server"
+
+permissions:
+  ac.crafter:
+    default: op
+  ac.expert:
+    default: op
+    children:
+      ac.crafter: true
+  ac.elite:
+    default: op
+    children:
+      ac.expert: true
+  ac.king:
+    default: op
+    children:
+      ac.elite: true
+  ac.master:
+    default: op
+    children:
+      ac.king: true
+  ac.admin:
+    default: op
+    children:
+      ac.master: true
+      ac.supporter: true
+  ac.owner:
+    default: op
+    children:
+      ac.master: true
+      ac.supporter: true
+
+  ac.supporter:
+    default: op
+    children:
+      ac.elite: true
+  ac.testsupporter:
+    default: op
+    children:
+      ac.supporter: true
+
+  ac.moderator:
+    default: op
+    children:
+      ac.admin: true
+  ac.testmoderator:
+    default: op
+    children:
+      ac.moderator: true
+
+  ac.creator:
+    default: op
+    children:
+      ac.elite: true
+  ac.builder:
+    default: op
+    children:
+      ac.expert: true
+  ac.developer:
+    default: op
+    children:
+      ac.admin: true
+
+  ac.console:
+    default: false
+    description: "hat niemand ist nur für Ausführung durch Plugin"

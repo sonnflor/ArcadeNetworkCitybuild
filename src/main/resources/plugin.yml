@@ -60,6 +60,9 @@ commands:
   performaction:
     usage: /performaction <token>
     description: "interacts with the server"
+  invsee:
+    usage: /invsee <player>
+    description: "Opens another player's inventory"
 
 permissions:
   ac.crafter:

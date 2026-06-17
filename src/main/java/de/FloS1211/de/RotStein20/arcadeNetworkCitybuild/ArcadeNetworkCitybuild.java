@@ -94,6 +94,8 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getCommand("lobby").setTabCompleter(new EmptyTabCompleter());
     getCommand("arcadeattack").setExecutor(new ArcadeAttackTpExecutor());
     getCommand("arcadeattack").setTabCompleter(new EmptyTabCompleter());
+    org.bukkit.Bukkit.getPluginManager().registerEvents(new de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.arcadeattack.ArcadeAttackEggListener(), this);
+    de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.arcadeattack.ArcadeAttackEggListener.startEggParticleTask();
 
     PermissionManager.initialize();
     getCommand("setrank").setExecutor(new SetRankExecutor());
@@ -123,5 +125,8 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
 
     getCommand("tpa").setExecutor(new TpaExecutor());
     getCommand("performaction").setExecutor(new PerformactionExecutor());
+    // invsee command (open another player's inventory)
+    getCommand("invsee").setExecutor(new de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeExecutor());
+    getCommand("invsee").setTabCompleter(new de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeTabCompleter());
   }
 }

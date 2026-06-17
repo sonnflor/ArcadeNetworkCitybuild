@@ -24,6 +24,7 @@ tpa-me_to-target: "<white>[<green>TPA<white>]<gray> {player} fragt dich, ob er s
 tpa-me_to-sender: "<white>[<green>TPA<white>]<gray> Du hast {targetPlayer} gefragt, ob du dich zu ihm teleportieren darfst"
 
 clickablemessage-invalid-token: "<red>Token invalid: {token}"
+
 invsee-open: "<white>[<green>Invsee<white>]<gray> Öffne Inventar von {player}"
 
 

@@ -25,6 +25,7 @@ public class Utils {
   }
   public static NamespacedKey key_custom = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(), "custom");
   public static NamespacedKey key_coin_amount = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(), "coin_amount");
+  public static NamespacedKey key_sidebar = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"sidebar");
 
   public static Integer canFitItem(Player player, ItemStack itemsToAdd) {
     if (itemsToAdd == null || itemsToAdd.getAmount() <= 0) return 0;

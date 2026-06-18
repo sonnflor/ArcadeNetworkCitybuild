@@ -66,6 +66,9 @@ commands:
   invsee:
     usage: /invsee <player>
     description: "Opens another player's inventory"
+  configsidebar:
+    usage: /configsidebar <feature> <mode>
+    description: "Enables / disables features from the sidebar"
 
 permissions:
   ac.crafter:

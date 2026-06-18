@@ -15,6 +15,9 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PlayerNameManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.*;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.ConfigSidebarExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.ConfigSidebarTabCompleter;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.SidebarManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sign.SignExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.EmptyTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.OfflinePlayerTabCompleter;
@@ -138,5 +141,9 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
 
     getCommand("sign").setExecutor(new SignExecutor());
     getCommand("sign").setTabCompleter(new EmptyTabCompleter());
+
+    Bukkit.getPluginManager().registerEvents(new SidebarManager(), this);
+    getCommand("configsidebar").setExecutor(new ConfigSidebarExecutor());
+    getCommand("configsidebar").setTabCompleter(new ConfigSidebarTabCompleter());
   }
 }

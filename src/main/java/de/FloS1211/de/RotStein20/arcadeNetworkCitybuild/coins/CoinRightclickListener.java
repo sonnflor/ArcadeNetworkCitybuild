@@ -1,6 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins;
 
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.SidebarManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.SidebarManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import org.bukkit.GameMode;

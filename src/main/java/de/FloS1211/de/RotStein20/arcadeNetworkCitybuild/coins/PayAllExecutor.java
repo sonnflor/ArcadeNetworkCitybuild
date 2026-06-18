@@ -1,6 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins;
 
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.SidebarManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.SidebarManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;

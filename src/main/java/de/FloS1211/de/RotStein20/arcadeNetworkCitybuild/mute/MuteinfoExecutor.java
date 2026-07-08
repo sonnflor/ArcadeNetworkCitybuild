@@ -7,6 +7,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.CustomGuiHolder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -84,8 +85,7 @@ public class MuteinfoExecutor implements CommandExecutor {
     ItemStack itemStack = new ItemStack(material);
     ItemMeta itemMeta = itemStack.getItemMeta();
     itemMeta.lore(List.of(
-        Component.text("").color(NamedTextColor.GRAY),
-        Component.text(lore).color(NamedTextColor.GREEN)
+        Component.text(lore).color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC,false)
     ));
     itemMeta.itemName(Component.text(itemName).color(NamedTextColor.WHITE));
     itemStack.setItemMeta(itemMeta);

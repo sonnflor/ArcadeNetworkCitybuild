@@ -28,6 +28,7 @@ public class SetRankExecutor implements CommandExecutor {
     String rankType = args[1];
     if (rankType.equalsIgnoreCase("clear")) {
       RankManager.setRank(targetPlayer.getUniqueId().toString(),"default");
+      RankManager.setRank(targetPlayer.getUniqueId().toString(),"none");
       commandSender.sendMessage("Der Rang von " + targetPlayer.getName() + " wurde gelöscht.");
       if (targetPlayer.isOnline()) {
         ((Player) targetPlayer).sendMessage("Dein Rang wurde gelöscht.");

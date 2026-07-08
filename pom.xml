@@ -62,8 +62,8 @@
         </repository>
 
         <repository>
-            <id>luckperms</id>
-            <url>https://repo.lucko.me/</url>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -81,13 +81,10 @@
             <version>5.4.0</version>
             <scope>provided</scope>
         </dependency>
-
-
-        <!-- LuckPerms API -->
         <dependency>
-            <groupId>net.luckperms</groupId>
-            <artifactId>api</artifactId>
-            <version>5.4</version>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api-plugin</artifactId>
+            <version>2.15.7</version>
             <scope>provided</scope>
         </dependency>
 
@@ -102,6 +99,12 @@
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>3.5.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>3.2.2</version>
         </dependency>
     </dependencies>
 </project>

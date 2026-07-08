@@ -1,12 +1,12 @@
-general-invalid-player: "<red>Bitte gib einen gültigen Spieler an"
-general-invalid-number: "<red>Bitte gib eine gültige Zahl an"
-general-invalid-executor: "<red>Dieser Command kann nur von einem Spieler ausgeführt werden"
+general-invalid-player: "<white>[<green>ArcadeNetwork<white>]<gray> Bitte gib einen gültigen Spieler an"
+general-invalid-number: "<white>[<green>ArcadeNetwork<white>]<gray> Bitte gib eine gültige Zahl an"
+general-invalid-executor: "<white>[<green>ArcadeNetwork<white>]<gray> Dieser Command kann nur von einem Spieler ausgeführt werden"
 
 coins-auszahlen-succeed: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins in {coinValue}er-Coins ausgezahlt"
-coins-auszahlen-failed-negative: "<white>[<green>Mute<white>]<gray> Du darfst keine negativen Coins auszahlen"
-coins-auszahlen-failed-poor: "<white>[<green>Mute<white>]<gray> Du hast nicht genug Coins"
-coins-deposit: "<white>[<green>Mute<white>]<gray> Du hast {amount} Coins eingezahlt"
-coins-pay-negative: "<white>[<green>Mute<white>]<gray> Du kannst keine negativen Coins verschenken"
+coins-auszahlen-failed-negative: "<white>[<green>Coins<white>]<gray> Du darfst keine negativen Coins auszahlen"
+coins-auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> Du hast nicht genug Coins"
+coins-deposit: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins eingezahlt"
+coins-pay-negative: "<white>[<green>Coins<white>]<gray> Du kannst keine negativen Coins verschenken"
 
 
 mute-unmute-sender: "<white>[<green>Mute<white>]<gray> Du hast {player} unmutet"
@@ -18,15 +18,35 @@ mute-tempmute-target: "<white>[<green>Mute<white>]<gray> Du wurdest temporär f�
 mute-reject-message: "<white>[<green>Mute<white>]<gray> Du bist gemuted und kannst keine Nachrichten senden. Details: /muteinfo"
 mute-muteinfo-isnt-muted: "<white>[<green>Mute<white>]<gray> Der Spieler {player} ist nicht gemuted. "
 
-tpa-to_me-target: "<white>[<green>TPA<white>]<gray> Du wurdest von {player} eingeladen, dich zu ihm zu teleportieren. <green><hover:show_text:'<gray>Teleportiert dich zu {player}</gray>'><click:run_command:'/performaction {token}'>[Annehmen]</click></hover></green></gray>"
-tpa-to_me-sender: "<white>[<green>TPA<white>]<gray> Du hast {targetPlayer} eingeladen, sich zu dir zu teleportieren."
-tpa-me_to-target: "<white>[<green>TPA<white>]<gray> {player} fragt dich, ob er sich zu dir teleportieren darf. <green><hover:show_text:'<gray>Teleportiert dich zu {player}</gray>'><click:run_command:'/performaction {token}'>[Annehmen]</click></hover></green></gray>"
-tpa-me_to-sender: "<white>[<green>TPA<white>]<gray> Du hast {targetPlayer} gefragt, ob du dich zu ihm teleportieren darfst"
+tpa-reject-target: "<white>[<green>Tpa<white>]<gray> {player} hat dein Teleportanfrage abgelehnt"
+tpa-reject-rejecter: "<white>[<green>Tpa<white>]<gray> Du hast die Teleportanfrage von {player} abgelehnt"
+tpa-me_to_player-sender: "<white>[<green>Tpa<white>]<gray> Du hast angefragt, ob du dich zu {player} teleportieren darfst"
+tpa-me_to_player-target: "<white>[<green>Tpa<white>]<gray> {player} hat angefragt, ob er sich zu dir teleportieren darf <green><hover:show_text:'<gray>Kleicke, um die TPA anzunehmen'><click:run_command:'/performaction {acceptToken}'>[Annehmen]</click></hover></green> <red><hover:show_text:'<gray>Klicke, um die TPA abzulehnen'><click:run_command:'/performaction {rejectToken}'>[Ablehnen]</click></hover></red>"
+tpa-player_to_me-sender: "<white>[<green>Tpa<white>]<gray> Du hast angefragt, ob {player} sich zu dir teleportieren will"
+tpa-player_to_me-target: "<white>[<green>Tpa<white>]<gray> {player} hat angefragt, ob du dich zu ihm teleportieren willst <green><hover:show_text:'<gray>Kleicke, um die TPA anzunehmen'><click:run_command:'/performaction {acceptToken}'>[Annehmen]</click></hover></green> <red><hover:show_text:'<gray>Klicke, um die TPA abzulehnen'><click:run_command:'/performaction {rejectToken}'>[Ablehnen]</click></hover></red>"
 
 clickablemessage-invalid-token: "<red>Token invalid: {token}"
 
 invsee-open: "<white>[<green>Invsee<white>]<gray> Öffne Inventar von {player}"
 
-
 sign-invalid-item: "<white>[<green>Sign<white>]<gray> Du musst ein Item in der Hand halten, um es zu signieren"
 sign-succeed: "<white>[<green>Sign<white>]<gray> Du hast dein Item signiert"
+
+pos-invalid-name: "<white>[<green>Position<white>]<gray> Bitte gib den Namen einer gültigen Position an"
+pos-remove-succeed: "<white>[<green>Position<white>]<gray> Die Position \"{pos}\" wurde gelöscht"
+pos-add-already-existing: "<white>[<green>Position<white>]<gray> Diese Position existiert bereits. Lösche sie mit /position remove oder verschiebe sie mit /position move"
+pos-add-succeed: "<white>[<green>Position<white>]<gray> Du hast deinen aktuellen Standort unter dem Namen \"{pos}\" gespeichert"
+pos-move-succeed: "<white>[<green>Position<white>]<gray> Du hast erfolgreich die Position {pos} zu deinem aktuellen Standort verschoben"
+pos-get-head: "<white>[<green>Position<white>]<gray> Information zur gespeicherten Position \"{pos}\":"
+pos-add-too-many: "<white>[<green>Position<white>]<gray> Du hast bereits 100 Positionen gespeichert. Du kannst sie löschen mit /position remove <name>"
+pos-list-head: "<white>[<green>Position<white>]<gray> Deine gespeicherten Positionen: "
+pos-list-no-pos: "<white>[<green>Position<white>]<gray> Du hast noch keine Position gespeichert. Speichere deine aktuelle Position mit /position add <name>"
+pos-share-sender: "<white>[<green>Position<white>]<gray> Du hast die Position {name} mit {targetPlayer} geteilt"
+pos-share-target: "<white>[<green>Position<white>]<gray> {player} hat seine Position {name} mit dir geteilt. <green><hover:show_text:'<gray>Fügt die Position zu dir hinzu'><click:run_command:'/performaction {token}'>[Hinzufügen]</click></hover></green>"
+
+tempban-succeed: "<white>[<green>TempBan<white>]<gray> Du hast den Spieler {player} für {time} gebannt"
+
+ping-own: "<white>[<green>Ping<white>]<gray> Dein Ping beträgt {ping}ms"
+ping-other: "<white>[<green>Ping<white>]<gray> Der Ping von {targetPlayer} beträgt {ping}ms"
+
+discord: "<white>[<green>Discord<white>]<gray> Du findest unseren Discord auf <green><click:open_url:'https://discord.gg/HEUmzZ9UEC'><underlined><hover:show_text:'<gray>Klicke, um den Link zu öffnen</gray>'>https://discord.gg/HEUmzZ9UEC</hover></underlined></click></green>"

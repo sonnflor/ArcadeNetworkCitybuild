@@ -65,7 +65,19 @@ public class DatabaseManager {
             namecolor VARCHAR(20) NOT NULL DEFAULT 'default',
             unlocked_namecolors TEXT NOT NULL DEFAULT '',
             is_muted BOOLEAN NOT NULL DEFAULT FALSE,
-            mute_data TEXT NOT NULL DEFAULT ''
+            mute_data TEXT NOT NULL DEFAULT '',
+            vanished BOOLEAN NOT NULL DEFAULT FALSE
+          );
+          """);
+      statement.execute("""
+          CREATE TABLE IF NOT EXISTS positions (
+            uuid VARCHAR(36),
+            x REAL NOT NULL DEFAULT 0,
+            y REAL NOT NULL DEFAULT 0,
+            z REAL NOT NULL DEFAULT 0,
+            dim VARCHAR(20) NOT NULL DEFAULT "world",
+            name TEXT NOT NULL DEFAULT "pos",
+            server TEXT
           );
           """);
     }

@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 
 public class TpaExecutor implements CommandExecutor {
   @Override
@@ -23,15 +24,12 @@ public class TpaExecutor implements CommandExecutor {
       return false;
     }
     String type = args[0];
-    if (!List.of("to_me","me_to").contains(type)) {
+    if (!List.of("player_to_me","me_to_player").contains(type)) {
       return false;
     }
     OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-    if (!target.isOnline() && !target.hasPlayedBefore()) {
-      player.sendMessage(MessageManager.get("general-invalid-player"));
-      return false;
-    }
-    TpaManager.sendTpa(type,player,(Player) target);
+    TpaManager.requestTpaCrossServer(type,player,target);
+    player.sendMessage(MessageManager.get("tpa-"+type+"-sender", Map.of("player",args[1])));
     return true;
   }
 }

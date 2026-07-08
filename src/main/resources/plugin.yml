@@ -63,15 +63,33 @@ commands:
   sign:
     usage: /sign <text>
     description: "signs the item in your hand"
-    position:
-      usage: /position <set|get|delete|getCompass|share|list|addToMinimap> [args]
-      description: "Save and manage named positions"
+  position:
+    usage: /position <set|get|delete|getCompass|share|list|addToMinimap> [args]
+    description: "Save and manage named positions"
+    aliases: ["location"]
+  tempban:
+    usage: /tempban <player> <days> <hours> <minutes> <reason>
   invsee:
     usage: /invsee <player>
     description: "Opens another player's inventory"
   configsidebar:
     usage: /configsidebar <feature> <mode>
     description: "Enables / disables features from the sidebar"
+  müll:
+    usage: /müll
+  ping:
+    usage: /ping (<player>)
+  discord:
+    usage: /discord
+  testCom:
+    usage: /testcom
+    permission: ac.developer
+  vanish:
+    usage: /vanish
+    permission: ac.supporter
+  unvanish:
+    usage: /unvanish
+    permission: ac.supporter
 
 permissions:
   ac.crafter:

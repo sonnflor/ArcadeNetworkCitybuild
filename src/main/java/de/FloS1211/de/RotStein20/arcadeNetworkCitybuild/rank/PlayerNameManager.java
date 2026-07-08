@@ -1,9 +1,11 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.TabListManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +20,7 @@ public class PlayerNameManager implements Listener {
     updatePlayerName(player.getUniqueId().toString());
   }
   public static Component getPlayerName(String uuid) {
-    Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+    OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
     String rank = RankManager.getRank(uuid);
     String extraRank = RankManager.getExtraRank(uuid);
     Component prefix = RankManager.getRankPrefix(rank);
@@ -27,7 +29,7 @@ public class PlayerNameManager implements Listener {
     return prefix.append(coloredName).append(suffix);
   }
   public static String getPlayerNameString(String uuid) {
-    Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+    OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
     String rank = RankManager.getRank(uuid);
     String extraRank = RankManager.getExtraRank(uuid);
     String prefix = LegacyComponentSerializer.legacySection().serialize(RankManager.getRankPrefix(rank));
@@ -42,5 +44,6 @@ public class PlayerNameManager implements Listener {
     player.displayName(name);
     player.playerListName(name);
     player.customName(name);
+    TabListManager.sendTabUpdateToProxy(player,name);
   }
 }

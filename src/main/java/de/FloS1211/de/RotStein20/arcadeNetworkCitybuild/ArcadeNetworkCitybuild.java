@@ -6,10 +6,13 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.CoinRightclickList
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.PayAllExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.PayExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorGuiListener;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.position.PositionTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PermissionManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PlayerNameManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankExecutor;
@@ -22,23 +25,22 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sign.SignExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.EmptyTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.OfflinePlayerTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaListener;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaTabCompleter;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.CustomGuiHolder;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.PositionExecutor;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.GetCustomItemTabCompleter;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.*;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.position.PositionExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tabcompleters.PlayerTabCompleter;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.ColorcodesExecutor;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.GetCustomItemExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.vanish.UnvanishExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.vanish.VanishExecutor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
+import org.slf4j.Logger;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public final class ArcadeNetworkCitybuild extends JavaPlugin {
-
   //Sidebar
   public Map<UUID, Location> lastPos = new HashMap<>();
   //SQL
@@ -56,6 +58,10 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     Utils.init();
     registerFeatures();
     getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+    Bukkit.getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:tab");
+    getServer().getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:chat");
+    getServer().getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:tpa");
+    getServer().getMessenger().registerIncomingPluginChannel(this, "arcadenetwork:tpa", new TpaListener());
 
     databaseManager = new DatabaseManager();
     try {
@@ -138,16 +144,44 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getCommand("performaction").setExecutor(new PerformactionExecutor());
 
     getCommand("invsee").setExecutor(new InvseeExecutor());
-    getCommand("invsee").setTabCompleter(new PlayerTabCompleter());
+    getCommand("invsee").setTabCompleter(new InvseeTabCompleter());
 
     getCommand("position").setExecutor(new PositionExecutor());
-    getCommand("position").setTabCompleter(new PlayerTabCompleter());
+    getCommand("position").setTabCompleter(new PositionTabCompleter());
 
     getCommand("sign").setExecutor(new SignExecutor());
     getCommand("sign").setTabCompleter(new EmptyTabCompleter());
 
     Bukkit.getPluginManager().registerEvents(new SidebarManager(), this);
+    Bukkit.getPluginManager().registerEvents(new ChatMessageManager(), this);
     getCommand("configsidebar").setExecutor(new ConfigSidebarExecutor());
     getCommand("configsidebar").setTabCompleter(new ConfigSidebarTabCompleter());
+
+    getCommand("tempban").setExecutor(new TempBanExecutor());
+    getCommand("tempban").setTabCompleter(new TempbanTabCompleter());
+
+    Bukkit.getPluginManager().registerEvents(new InvseeManager(), this);
+
+    getCommand("müll").setExecutor(new MuellExecutor());
+    getCommand("müll").setTabCompleter(new EmptyTabCompleter());
+
+    Bukkit.getPluginManager().registerEvents(new AntiXashinnListener(), this);
+
+    getCommand("ping").setExecutor(new PingExecutor());
+    getCommand("ping").setTabCompleter(new PlayerTabCompleter());
+
+    getCommand("discord").setExecutor(new DiscordExecutor());
+    getCommand("discord").setTabCompleter(new EmptyTabCompleter());
+
+    Bukkit.getPluginManager().registerEvents(new LobbyProtectListener(), this);
+
+    getCommand("testcom").setExecutor(new TestCom());
+
+    Bukkit.getPluginManager().registerEvents(new TabListManager(), this);
+
+    getCommand("vanish").setExecutor(new VanishExecutor());
+    getCommand("vanish").setTabCompleter(new EmptyTabCompleter());
+    getCommand("unvanish").setExecutor(new UnvanishExecutor());
+    getCommand("unvanish").setTabCompleter(new EmptyTabCompleter());
   }
 }

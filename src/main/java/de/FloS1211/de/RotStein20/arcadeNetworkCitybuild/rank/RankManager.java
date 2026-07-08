@@ -2,12 +2,12 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.vanish.VanishManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class RankManager {
@@ -17,7 +17,7 @@ public class RankManager {
   );
   public static List<String> extraRanks = List.of("none","testsupporter","supporter","testmoderator","moderator","builder","creator","developer");
   public static List<String> rankSuffixes = List.of(
-      "","§7 • §1§lTe§9§lst§1§l-S§9§lup§1§lpo§9§lrt§1§ler","§7 • §1§lS§9§lup§1§lpo§9§lrt§1§ler","§7 • §2§lTe§a§lst§2§l-M§a§lod§2§ler§a§lat§2§lor","§7 • §2§lM§a§lod§2§ler§a§lat§2§lor","§7 • §c§lBuilder","§7 • §5§lCreator","§7 • §4§lDev"
+      "","§7 • §9§lT§b§l-§9§lS§b§lu§9§lp","§7 • §9§lS§b§lu§9§lp","§7 • §2§lT§a§l-§2§lM§a§lo§2§ld","§7 • §2§lM§a§lo§2§ld","§7 • §c§lBuilder","§7 • §5§lCreator","§7 • §4§lDev"
   );
 
   public static void setRank(String uuid, String rank) {
@@ -26,6 +26,7 @@ public class RankManager {
       if (Bukkit.getOfflinePlayer(UUID.fromString(uuid)).isOnline()) {
         PermissionManager.setPermission(uuid, rank, getExtraRank(uuid));
         PlayerNameManager.updatePlayerName(uuid);
+        VanishManager.updateAllHiddenStates();
       }
     } else if (extraRanks.contains(rank)) {
       DatabaseManager.executeSQL("INSERT INTO player_data (uuid,extra_rank) VALUES (?,?) ON DUPLICATE KEY UPDATE extra_rank = ?", List.of(uuid, rank, rank));
@@ -84,6 +85,15 @@ public class RankManager {
   public static Component getRankSuffix(String rank) {
     if (extraRanks.contains(rank)) {
       return LegacyComponentSerializer.legacySection().deserialize(rankSuffixes.get(extraRanks.indexOf(rank)));
+    } else {
+      throw new IllegalArgumentException("Ungültiger Rang: " + rank);
+    }
+  }
+
+  public static int getRankPriority(UUID uuid) {
+    String rank = getRank(uuid.toString());
+    if (ranks.contains(rank)) {
+      return ranks.size() - ranks.indexOf(rank) - 1;
     } else {
       throw new IllegalArgumentException("Ungültiger Rang: " + rank);
     }

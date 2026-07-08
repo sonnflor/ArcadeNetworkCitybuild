@@ -2,6 +2,7 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sign;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -54,9 +55,9 @@ public class SignExecutor implements CommandExecutor {
         if (itemMeta.hasLore()) {
             itemLore = itemMeta.lore();
         }
-        itemLore.add(Component.text(""));
-        itemLore.add(LegacyComponentSerializer.legacySection().deserialize(text));
-        itemLore.add(LegacyComponentSerializer.legacySection().deserialize("§7Signiert von§a " + playerName + "§7 am §a" + date + "§7. "));
+        itemLore.add(Component.empty());
+        itemLore.add(Component.text("§r§7").decoration(TextDecoration.ITALIC, false).append(LegacyComponentSerializer.legacySection().deserialize("§r§7"+text)));
+        itemLore.add(Component.text("§r§7").decoration(TextDecoration.ITALIC, false).append(LegacyComponentSerializer.legacySection().deserialize("§7Signiert von§a " + playerName + "§7 am §a" + date + "§7. ")));
         itemMeta.lore(itemLore);
         itemStack.setItemMeta(itemMeta);
         return true;

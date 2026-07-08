@@ -16,7 +16,7 @@ public class TpaTabCompleter implements TabCompleter {
   public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
     List<String> result = new ArrayList<>();
     if (args.length == 1) {
-      for (String item : List.of("me_to","to_me")) {
+      for (String item : List.of("me_to_player","player_to_me")) {
         if (item.toLowerCase().startsWith(args[0].toLowerCase())) {
           result.add(item);
         }
@@ -24,7 +24,7 @@ public class TpaTabCompleter implements TabCompleter {
     }
     if (args.length == 2) {
       for (Player player : Bukkit.getOnlinePlayers()) {
-        if (player.getName().toLowerCase().startsWith(args[0].toLowerCase())) {
+        if (player.getName().toLowerCase().startsWith(args[1].toLowerCase())) {
           result.add(player.getName());
         }
       }

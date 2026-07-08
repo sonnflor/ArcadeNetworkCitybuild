@@ -26,7 +26,7 @@ public class GetCustomItemExecutor implements CommandExecutor {
       return true;
     }
     if (itemName.equalsIgnoreCase("coin")) {
-      ((Player)commandSender).getInventory().addItem(CoinsManager.getCoinItem(BigDecimal.valueOf(Double.parseDouble(itemProperties[0])), Integer.parseInt(itemProperties[2])));
+      ((Player)commandSender).getInventory().addItem(CoinsManager.getCoinItem(BigDecimal.valueOf(Double.parseDouble(itemProperties[0])), Integer.parseInt(itemProperties[1])));
     } else if (itemName.equalsIgnoreCase("rankbook")) {
       ((Player)commandSender).getInventory().addItem(RankCouponManager.getRankCoupon(itemProperties[0]));
     } else if (itemName.equalsIgnoreCase("namecolorbook")) {

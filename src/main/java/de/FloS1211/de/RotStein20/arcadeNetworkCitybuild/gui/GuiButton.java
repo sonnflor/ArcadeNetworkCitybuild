@@ -3,31 +3,23 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-public class GuiButton extends GuiElement {
+public class GuiButton extends GuiElement<GuiButton> {
   protected GuiButtonExecutor executor;
   protected GuiSound sound = GuiSound.CLICK;
-  protected GuiButtonType type = GuiButtonType.CUSTOM;
+  protected GuiButtonType type;
 
-  public GuiButton(String id, Material icon, GuiButtonExecutor executor
-  ) {
+  public GuiButton(String id, Material icon, GuiButtonExecutor executor, GuiButtonType type) {
     super(id, icon);
     this.executor = executor;
+    this.type = type;
   }
 
   public void setSound(GuiSound sound) {
     this.sound = sound;
   }
 
-  public void setType(GuiButtonType type) {
-    this.type = type;
-  }
-
-  public void onClick(Player player, Gui gui, Boolean state) {
+  public void onClick(Player player, Gui gui) {
     sound.play(player);
-    if (this instanceof GuiSwitch) {
-      executor.onSwitch(id,gui,state);
-      return;
-    }
     switch (type) {
       case CUSTOM -> executor.customAction(id, gui);
       case NEXT_PAGE -> {if (gui.getPage() + 1 <= gui.getMaxPage()) executor.switchPage(id, gui, gui.getPage() + 1);}

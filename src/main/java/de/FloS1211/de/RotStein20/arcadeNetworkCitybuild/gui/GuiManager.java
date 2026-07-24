@@ -22,9 +22,9 @@ public class GuiManager implements Listener {
     if (item == null || item.getType().equals(Material.AIR)) return;
     int slot = event.getSlot();
     int page = gui.getPage();
-    GuiElement el = gui.getElement(page,slot);
+    GuiElement<?> el = gui.getElement(page,slot);
     if (el == null) return;
     if (el instanceof GuiSwitch) ((GuiSwitch) el).onClick((Player) event.getWhoClicked(), gui);
-    else if (el instanceof GuiButton) ((GuiButton) el).onClick((Player) event.getWhoClicked(), gui, null);
+    else if (el instanceof GuiButton) ((GuiButton) el).onClick((Player) event.getWhoClicked(), gui);
   }
 }

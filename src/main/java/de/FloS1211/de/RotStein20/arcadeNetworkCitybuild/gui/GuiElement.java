@@ -9,7 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuiElement {
+public abstract class GuiElement<T extends GuiElement<T>> {
   protected Material icon = Material.DIRT;
   protected boolean hasEnchantmentGlintOverride = false;
   protected Component title;
@@ -22,24 +22,34 @@ public class GuiElement {
     this.icon = icon;
   }
 
-  public void setIcon(Material icon) {
+  public T icon(Material icon) {
     this.icon = icon;
+    return self();
   }
 
-  public void setTitle(Component title) {
+  public T title(Component title) {
     this.title = title;
+    return self();
   }
 
-  public void setLore(List<Component> lore) {
+  public T lore(List<Component> lore) {
     this.lore = lore;
+    return self();
   }
 
-  public void setAmount(int amount) {
+  public T amount(int amount) {
     this.amount = amount;
+    return self();
   }
 
-  public void setEnchantment(boolean hasEnchantmentGlintOverride) {
+  public T enchantment(boolean hasEnchantmentGlintOverride) {
     this.hasEnchantmentGlintOverride = hasEnchantmentGlintOverride;
+    return self();
+  }
+
+  @SuppressWarnings("unchecked")
+  protected T self() {
+    return (T) this;
   }
 
   public ItemStack buildItem() {

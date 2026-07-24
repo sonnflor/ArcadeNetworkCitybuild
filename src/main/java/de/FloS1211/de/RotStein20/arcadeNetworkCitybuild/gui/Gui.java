@@ -8,34 +8,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Gui {
-  private final Map<Integer, Map<Integer, GuiElement>> pages;
+  private final Map<Integer, Map<Integer, GuiElement<?>>> pages;
   private final Component title;
   private final int size;
   private int aktPage = 0;
   private final int maxPage;
 
-  public Gui(Map<Integer, Map<Integer, GuiElement>> pages, int size, Component title) {
+  public Gui(Map<Integer, Map<Integer, GuiElement<?>>> pages, int size, Component title) {
     this.size = size;
     this.maxPage = pages.size()-1;
     this.title = title;
     this.pages = pages;
   }
 
-  public void setElement(GuiElement element, int pageIndex, int slot) {
+  public void setElement(GuiElement<?> element, int pageIndex, int slot) {
     if (slot >= size) throw new IllegalArgumentException("Slot is out of the bounds of the gui");
     pages.computeIfAbsent(pageIndex, k -> new HashMap<>())
         .put(slot, element);
   }
 
-  public GuiElement getElement(int pageIndex, int slot) {
+  public GuiElement<?> getElement(int pageIndex, int slot) {
     return pages.get(pageIndex).get(slot);
   }
 
-  public void setPage(Map<Integer, GuiElement> page, int pageIndex) {
+  public void setPage(Map<Integer, GuiElement<?>> page, int pageIndex) {
     pages.put(pageIndex,page);
   }
 
-  public Map<Integer, GuiElement> getPage(int pageIndex) {
+  public Map<Integer, GuiElement<?>> getPage(int pageIndex) {
     return pages.get(pageIndex);
   }
 
@@ -46,7 +46,7 @@ public class Gui {
   public Inventory buildInventory() {
     GuiHolder holder = new GuiHolder(this);
     Inventory inv = Bukkit.createInventory(holder,size,title);
-    Map<Integer,GuiElement> page = pages.get(aktPage);
+    Map<Integer,GuiElement<?>> page = pages.get(aktPage);
     for (int i : page.keySet()) {
       inv.setItem(i,page.get(i).buildItem());
     }

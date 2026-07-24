@@ -3,10 +3,13 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class GuiSwitch extends GuiButton{
+public class GuiSwitch extends GuiElement<GuiSwitch>{
   private final GuiDisplay enabledDisplay;
   private final GuiDisplay disabledDisplay;
+  private final GuiButtonExecutor executor;
   private boolean state = true;
+  private final GuiSound enabledSound = GuiSound.TOGGLE_ON;
+  private final GuiSound disabledSound = GuiSound.TOGGLE_OFF;
 
   public GuiSwitch(
       String id,
@@ -14,10 +17,10 @@ public class GuiSwitch extends GuiButton{
       GuiDisplay disabledDisplay,
       GuiButtonExecutor executor
   ) {
-    super(id, enabledDisplay.icon, executor);
-
+    super(id, enabledDisplay.icon);
     this.enabledDisplay = enabledDisplay;
     this.disabledDisplay = disabledDisplay;
+    this.executor = executor;
   }
 
   @Override
@@ -29,8 +32,10 @@ public class GuiSwitch extends GuiButton{
 
   public void onClick(Player player, Gui gui) {
     state = !state;
+    if (state) enabledSound.play(player);
+    else disabledSound.play(player);
     player.openInventory(gui.buildInventory());
-    super.onClick(player, gui, state);
+    executor.onSwitch(id,gui,state);
   }
 }
 

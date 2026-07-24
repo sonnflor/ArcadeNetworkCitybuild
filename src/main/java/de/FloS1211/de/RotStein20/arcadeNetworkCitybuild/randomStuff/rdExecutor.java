@@ -1,6 +1,7 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.randomStuff;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButton;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiDisplay;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -16,9 +17,10 @@ public class rdExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
     Gui gui = new Gui(new HashMap<>(),27, Component.text("Test Stuff"));
-    GuiDisplay nameDisplay = new GuiDisplay("nameD", Material.NAME_TAG);
-    nameDisplay.setTitle(Component.text("Name halt"));
-    gui.setElement(nameDisplay,0,0);
+    gui.setElement(
+        new GuiDisplay("nameD", Material.NAME_TAG).title(Component.text("Name halt"))
+        ,0
+        ,0);
     Player player = (Player) commandSender;
     player.openInventory(gui.buildInventory());
     return true;

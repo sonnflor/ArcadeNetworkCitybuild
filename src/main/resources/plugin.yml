@@ -90,6 +90,9 @@ commands:
   unvanish:
     usage: /unvanish
     permission: ac.supporter
+  testi:
+    usage: /testi
+    permission: ac.developer
 
 permissions:
   ac.crafter:

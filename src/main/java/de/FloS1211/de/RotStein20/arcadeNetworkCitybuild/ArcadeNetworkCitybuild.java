@@ -5,6 +5,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.AuszahlenExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.CoinRightclickListener;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.PayAllExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.PayExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeTabCompleter;
@@ -13,6 +14,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorCoupo
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorGuiListener;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.position.PositionTabCompleter;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.randomStuff.rdExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PermissionManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PlayerNameManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankExecutor;
@@ -183,5 +185,8 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getCommand("vanish").setTabCompleter(new EmptyTabCompleter());
     getCommand("unvanish").setExecutor(new UnvanishExecutor());
     getCommand("unvanish").setTabCompleter(new EmptyTabCompleter());
+
+    getCommand("testi").setExecutor(new rdExecutor());
+    Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
   }
 }

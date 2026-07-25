@@ -14,19 +14,28 @@ public class GuiButton extends GuiElement<GuiButton> {
     this.type = type;
   }
 
-  public void setSound(GuiSound sound) {
+  public GuiButton sound(GuiSound sound) {
     this.sound = sound;
+    return this;
   }
 
   public void onClick(Player player, Gui gui) {
     sound.play(player);
     switch (type) {
-      case CUSTOM -> executor.customAction(id, gui);
-      case NEXT_PAGE -> {if (gui.getPage() + 1 <= gui.getMaxPage()) executor.switchPage(id, gui, gui.getPage() + 1);}
-      case PREV_PAGE -> {if (gui.getPage() - 1 >= 0) executor.switchPage(id, gui, gui.getPage() - 1);}
-      case CLOSE -> executor.closeGui(id, gui);
-      case ACCEPT -> executor.accept(id, gui);
-      case REJECT -> executor.reject(id, gui);
+      case CUSTOM -> executor.customAction(id, gui, player);
+      case NEXT_PAGE -> {if (gui.getPage() + 1 <= gui.getPageAmount()) executor.switchPage(id, gui, gui.getPage() + 1, player);}
+      case PREV_PAGE -> {if (gui.getPage() - 1 >= 0) executor.switchPage(id, gui, gui.getPage() - 1, player);}
+      case CLOSE -> executor.closeGui(id, gui, player);
+      case ACCEPT -> executor.accept(id, gui, player);
+      case REJECT -> executor.reject(id, gui, player);
     }
+  }
+
+  public GuiButtonExecutor getExecutor() {
+    return executor;
+  }
+
+  public GuiButtonType getType() {
+    return type;
   }
 }

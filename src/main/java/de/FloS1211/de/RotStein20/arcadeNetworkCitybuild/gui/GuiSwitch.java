@@ -35,7 +35,7 @@ public class GuiSwitch extends GuiElement<GuiSwitch>{
     if (state) enabledSound.play(player);
     else disabledSound.play(player);
     player.openInventory(gui.buildInventory());
-    executor.onSwitch(id,gui,state);
+    executor.onSwitch(id,gui,state, player);
   }
 }
 

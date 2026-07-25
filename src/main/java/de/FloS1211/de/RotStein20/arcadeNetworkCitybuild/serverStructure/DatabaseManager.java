@@ -80,6 +80,14 @@ public class DatabaseManager {
             server TEXT
           );
           """);
+      statement.execute("""
+          CREATE TABLE IF NOT EXISTS friends (
+            uuid VARCHAR(36),
+            targetUuid VARCHAR(36),
+            int day,
+            accepted BOOLEAN
+          );
+          """);
     }
   }
 

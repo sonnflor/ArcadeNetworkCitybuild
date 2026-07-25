@@ -12,23 +12,50 @@ public class Gui {
   private final Component title;
   private final int size;
   private int aktPage = 0;
-  private final int maxPage;
+  private boolean isTopBarActive = false;
+  private boolean isBottomBarActive = false;
+  private final Map<Integer,GuiElement<?>> topBar = new HashMap<>();
+  private final Map<Integer,GuiElement<?>> bottomBar = new HashMap<>();;
 
   public Gui(Map<Integer, Map<Integer, GuiElement<?>>> pages, int size, Component title) {
     this.size = size;
-    this.maxPage = pages.size()-1;
     this.title = title;
     this.pages = pages;
   }
 
   public void setElement(GuiElement<?> element, int pageIndex, int slot) {
-    if (slot >= size) throw new IllegalArgumentException("Slot is out of the bounds of the gui");
+    if (slot >= size || slot < -1) throw new IllegalArgumentException("slot is out of the bounds of the gui");
     pages.computeIfAbsent(pageIndex, k -> new HashMap<>())
         .put(slot, element);
+  }
+  public void addElementToTopBar(GuiElement<?> element, int slot){
+    if (slot < 0 || slot > 8) throw new IllegalArgumentException("invalid slot");
+    isTopBarActive = true;
+    topBar.put(slot,element);
+  }
+  public void addElementToBottomBar(GuiElement<?> element, int slot){
+    if (slot < 0 || slot > 8) throw new IllegalArgumentException("invalid slot");
+    isBottomBarActive = true;
+    bottomBar.put(slot,element);
   }
 
   public GuiElement<?> getElement(int pageIndex, int slot) {
     return pages.get(pageIndex).get(slot);
+  }
+
+  public GuiElement<?> getElementByInvSlot(int slot) {
+    if (isTopBarActive && slot < 9) { //top
+      return topBar.get(slot);
+    } else if (isBottomBarActive && slot >= size - 9) { //bottom
+      return bottomBar.get(slot-size+9);
+    } else { //main
+      Map<Integer, GuiElement<?>> page = pages.get(aktPage);
+      if (isTopBarActive) {
+        return page.get(slot-9);
+      } else {
+        return page.get(slot);
+      }
+    }
   }
 
   public void setPage(Map<Integer, GuiElement<?>> page, int pageIndex) {
@@ -45,10 +72,33 @@ public class Gui {
 
   public Inventory buildInventory() {
     GuiHolder holder = new GuiHolder(this);
-    Inventory inv = Bukkit.createInventory(holder,size,title);
+    Component guiTitle = title;
+    if (getPageAmount() > 1) guiTitle = title.append(Component.text(" Seite " + aktPage + "/" + getPageAmount()));
+    Inventory inv = Bukkit.createInventory(holder,size,guiTitle);
     Map<Integer,GuiElement<?>> page = pages.get(aktPage);
     for (int i : page.keySet()) {
-      inv.setItem(i,page.get(i).buildItem());
+      int slot = i;
+      if (isTopBarActive) slot += 9;
+      if (isBottomBarActive && slot > size-9) throw new IllegalArgumentException("item overlaps with bottom bar");
+      inv.setItem(slot,page.get(i).buildItem());
+    }
+    if (isTopBarActive) {
+      GuiDisplay placeholder = GuiDisplay.getPlaceholder();
+      for (int i = 0; i < 9; i++) {
+          inv.setItem(i, topBar.getOrDefault(i, placeholder).buildItem());
+      }
+    }
+    if (isBottomBarActive) {
+      GuiDisplay placeholder = GuiDisplay.getPlaceholder();
+      for (int i = 0; i < 9; i++) {
+        GuiElement<?> barEl =bottomBar.getOrDefault(i, placeholder);
+        if (aktPage == 0 && barEl instanceof GuiButton && ((GuiButton) barEl).getType() == GuiButtonType.PREV_PAGE) {
+          barEl = placeholder;
+        } else if (aktPage == getPageAmount()-1 && barEl instanceof GuiButton && ((GuiButton) barEl).getType() == GuiButtonType.NEXT_PAGE) {
+          barEl = placeholder;
+        }
+        inv.setItem(size-9+i, barEl.buildItem());
+      }
     }
     return inv;
   }
@@ -61,7 +111,7 @@ public class Gui {
     return aktPage;
   }
 
-  public int getMaxPage() {
-    return maxPage;
+  public int getPageAmount() {
+    return pages.size();
   }
 }

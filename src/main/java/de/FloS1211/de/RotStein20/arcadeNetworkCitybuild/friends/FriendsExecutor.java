@@ -22,7 +22,6 @@ public class FriendsExecutor implements CommandExecutor {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
             switch (args[0]) {
                 case "invite":
-
                     if (!target.hasPlayedBefore() && !target.isOnline()){
                         player.sendMessage(MessageManager.get("general-invalid-player"));
                         return false;
@@ -36,11 +35,8 @@ public class FriendsExecutor implements CommandExecutor {
                     }
                     FriendsManager.deleteFriend(player,target);
                     break;
-
             }
-
         }
         return true;
     }
-
 }

@@ -82,10 +82,10 @@ public class DatabaseManager {
           """);
       statement.execute("""
           CREATE TABLE IF NOT EXISTS friends (
-            uuid VARCHAR(36),
-            targetUuid VARCHAR(36),
-            int day,
-            accepted BOOLEAN
+            uuid VARCHAR(36) NOT NULL,
+            targetUuid VARCHAR(36) NOT NULL,
+            day INTEGER NOT NULL,
+            approved BOOLEAN NOT NULL DEFAULT FALSE
           );
           """);
     }

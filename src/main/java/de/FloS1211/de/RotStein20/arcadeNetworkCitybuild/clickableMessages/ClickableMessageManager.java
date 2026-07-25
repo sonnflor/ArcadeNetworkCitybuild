@@ -2,6 +2,7 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.clickableMessages;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.friends.FriendsManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.position.PositionManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.ChatMessageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.tpa.TpaManager;
@@ -30,6 +31,7 @@ public class ClickableMessageManager {
       case "tpa" -> TpaManager.handleMessageClick(clickAction.args(),commandSender);
       case "pos" -> PositionManager.handleShareMessageClick(clickAction.args(),commandSender);
       case "openitem" -> ChatMessageManager.handleOpenItemMessageClick(clickAction.args(),commandSender);
+      case "friend" -> FriendsManager.handleMessageClick(clickAction.args(), commandSender);
       default -> {
         return false;
       }

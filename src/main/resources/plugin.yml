@@ -40,9 +40,6 @@ commands:
     usage: /namecolor
     description: "Opens the menu for namecolors"
     aliases: [namensfarben]
-  ping:
-    usage: /ping
-    description: "Shows your ping"
   tempmute:
     usage: /tempmute <player> <days> <hours> <minutes> <reason>
     permission: ac.supporter
@@ -96,6 +93,8 @@ commands:
   testi:
     usage: /testi
     permission: ac.developer
+  friends:
+    usage: /frieds
 
 permissions:
   ac.crafter:

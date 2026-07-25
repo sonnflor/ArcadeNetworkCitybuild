@@ -128,9 +128,6 @@ public class Utils {
     emptyGlassPane.setItemMeta(meta);
   }
 
-  /**
-   * Erzeugt einen Spieler-Kopf für ein gegebenes OfflinePlayer-Objekt.
-   */
   public static ItemStack getHeadFromOfflinePlayer(OfflinePlayer player){
     ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
     SkullMeta itemMeta = (SkullMeta) itemStack.getItemMeta();

@@ -23,7 +23,7 @@ public class Gui {
     this.pages = pages;
   }
 
-  public void setElement(GuiElement<?> element, int pageIndex, int slot) {
+  public void addElement(GuiElement<?> element, int pageIndex, int slot) {
     if (slot >= size || slot < -1) throw new IllegalArgumentException("slot is out of the bounds of the gui");
     pages.computeIfAbsent(pageIndex, k -> new HashMap<>())
         .put(slot, element);

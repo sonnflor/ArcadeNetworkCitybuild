@@ -1,19 +1,21 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.friends;
 
-import com.mojang.brigadier.Command;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.clickableMessages.ClickableMessageManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -73,5 +75,20 @@ public class FriendsManager {
     }
     public static void handleMessageClick(String[] args, CommandSender sender){
         acceptFriendRequest(Bukkit.getOfflinePlayer(UUID.fromString(args[0])),Bukkit.getOfflinePlayer(UUID.fromString(args[1])));
+    }
+    public static void openGui(Player player) {
+        String uuid = player.getUniqueId().toString();
+        SQLTable table = DatabaseManager.getTable("friends","uuid = ? OR targetUuid = ?", List.of(uuid,uuid));
+        Gui gui = new Gui(new HashMap<>(),54, Component.text("Freunde"));
+        gui.addElementToBottomBar(GuiButton.getPrevPageButton(new FriendsGuiButtonExecutor()),0);
+        gui.addElementToBottomBar(GuiButton.getNextPageButton(new FriendsGuiButtonExecutor()),8);
+        gui.addElementToBottomBar(new GuiButton("invite_button",Material.NETHER_STAR,new FriendsGuiButtonExecutor(),GuiButtonType.CUSTOM).title(Component.text("Freund hinzufügen").color(NamedTextColor.GREEN)),4);
+        gui.addElementToBottomBar(new GuiButton("delete_button",Material.BARRIER,new FriendsGuiButtonExecutor(),GuiButtonType.CUSTOM).title(Component.text("Freund löschen").color(NamedTextColor.RED)),3);
+        gui.addElementToBottomBar(new GuiDisplay("friend_count_display",Material.PLAYER_HEAD).title(Component.text("Anzahl Freunde: "+table.size()).color(NamedTextColor.YELLOW)).amount(table.size()),5);
+
+        for (int i = 0; i < table.size(); i++) {
+            String name = table.getStringValue("");
+            gui.addElement(new GuiDisplay("",Material.PLAYER_HEAD).playerHead(targetUuid),i%45,(int) Math.round((float)(i)/45.0));
+        }
     }
 }

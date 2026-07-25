@@ -1,6 +1,8 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -8,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class GuiElement<T extends GuiElement<T>> {
   protected Material icon = Material.DIRT;
@@ -16,6 +19,7 @@ public abstract class GuiElement<T extends GuiElement<T>> {
   protected List<Component> lore = new ArrayList<>();
   protected int amount = 1;
   protected String id;
+  protected String headUuid;
 
   protected GuiElement(String id, Material icon) {
     this.id = id;
@@ -47,14 +51,23 @@ public abstract class GuiElement<T extends GuiElement<T>> {
     return self();
   }
 
+  public T playerHead(String uuid) {
+    this.headUuid = uuid;
+    return self();
+  }
+
   @SuppressWarnings("unchecked")
   protected T self() {
     return (T) this;
   }
 
   public ItemStack buildItem() {
-    ItemStack item = ItemStack.of(icon, amount);
-
+    ItemStack item;
+    if (headUuid != null && icon == Material.PLAYER_HEAD) {
+      item = Utils.getHeadFromOfflinePlayer(Bukkit.getOfflinePlayer(UUID.fromString(headUuid)));
+    } else {
+      item = ItemStack.of(icon, amount);
+    }
     ItemMeta meta = item.getItemMeta();
     if (title != null) meta.displayName(title);
     meta.lore(lore);

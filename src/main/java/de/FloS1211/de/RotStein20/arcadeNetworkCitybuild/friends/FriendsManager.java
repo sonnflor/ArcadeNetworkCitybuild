@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.friends;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.clickableMessages.ClickableMessageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
@@ -15,10 +16,7 @@ import org.bukkit.entity.Player;
 
 
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class FriendsManager {
@@ -87,8 +85,16 @@ public class FriendsManager {
         gui.addElementToBottomBar(new GuiDisplay("friend_count_display",Material.PLAYER_HEAD).title(Component.text("Anzahl Freunde: "+table.size()).color(NamedTextColor.YELLOW)).amount(table.size()),5);
 
         for (int i = 0; i < table.size(); i++) {
-            String name = table.getStringValue("");
-            gui.addElement(new GuiDisplay("",Material.PLAYER_HEAD).playerHead(targetUuid),i%45,(int) Math.round((float)(i)/45.0));
+            String friendUuid = table.getStringValue("uuid",i);
+            if (friendUuid == uuid) friendUuid = table.getStringValue("targetUuid",i);
+            OfflinePlayer friend = Bukkit.getOfflinePlayer(UUID.fromString(friendUuid));
+            int unixDays = table.getIntValue("days",i);
+            String date = Utils.formatDate((unixDays * 86400L));
+            List<Component> lore = List.of(
+                    Component.empty(),
+                    friend.isOnline() ? Component.text("§aOnline"):Component.text("§cOffline"),
+                    Component.text("Befreundet seit: "+date));
+            gui.addElement(new GuiDisplay("",Material.PLAYER_HEAD).playerHead(friendUuid).title(Component.text(friend.getName())),i%45,(int) Math.round((float)(i)/45.0));
         }
     }
 }

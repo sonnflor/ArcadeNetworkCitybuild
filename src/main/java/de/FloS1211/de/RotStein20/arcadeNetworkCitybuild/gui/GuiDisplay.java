@@ -8,7 +8,7 @@ public class GuiDisplay extends GuiElement<GuiDisplay> {
     super(id,icon);
   }
 
-  public static GuiDisplay getPlaceholder(int slot) {
-    return new GuiDisplay("placeholder"+slot, Material.GRAY_STAINED_GLASS_PANE).title(Component.text(""));
+  public static GuiDisplay getPlaceholder() {
+    return new GuiDisplay("placeholder", Material.GRAY_STAINED_GLASS_PANE).title(Component.text(""));
   }
 }

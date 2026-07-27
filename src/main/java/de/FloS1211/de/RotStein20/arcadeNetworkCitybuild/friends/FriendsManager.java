@@ -20,10 +20,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class FriendsManager {
-    public static void openGUI(Player player){
-
-    }
-
     public static void inviteFriend(Player player, OfflinePlayer target){
         String playerUuid = player.getUniqueId().toString();
         String targetUuid = target.getUniqueId().toString();
@@ -82,19 +78,20 @@ public class FriendsManager {
         gui.addElementToBottomBar(GuiButton.getNextPageButton(new FriendsGuiButtonExecutor()),8);
         gui.addElementToBottomBar(new GuiButton("invite_button",Material.NETHER_STAR,new FriendsGuiButtonExecutor(),GuiButtonType.CUSTOM).title(Component.text("Freund hinzufügen").color(NamedTextColor.GREEN)),4);
         gui.addElementToBottomBar(new GuiButton("delete_button",Material.BARRIER,new FriendsGuiButtonExecutor(),GuiButtonType.CUSTOM).title(Component.text("Freund löschen").color(NamedTextColor.RED)),3);
-        gui.addElementToBottomBar(new GuiDisplay("friend_count_display",Material.PLAYER_HEAD).title(Component.text("Anzahl Freunde: "+table.size()).color(NamedTextColor.YELLOW)).amount(table.size()),5);
+        gui.addElementToBottomBar(new GuiDisplay("friend_count_display",Material.PLAYER_HEAD).title(Component.text("Anzahl Freunde: "+table.size()).color(NamedTextColor.YELLOW)).amount(Math.max(table.size(),1)),5);
 
         for (int i = 0; i < table.size(); i++) {
             String friendUuid = table.getStringValue("uuid",i);
             if (friendUuid == uuid) friendUuid = table.getStringValue("targetUuid",i);
             OfflinePlayer friend = Bukkit.getOfflinePlayer(UUID.fromString(friendUuid));
-            int unixDays = table.getIntValue("days",i);
+            int unixDays = table.getIntValue("day",i);
             String date = Utils.formatDate((unixDays * 86400L));
             List<Component> lore = List.of(
                     Component.empty(),
                     friend.isOnline() ? Component.text("§aOnline"):Component.text("§cOffline"),
                     Component.text("Befreundet seit: "+date));
-            gui.addElement(new GuiDisplay("",Material.PLAYER_HEAD).playerHead(friendUuid).title(Component.text(friend.getName())),i%45,(int) Math.round((float)(i)/45.0));
+            gui.addElement(new GuiDisplay("",Material.PLAYER_HEAD).playerHead(friendUuid).title(Component.text(friend.getName())),(int) Math.round((float)(i)/45.0),i%45);
         }
+        player.openInventory(gui.buildInventory());
     }
 }

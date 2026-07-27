@@ -22,7 +22,7 @@ public class SQLTable {
         return i;
       }
     }
-    return -1;
+    throw new IllegalArgumentException("Spaltenname \""+columnName+"\" doesnt exist in table \"" + name + "\"");
   }
 
   public SQLTable(String tableName, String condition, List<Object> args) {

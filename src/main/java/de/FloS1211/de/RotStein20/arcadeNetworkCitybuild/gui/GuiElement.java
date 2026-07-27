@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class GuiElement<T extends GuiElement<T>> {
-  protected Material icon = Material.DIRT;
+  protected Material icon;
   protected boolean hasEnchantmentGlintOverride = false;
   protected Component title;
   protected List<Component> lore = new ArrayList<>();
@@ -66,7 +66,7 @@ public abstract class GuiElement<T extends GuiElement<T>> {
     if (headUuid != null && icon == Material.PLAYER_HEAD) {
       item = Utils.getHeadFromOfflinePlayer(Bukkit.getOfflinePlayer(UUID.fromString(headUuid)));
     } else {
-      item = ItemStack.of(icon, amount);
+      item = ItemStack.of(icon,amount);
     }
     ItemMeta meta = item.getItemMeta();
     if (title != null) meta.displayName(title);

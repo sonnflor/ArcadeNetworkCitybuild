@@ -53,6 +53,6 @@ discord: "<white>[<green>Discord<white>]<gray> Du findest unseren Discord auf <g
 
 friends-duplicated-friend: "<white>[<green>Friends<white>]<gray> Du hast entweder schon eine Freundschaftsanfrage gesendet oder ihr seid schon Freunde"
 friends-request-information: "<white>[<green>Friends<white>]<gray> Du hast {target} eine Anfrage gesendet"
-friends-request: "<white>[<green>Friends<white>]<gray> {sender} hat dir eine Freundschaftsanfrage gesendet. <green><click:run_command:'/performaction {token}'><hover:show_text:'<gray>klicke um die Freundschaftsanfrage anzunehmen'></hover></click></green>"
+friends-request: "<white>[<green>Friends<white>]<gray> {sender} hat dir eine Freundschaftsanfrage gesendet. <green><click:run_command:'/performaction {token}'><hover:show_text:'<gray>klicke um die Freundschaftsanfrage anzunehmen'>[Annehmen]</hover></click></green>"
 friends-succeed: "<white>[<green>Friends<white>]<gray> Du und {player} seid jetzt Freunde (yay) :D"
 friends-delete: "<white>[<green>Friends<white>]<gray> Du und {player} seid keine Freunde mehr D:"

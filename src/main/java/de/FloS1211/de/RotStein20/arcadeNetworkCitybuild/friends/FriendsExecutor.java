@@ -17,7 +17,7 @@ public class FriendsExecutor implements CommandExecutor {
             return true;
         }
         if (args.length == 0){
-            FriendsManager.openGUI(player);
+            FriendsManager.openGui(player);
         } else if (args.length >1) {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
             switch (args[0]) {

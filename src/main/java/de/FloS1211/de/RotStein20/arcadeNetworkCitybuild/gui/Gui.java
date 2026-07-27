@@ -73,9 +73,9 @@ public class Gui {
   public Inventory buildInventory() {
     GuiHolder holder = new GuiHolder(this);
     Component guiTitle = title;
-    if (getPageAmount() > 1) guiTitle = title.append(Component.text(" Seite " + aktPage + "/" + getPageAmount()));
+    if (getPageAmount() > 1) guiTitle = title.append(Component.text(" Seite " + aktPage+1 + "/" + getPageAmount()));
     Inventory inv = Bukkit.createInventory(holder,size,guiTitle);
-    Map<Integer,GuiElement<?>> page = pages.get(aktPage);
+    Map<Integer,GuiElement<?>> page = pages.getOrDefault(aktPage, new HashMap<>());
     for (int i : page.keySet()) {
       int slot = i;
       if (isTopBarActive) slot += 9;
@@ -94,7 +94,7 @@ public class Gui {
         GuiElement<?> barEl =bottomBar.getOrDefault(i, placeholder);
         if (aktPage == 0 && barEl instanceof GuiButton && ((GuiButton) barEl).getType() == GuiButtonType.PREV_PAGE) {
           barEl = placeholder;
-        } else if (aktPage == getPageAmount()-1 && barEl instanceof GuiButton && ((GuiButton) barEl).getType() == GuiButtonType.NEXT_PAGE) {
+        } else if (aktPage == Math.max(getPageAmount(),1)-1 && barEl instanceof GuiButton && ((GuiButton) barEl).getType() == GuiButtonType.NEXT_PAGE) {
           barEl = placeholder;
         }
         inv.setItem(size-9+i, barEl.buildItem());

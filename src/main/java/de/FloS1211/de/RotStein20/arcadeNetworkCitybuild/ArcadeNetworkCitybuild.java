@@ -37,8 +37,6 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.vanish.VanishExecutor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.messaging.PluginMessageListener;
-import org.slf4j.Logger;
 
 import java.util.*;
 
@@ -54,7 +52,7 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
   public void onEnable() {
     instance = this;
     saveDefaultConfig();
-    saveResource("messages.yml",true);
+    saveResource("messages.yml", true);
     MessageManager.load();
 
     Utils.init();
@@ -91,17 +89,41 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
   }
 
   private void registerFeatures() {
+    initConins();
+    initPay();
+    initColorCodes();
+    initServerStructure();
+    initRank();
+    initNameColor();
+    initMute();
+    initTpa();
+    initInvsee();
+    initPosition();
+    initSign();
+    initSidBar();
+    initBan();
+    initMüll();
+    initPing();
+    initDiscord();
+    initVanish();
+    initFriends();
+  }
+  private void initConins(){
     getCommand("auszahlen").setExecutor(new AuszahlenExecutor());
     getCommand("auszahlen").setTabCompleter(new EmptyTabCompleter());
     Bukkit.getPluginManager().registerEvents(new CoinRightclickListener(), this);
+  }
+  private void initPay(){
     getCommand("pay").setExecutor(new PayExecutor());
     getCommand("pay").setTabCompleter(new PlayerTabCompleter());
     getCommand("payall").setExecutor(new PayAllExecutor());
     getCommand("payall").setTabCompleter(new EmptyTabCompleter());
-
+  }
+  private void initColorCodes(){
     getCommand("colorcodes").setExecutor(new ColorcodesExecutor());
     getCommand("colorcodes").setTabCompleter(new EmptyTabCompleter());
-
+  }
+  private void initServerStructure(){
     getCommand("citybuild").setExecutor(new CitybuildTpExecutor());
     getCommand("citybuild").setTabCompleter(new EmptyTabCompleter());
     getCommand("farming").setExecutor(new FarmingTpExecutor());
@@ -112,21 +134,31 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getCommand("arcadeattack").setTabCompleter(new EmptyTabCompleter());
     org.bukkit.Bukkit.getPluginManager().registerEvents(new de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.arcadeattack.ArcadeAttackEggListener(), this);
     de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.arcadeattack.ArcadeAttackEggListener.startEggParticleTask();
-
+    SidebarManager.startUpdateCycle();
+    Bukkit.getPluginManager().registerEvents(new CustomGuiHolder(), this);
+    getCommand("performaction").setExecutor(new PerformactionExecutor());
+    Bukkit.getPluginManager().registerEvents(new AntiXashinnListener(), this);
+    Bukkit.getPluginManager().registerEvents(new LobbyProtectListener(), this);
+    getCommand("testcom").setExecutor(new TestCom());
+    Bukkit.getPluginManager().registerEvents(new TabListManager(), this);
+    Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
+  }
+  private void initRank(){
     PermissionManager.initialize();
     getCommand("setrank").setExecutor(new SetRankExecutor());
     getCommand("setrank").setTabCompleter(new SetRankTabCompleter());
     Bukkit.getPluginManager().registerEvents(new PlayerNameManager(), this);
     Bukkit.getPluginManager().registerEvents(new PermissionManager(), this);
-
     getCommand("getcustomitem").setExecutor(new GetCustomItemExecutor());
     getCommand("getcustomitem").setTabCompleter(new GetCustomItemTabCompleter());
-
+  }
+  private void initNameColor(){
     getCommand("namecolor").setExecutor(new NamecolorExecutor());
     getCommand("namecolor").setTabCompleter(new EmptyTabCompleter());
     Bukkit.getPluginManager().registerEvents(new NamecolorGuiListener(), this);
     Bukkit.getPluginManager().registerEvents(new NamecolorCouponManager(), this);
-
+  }
+  private void initMute(){
     getCommand("mute").setExecutor(new MuteExecutor());
     getCommand("mute").setTabCompleter(new MuteTabCompleter());
     getCommand("unmute").setExecutor(new UnmuteExecutor());
@@ -136,57 +168,54 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getCommand("muteinfo").setExecutor(new MuteinfoExecutor());
     getCommand("muteinfo").setTabCompleter(new OfflinePlayerTabCompleter());
     Bukkit.getPluginManager().registerEvents(new MuteManager(), this);
-
-    SidebarManager.startUpdateCycle();
-
-    Bukkit.getPluginManager().registerEvents(new CustomGuiHolder(), this);
-
+  }
+  private void initTpa(){
     getCommand("tpa").setExecutor(new TpaExecutor());
     getCommand("tpa").setTabCompleter(new TpaTabCompleter());
-    getCommand("performaction").setExecutor(new PerformactionExecutor());
-
+  }
+  private void initInvsee(){
+    Bukkit.getPluginManager().registerEvents(new InvseeManager(), this);
     getCommand("invsee").setExecutor(new InvseeExecutor());
     getCommand("invsee").setTabCompleter(new InvseeTabCompleter());
-
+  }
+  private void initPosition(){
     getCommand("position").setExecutor(new PositionExecutor());
     getCommand("position").setTabCompleter(new PositionTabCompleter());
-
+  }
+  private void initSign(){
     getCommand("sign").setExecutor(new SignExecutor());
     getCommand("sign").setTabCompleter(new EmptyTabCompleter());
-
+  }
+  private void initSidBar(){
     Bukkit.getPluginManager().registerEvents(new SidebarManager(), this);
     Bukkit.getPluginManager().registerEvents(new ChatMessageManager(), this);
     getCommand("configsidebar").setExecutor(new ConfigSidebarExecutor());
     getCommand("configsidebar").setTabCompleter(new ConfigSidebarTabCompleter());
-
+  }
+  private void initBan(){
     getCommand("tempban").setExecutor(new TempBanExecutor());
     getCommand("tempban").setTabCompleter(new TempbanTabCompleter());
-
-    Bukkit.getPluginManager().registerEvents(new InvseeManager(), this);
-
+  }
+  private void initMüll(){
     getCommand("müll").setExecutor(new MuellExecutor());
     getCommand("müll").setTabCompleter(new EmptyTabCompleter());
-
-    Bukkit.getPluginManager().registerEvents(new AntiXashinnListener(), this);
-
+  }
+  private void initPing(){
     getCommand("ping").setExecutor(new PingExecutor());
     getCommand("ping").setTabCompleter(new PlayerTabCompleter());
-
+  }
+  private void initDiscord(){
     getCommand("discord").setExecutor(new DiscordExecutor());
     getCommand("discord").setTabCompleter(new EmptyTabCompleter());
-
-    Bukkit.getPluginManager().registerEvents(new LobbyProtectListener(), this);
-
-    getCommand("testcom").setExecutor(new TestCom());
-
-    Bukkit.getPluginManager().registerEvents(new TabListManager(), this);
-
+  }
+  private void initVanish(){
     getCommand("vanish").setExecutor(new VanishExecutor());
     getCommand("vanish").setTabCompleter(new EmptyTabCompleter());
     getCommand("unvanish").setExecutor(new UnvanishExecutor());
     getCommand("unvanish").setTabCompleter(new EmptyTabCompleter());
-
-    Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
+  }
+  private void initFriends(){
     getCommand("friends").setExecutor(new FriendsExecutor());
   }
 }
+

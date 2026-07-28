@@ -27,7 +27,7 @@ public class FriendsManager {
         long millis = timestamp.getTime();
         int days = (int) TimeUnit.MILLISECONDS.toDays(millis);
         SQLTable table = DatabaseManager.getTable("friends","(uuid=? AND targetUuid = ?) OR (uuid=? AND targetUuid = ?)",List.of(playerUuid,targetUuid,targetUuid,playerUuid));
-
+        player.sendMessage(MessageManager.get("friends-request-information"));
         for (int i = 0; i< table.size(); i++){
             if(table.getStringValue("uuid",i) == targetUuid && !table.getBooleanValue("approved",i)){
                 acceptFriendRequest(player,target);
@@ -35,7 +35,6 @@ public class FriendsManager {
                 return;
             }
         }
-
         DatabaseManager.executeSQL("INSERT INTO friends (uuid, targetUuid, day, approved) VALUES (?,?,?,?)", List.of(playerUuid,targetUuid,days,false));
         if (target.isOnline()) {
             String token = ClickableMessageManager.registerClickableMessage("friends",true,List.of(playerUuid,targetUuid));

@@ -18,6 +18,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -78,6 +79,20 @@ public class ChatMessageManager implements Listener {
                   )))
     );
     //remove forbidden Words (future feature)
+    FileConfiguration config =
+        ArcadeNetworkCitybuild.getInstance().getConfig();
+    List<String> forbiddenWords = config.getStringList("forbidden_words");
+    for (String forbidden : forbiddenWords) {
+      Pattern pattern = Pattern.compile(
+          "\\b" + Pattern.quote(forbidden) + "\\b",
+          Pattern.CASE_INSENSITIVE
+      );
+
+      message = message.replaceText(builder -> builder
+          .match(pattern)
+          .replacement("*".repeat(forbidden.length()))
+      );
+    }
     //send to proxy
     message = prefix.append(message);
     event.setCancelled(true);

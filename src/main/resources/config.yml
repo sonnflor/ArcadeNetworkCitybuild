@@ -5,3 +5,4 @@ database:
   username: mcuser
   password: T(cZ<EjxiB-U?8P
   #password: a-bsdciisMOLIa-cdsb12das
+forbidden_words: ["hurensohn","spast","käsiger michael"]

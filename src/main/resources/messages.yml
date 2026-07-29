@@ -56,3 +56,7 @@ friends-request-information: "<white>[<green>Friends<white>]<gray> Du hast {targ
 friends-request: "<white>[<green>Friends<white>]<gray> {sender} hat dir eine Freundschaftsanfrage gesendet. <green><click:run_command:'/performaction {token}'><hover:show_text:'<gray>klicke um die Freundschaftsanfrage anzunehmen'>[Annehmen]</hover></click></green>"
 friends-succeed: "<white>[<green>Friends<white>]<gray> Du und {player} seid jetzt Freunde (yay) :D"
 friends-delete: "<white>[<green>Friends<white>]<gray> Du und {player} seid keine Freunde mehr D:"
+friends-rejected-sender: "<white>[<green>Friends<white>]<gray> Deine Freundschaftsanfrage an {target} wurde abgelehnt D:"
+friends-rejected-target: "<white>[<green>Friends<white>]<gray> Du hast die Freundschaftsanfrage von {player} abgelehnt (warum D: ?)"
+friends-failed-already_befriended: "<white>[<green>Friends<white>]<gray> Ihr seid schon befreundet"
+friends-failed-no_friend: "<white>[<green>Friends<white>]<gray> Ihr seid nicht befreundet"

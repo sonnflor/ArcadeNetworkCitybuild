@@ -51,10 +51,10 @@ public class MuteinfoExecutor implements CommandExecutor {
     }
     MuteEntry mute = MuteEntry.fromString(muteDataString);
     String playerName = targetPlayer.getName();
-    String unmuteTime = Utils.formatDate(mute.getMuteTimestamp()+ mute.getMuteDuration());
+    String unmuteTime = Utils.formatDate(mute.getMuteTimestamp()+ mute.getMuteDuration(),"dd.MM.yyyy HH:mm z");
     String muteDuration = Utils.formatDuration(mute.getMuteDuration());
     String reason = mute.getReason();
-    String muteTimestamp = Utils.formatDate(mute.getMuteTimestamp());
+    String muteTimestamp = Utils.formatDate(mute.getMuteTimestamp(),"dd.MM.yyyy HH:mm z");
     String muterUuid = mute.getMuterUuid();
     String muterName = Bukkit.getOfflinePlayer(UUID.fromString(mute.getMuterUuid())).getName();
     if (commandSender instanceof Player player) {

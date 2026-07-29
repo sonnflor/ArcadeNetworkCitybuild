@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.friends;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -21,20 +22,22 @@ public class FriendsExecutor implements CommandExecutor {
         } else if (args.length >1) {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
             switch (args[0]) {
-                case "invite":
-                    if (!target.hasPlayedBefore() && !target.isOnline()){
+                case "invite" -> {
+                    if (!target.hasPlayedBefore() && !target.isOnline()) {
                         player.sendMessage(MessageManager.get("general-invalid-player"));
                         return false;
                     }
-                    FriendsManager.inviteFriend(player,target);
-                    break;
-                case "delete":
-                    if (!target.hasPlayedBefore() && !target.isOnline()){
+                    FriendsManager.inviteFriend(player, target);
+                }
+                case "delete" -> {
+                    if (!target.hasPlayedBefore() && !target.isOnline()) {
                         player.sendMessage(MessageManager.get("general-invalid-player"));
                         return false;
                     }
-                    FriendsManager.deleteFriend(player,target);
-                    break;
+                    FriendsManager.deleteFriend(player, target, true);
+                }
+                case "open" -> FriendsManager.openGui(player);
+                default -> {return false;}
             }
         }
         return true;

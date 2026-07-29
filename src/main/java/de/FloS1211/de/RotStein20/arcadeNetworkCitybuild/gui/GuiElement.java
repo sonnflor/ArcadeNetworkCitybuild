@@ -2,9 +2,10 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -32,12 +33,16 @@ public abstract class GuiElement<T extends GuiElement<T>> {
   }
 
   public T title(Component title) {
-    this.title = title;
+    this.title = Component.text("").decoration(TextDecoration.ITALIC, false).append(title);
     return self();
   }
 
   public T lore(List<Component> lore) {
-    this.lore = lore;
+    List<Component> grayLore = new ArrayList<>();
+    for (Component line : lore) {
+      grayLore.add(Component.text("").color(NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, false).append(line));
+    }
+    this.lore = grayLore;
     return self();
   }
 

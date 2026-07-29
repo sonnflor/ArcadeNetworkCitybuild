@@ -1,6 +1,7 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 public class GuiSwitch extends GuiElement<GuiSwitch>{
@@ -30,12 +31,12 @@ public class GuiSwitch extends GuiElement<GuiSwitch>{
         : disabledDisplay.buildItem();
   }
 
-  public void onClick(Player player, Gui gui) {
+  public void onClick(Player player, Gui gui, ClickType clickType) {
     state = !state;
     if (state) enabledSound.play(player);
     else disabledSound.play(player);
     player.openInventory(gui.buildInventory());
-    executor.onSwitch(id,gui,state, player);
+    executor.onSwitch(id,gui,state, player, clickType);
   }
 }
 

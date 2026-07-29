@@ -6,6 +6,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.CoinRightclickList
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.PayAllExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.PayExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.friends.FriendsExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.friends.FriendsTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeManager;
@@ -216,6 +217,7 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
   }
   private void initFriends(){
     getCommand("friends").setExecutor(new FriendsExecutor());
+    getCommand("friends").setTabCompleter(new FriendsTabCompleter());
   }
 }
 

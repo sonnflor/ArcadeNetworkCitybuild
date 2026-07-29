@@ -31,7 +31,7 @@ public class ClickableMessageManager {
       case "tpa" -> TpaManager.handleMessageClick(clickAction.args(),commandSender);
       case "pos" -> PositionManager.handleShareMessageClick(clickAction.args(),commandSender);
       case "openitem" -> ChatMessageManager.handleOpenItemMessageClick(clickAction.args(),commandSender);
-      case "friend" -> FriendsManager.handleMessageClick(clickAction.args(), commandSender);
+      case "friends" -> FriendsManager.handleMessageClick(clickAction.args(), commandSender);
       default -> {
         return false;
       }

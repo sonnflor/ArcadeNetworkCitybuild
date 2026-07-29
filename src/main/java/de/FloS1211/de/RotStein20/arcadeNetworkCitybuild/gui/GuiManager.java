@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -21,8 +22,7 @@ public class GuiManager implements Listener {
     ItemStack item = event.getCurrentItem();
     if (item == null || item.getType().equals(Material.AIR)) return;
     GuiElement<?> el = gui.getElementByInvSlot(event.getSlot());
-    if (el == null) return;
-    if (el instanceof GuiSwitch) ((GuiSwitch) el).onClick((Player) event.getWhoClicked(), gui);
-    else if (el instanceof GuiButton) ((GuiButton) el).onClick((Player) event.getWhoClicked(), gui);
+    if (el instanceof GuiSwitch guiSwitch) guiSwitch.onClick((Player) event.getWhoClicked(), gui, event.getClick());
+    if (el instanceof GuiButton guiButton) guiButton.onClick((Player) event.getWhoClicked(), gui, event.getClick());
   }
 }

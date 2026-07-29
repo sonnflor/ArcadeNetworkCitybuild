@@ -45,6 +45,10 @@ public class SQLTable {
               preparedStatement.setInt(i + 1, (Integer) arg);
             } else if (arg instanceof Double) {
               preparedStatement.setDouble(i + 1, (Double) arg);
+            } else if (arg instanceof Boolean b) {
+              preparedStatement.setBoolean(i + 1, b);
+            } else {
+              preparedStatement.setObject(i + 1, arg);
             }
             i++;
           }

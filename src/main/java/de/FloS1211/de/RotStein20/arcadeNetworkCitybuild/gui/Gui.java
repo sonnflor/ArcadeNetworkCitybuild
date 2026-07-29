@@ -47,7 +47,14 @@ public class Gui {
     if (isTopBarActive && slot < 9) { //top
       return topBar.get(slot);
     } else if (isBottomBarActive && slot >= size - 9) { //bottom
-      return bottomBar.get(slot-size+9);
+      GuiElement<?> el = bottomBar.get(slot-size+9);
+      if (el instanceof GuiButton button && button.type == GuiButtonType.PREV_PAGE && aktPage == 0) {
+        return GuiDisplay.getPlaceholder();
+      }
+      if (el instanceof GuiButton button && button.type == GuiButtonType.NEXT_PAGE && aktPage == Math.max(getPageAmount(),1)-1) {
+        return GuiDisplay.getPlaceholder();
+      }
+      return el;
     } else { //main
       Map<Integer, GuiElement<?>> page = pages.get(aktPage);
       if (isTopBarActive) {
@@ -92,12 +99,12 @@ public class Gui {
       GuiDisplay placeholder = GuiDisplay.getPlaceholder();
       for (int i = 0; i < 9; i++) {
         GuiElement<?> barEl =bottomBar.getOrDefault(i, placeholder);
-        if (aktPage == 0 && barEl instanceof GuiButton && ((GuiButton) barEl).getType() == GuiButtonType.PREV_PAGE) {
-          barEl = placeholder;
-        } else if (aktPage == Math.max(getPageAmount(),1)-1 && barEl instanceof GuiButton && ((GuiButton) barEl).getType() == GuiButtonType.NEXT_PAGE) {
-          barEl = placeholder;
-        }
         inv.setItem(size-9+i, barEl.buildItem());
+        if (aktPage == 0 && barEl instanceof GuiButton && ((GuiButton) barEl).getType() == GuiButtonType.PREV_PAGE) {
+          inv.setItem(size-9+i, placeholder.buildItem());
+        } else if (aktPage == Math.max(getPageAmount(),1)-1 && barEl instanceof GuiButton && ((GuiButton) barEl).getType() == GuiButtonType.NEXT_PAGE) {
+          inv.setItem(size-9+i, placeholder.buildItem());
+        }
       }
     }
     return inv;

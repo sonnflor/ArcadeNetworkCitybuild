@@ -99,10 +99,10 @@ public class Utils {
         ))
     );
   }
-  public static String formatDate(long unixSec) {
+  public static String formatDate(long unixSec, String pattern) {
     ZoneId zone = ZoneId.systemDefault();
     ZonedDateTime zonedDateTime = Instant.ofEpochSecond(unixSec).atZone(zone);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm z");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
     String formatted = zonedDateTime.format(formatter);
     return formatted;
   }

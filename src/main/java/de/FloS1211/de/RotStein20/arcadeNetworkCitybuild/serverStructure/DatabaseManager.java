@@ -1,6 +1,8 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.ArcadeNetworkCitybuild;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.Perk;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.mariadb.jdbc.Driver;
@@ -103,6 +105,15 @@ public class DatabaseManager {
             favoritedByTarget BOOLEAN NOT NULL DEFAULT FALSE
           );
           """);
+      StringBuilder createPerksTableSQL = new StringBuilder("""
+          CREATE TABLE IF NOT EXISTS perks (
+            uuid VARCHAR(36) PRIMARY KEY
+          """);
+      for (Perk perk : PerkManager.perks.values()) {
+        createPerksTableSQL.append(",\n").append(perk.perkId()).append(" INTEGER NOT NULL DEFAULT 0");
+      }
+      createPerksTableSQL.append("\n);");
+      statement.execute(createPerksTableSQL.toString());
     }
   }
 

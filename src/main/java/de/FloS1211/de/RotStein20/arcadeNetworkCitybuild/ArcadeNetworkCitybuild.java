@@ -1,10 +1,5 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.clickableMessages.PerformactionExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.AuszahlenExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.CoinRightclickListener;
@@ -21,6 +16,9 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorGuiListener;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkEffectListener;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.position.PositionTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PermissionManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PlayerNameManager;
@@ -117,6 +115,7 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     initFriends();
     initMail();
     initSql();
+    initPerks();
   }
   private void initConins(){
     getCommand("auszahlen").setExecutor(new AuszahlenExecutor());
@@ -236,6 +235,16 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
 
   private void initSql() {
     getCommand("sql").setExecutor(new SqlExecutor());
+  }
+  private void initPerks() {
+    getCommand("perks").setExecutor(new PerkExecutor());
+    getCommand("perks").setTabCompleter(new EmptyTabCompleter());
+    Bukkit.getPluginManager().registerEvents(new PerkEffectListener(), this);
+    Bukkit.getScheduler().runTaskTimer(this, () -> {
+      for (Player player : Bukkit.getOnlinePlayers()) {
+        PerkManager.updatePerks(player);
+      }
+    }, 0L, 20L * 10L); // Update every minute
   }
 }
 

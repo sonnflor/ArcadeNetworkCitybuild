@@ -66,3 +66,6 @@ mail-new-mail: "<white>[<green>Mail<white>]<gray> Du hast <green>{count}</green>
 mail-received: "<white>[<green>Mail<white>]<gray> Du hast eine neue Mail von {sender} mit dem Betreff \"{caption}\" erhalten. <green><click:run_command:'/mail'><hover:show_text:'<gray>Klicke, um das Mail Menü zu öffnen'>/mail</hover></click></green> zum Öffnen"
 mail-sent: "<white>[<green>Mail<white>]<gray> Du hast eine Mail an {target} mit dem Betreff \"{caption}\" gesendet"
 mail-deleted: "<white>[<green>Mail<white>]<gray> Du hast die Mail von {sender} mit dem Betreff \"{caption}\" gelöscht"
+
+perk-gain-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green>{perk}</green> erhalten"
+perk-switch-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green>{perk}</green> {state}"

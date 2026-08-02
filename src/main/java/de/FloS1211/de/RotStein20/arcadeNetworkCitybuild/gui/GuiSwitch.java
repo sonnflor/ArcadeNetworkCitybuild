@@ -8,7 +8,7 @@ public class GuiSwitch extends GuiElement<GuiSwitch>{
   private final GuiDisplay enabledDisplay;
   private final GuiDisplay disabledDisplay;
   private final GuiButtonExecutor executor;
-  private boolean state = true;
+  private boolean state;
   private final GuiSound enabledSound = GuiSound.TOGGLE_ON;
   private final GuiSound disabledSound = GuiSound.TOGGLE_OFF;
 
@@ -16,12 +16,14 @@ public class GuiSwitch extends GuiElement<GuiSwitch>{
       String id,
       GuiDisplay enabledDisplay,
       GuiDisplay disabledDisplay,
-      GuiButtonExecutor executor
+      GuiButtonExecutor executor,
+      boolean initialState
   ) {
     super(id, enabledDisplay.icon);
     this.enabledDisplay = enabledDisplay;
     this.disabledDisplay = disabledDisplay;
     this.executor = executor;
+    this.state = initialState;
   }
 
   @Override

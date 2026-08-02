@@ -75,7 +75,18 @@ public abstract class GuiElement<T extends GuiElement<T>> {
     }
     ItemMeta meta = item.getItemMeta();
     if (title != null) meta.displayName(title);
-    meta.lore(lore);
+    List<Component> itemLore = lore;
+    if (this instanceof GuiButton button) {
+      if (button.controls != null) {
+        List<Component> controlLore = new ArrayList<>();
+        controlLore.add(Component.empty());
+        for (String key : button.controls.keySet()) {
+          controlLore.add(Component.text(key + ": " + button.controls.get(key)).color(NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, false));
+        }
+        itemLore.addAll(controlLore);
+      }
+    }
+    meta.lore(itemLore);
     if (hasEnchantmentGlintOverride) meta.setEnchantmentGlintOverride(true);
     item.setItemMeta(meta);
 

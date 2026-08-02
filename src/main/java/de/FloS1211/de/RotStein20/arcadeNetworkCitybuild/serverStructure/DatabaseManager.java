@@ -88,6 +88,21 @@ public class DatabaseManager {
             approved BOOLEAN NOT NULL DEFAULT FALSE
           );
           """);
+      statement.execute("""
+          CREATE TABLE IF NOT EXISTS mail (
+            id INTEGER PRIMARY KEY AUTO_INCREMENT,
+            uuidSender VARCHAR(36) NOT NULL,
+            uuidTarget VARCHAR(36) NOT NULL,
+            unixDay INTEGER NOT NULL,
+            isRead BOOLEAN NOT NULL DEFAULT FALSE,
+            message TEXT NOT NULL DEFAULT "",
+            caption TEXT NOT NULL DEFAULT "Neue Nachricht",
+            deletedBySender BOOLEAN NOT NULL DEFAULT FALSE,
+            deletedByTarget BOOLEAN NOT NULL DEFAULT FALSE,
+            favoritedBySender BOOLEAN NOT NULL DEFAULT FALSE,
+            favoritedByTarget BOOLEAN NOT NULL DEFAULT FALSE
+          );
+          """);
     }
   }
 

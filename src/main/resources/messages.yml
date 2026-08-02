@@ -53,10 +53,16 @@ discord: "<white>[<green>Discord<white>]<gray> Du findest unseren Discord auf <g
 
 friends-duplicated-friend: "<white>[<green>Friends<white>]<gray> Du hast entweder schon eine Freundschaftsanfrage gesendet oder ihr seid schon Freunde"
 friends-request-information: "<white>[<green>Friends<white>]<gray> Du hast {target} eine Anfrage gesendet"
-friends-request: "<white>[<green>Friends<white>]<gray> {sender} hat dir eine Freundschaftsanfrage gesendet. <green><click:run_command:'/performaction {token}'><hover:show_text:'<gray>klicke um die Freundschaftsanfrage anzunehmen'>[Annehmen]</hover></click></green>"
+friends-request: "<white>[<green>Friends<white>]<gray> {sender} hat dir eine Freundschaftsanfrage gesendet. <green><click:run_command:'/performaction {token}'><hover:show_text:'<gray>Klicke, um die Freundschaftsanfrage anzunehmen'>[Annehmen]</hover></click></green>"
 friends-succeed: "<white>[<green>Friends<white>]<gray> Du und {player} seid jetzt Freunde (yay) :D"
 friends-delete: "<white>[<green>Friends<white>]<gray> Du und {player} seid keine Freunde mehr D:"
 friends-rejected-sender: "<white>[<green>Friends<white>]<gray> Deine Freundschaftsanfrage an {target} wurde abgelehnt D:"
 friends-rejected-target: "<white>[<green>Friends<white>]<gray> Du hast die Freundschaftsanfrage von {player} abgelehnt (warum D: ?)"
 friends-failed-already_befriended: "<white>[<green>Friends<white>]<gray> Ihr seid schon befreundet"
 friends-failed-no_friend: "<white>[<green>Friends<white>]<gray> Ihr seid nicht befreundet"
+
+mail-wrong-inputs: "<white>[<green>Mail<white>]<gray> Bitte fülle Empfänger, Betreff und Nachricht aus"
+mail-new-mail: "<white>[<green>Mail<white>]<gray> Du hast <green>{count}</green> neue Mails! Öffne dein Postfach mit <green><click:run_command:'/mail'><hover:show_text:'<gray>Klicke, um das Mail Menü zu öffnen</gray>'>/mail</hover></click></green>"
+mail-received: "<white>[<green>Mail<white>]<gray> Du hast eine neue Mail von {sender} mit dem Betreff \"{caption}\" erhalten. <green><click:run_command:'/mail'><hover:show_text:'<gray>Klicke, um das Mail Menü zu öffnen'>/mail</hover></click></green> zum Öffnen"
+mail-sent: "<white>[<green>Mail<white>]<gray> Du hast eine Mail an {target} mit dem Betreff \"{caption}\" gesendet"
+mail-deleted: "<white>[<green>Mail<white>]<gray> Du hast die Mail von {sender} mit dem Betreff \"{caption}\" gelöscht"

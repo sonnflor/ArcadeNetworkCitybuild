@@ -2,7 +2,9 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.friends;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.ArcadeNetworkCitybuild;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButton;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonType;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -71,13 +73,13 @@ public class FriendsGuiButtonExecutor implements GuiButtonExecutor {
 
   @Override
   public void accept(String buttonId, Gui gui, Player player, ClickType clickType) {
-    FriendsManager.acceptFriendRequest(Bukkit.getOfflinePlayer(UUID.fromString(buttonId.replace("requestButton",""))), player);
+    FriendsManager.acceptFriendRequest(Bukkit.getOfflinePlayer(UUID.fromString(((GuiButton) gui.getElement(buttonId)).customData.get("uuid"))), player);
     FriendsManager.openGui(player);
   }
 
   @Override
   public void reject(String buttonId, Gui gui, Player player, ClickType clickType) {
-    FriendsManager.rejectFriendRequest(Bukkit.getOfflinePlayer(UUID.fromString(buttonId.replace("requestButton",""))), player);
+    FriendsManager.rejectFriendRequest(Bukkit.getOfflinePlayer(UUID.fromString(((GuiButton) gui.getElement(buttonId)).customData.get("uuid"))), player);
     FriendsManager.openGui(player);
   }
 

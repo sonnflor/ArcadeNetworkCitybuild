@@ -6,10 +6,15 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GuiButton extends GuiElement<GuiButton> {
   protected GuiButtonExecutor executor;
   protected GuiSound sound = GuiSound.CLICK;
   protected GuiButtonType type;
+  public Map<String, String> customData = new HashMap<>();
+  public Map<String, String> controls;
 
   public GuiButton(String id, Material icon, GuiButtonExecutor executor, GuiButtonType type) {
     super(id, icon);
@@ -19,6 +24,16 @@ public class GuiButton extends GuiElement<GuiButton> {
 
   public GuiButton sound(GuiSound sound) {
     this.sound = sound;
+    return this;
+  }
+
+  public GuiButton customData(Map<String, String> customData) {
+    this.customData = customData;
+    return this;
+  }
+
+  public GuiButton controls(Map<String, String> controls) {
+    this.controls = controls;
     return this;
   }
 

@@ -12,8 +12,8 @@ import java.util.Objects;
 
 public class SQLTable {
   private final String name;
-  private final ArrayList<String> tableColumns;
-  private final ArrayList<ArrayList<Object>> tableValues;
+  private final List<String> tableColumns;
+  private final List<List<Object>> tableValues;
 
   private Integer getColumnIndex(String columnName) {
     for (int i = 0; i < tableColumns.size(); i++) {
@@ -25,31 +25,31 @@ public class SQLTable {
     throw new IllegalArgumentException("Spaltenname \""+columnName+"\" doesnt exist in table \"" + name + "\"");
   }
 
+  public SQLTable(String tableName) {
+    this(tableName, "", List.of());
+  }
+
   public SQLTable(String tableName, String condition, List<Object> args) {
+    this(tableName, condition, args, null);
+  }
+
+  public SQLTable(String tableName, String condition, List<Object> args, String sortColumn) {
     this.name = tableName;
-    ArrayList<String> preapredTableColums = new ArrayList<>();
-    ArrayList<ArrayList<Object>> preparedTableValues = new ArrayList<>();
+    List<String> preapredTableColums = new ArrayList<>();
+    List<List<Object>> preparedTableValues = new ArrayList<>();
     String sql = "SELECT * FROM " + tableName;
-    if (condition != null && !condition.isBlank() && !Objects.equals(condition, "true")) {
+    if (condition != null && !condition.isBlank()) {
       sql += " WHERE " + condition;
     }
+    if (sortColumn != null && !sortColumn.isBlank()) {
+      sql += " ORDER BY " + sortColumn;
+    }
     try (PreparedStatement preparedStatement = ArcadeNetworkCitybuild.getInstance().getDatabaseManager().getConnection().prepareStatement(sql)) {
-      if (!Objects.equals(condition, "true")) {
-        assert condition != null;
+      if (condition != null && !condition.isBlank()) {
         if (condition.contains("?")) {
           int i = 0;
           for (Object arg : args) {
-            if (arg instanceof String) {
-              preparedStatement.setString(i + 1, (String) arg);
-            } else if (arg instanceof Integer) {
-              preparedStatement.setInt(i + 1, (Integer) arg);
-            } else if (arg instanceof Double) {
-              preparedStatement.setDouble(i + 1, (Double) arg);
-            } else if (arg instanceof Boolean b) {
-              preparedStatement.setBoolean(i + 1, b);
-            } else {
-              preparedStatement.setObject(i + 1, arg);
-            }
+            preparedStatement.setObject(i + 1, arg);
             i++;
           }
         }
@@ -98,6 +98,11 @@ public class SQLTable {
     return false;
   }
 
+  @SuppressWarnings("unchecked")
+  public <T> T getValue(String column, int row) {
+    return (T) tableValues.get(row).get(getColumnIndex(column));
+  }
+
   public double getDoubleValue(String columnName, int index) {
     int columnIndex = getColumnIndex(columnName);
     return (Double) tableValues.get(index).get(columnIndex);
@@ -105,24 +110,27 @@ public class SQLTable {
 
   public List<String> getStringColumn(String columnName) {
     List<String> result = new ArrayList<>();
-    for (ArrayList<Object> tableValue : tableValues) {
-      result.add((String) tableValue.get(getColumnIndex(columnName)));
+    int columnIndex = getColumnIndex(columnName);
+    for (List<Object> tableValue : tableValues) {
+      result.add((String) tableValue.get(columnIndex));
     }
     return result;
   }
 
   public List<Integer> getIntColumn(String columnName) {
     List<Integer> result = new ArrayList<>();
-    for (ArrayList<Object> tableValue : tableValues) {
-      result.add((Integer) tableValue.get(getColumnIndex(columnName)));
+    int columnIndex = getColumnIndex(columnName);
+    for (List<Object> tableValue : tableValues) {
+      result.add((Integer) tableValue.get(columnIndex));
     }
     return result;
   }
 
   public List<Double> getDoubleColumn(String columnName) {
     List<Double> result = new ArrayList<>();
-    for (ArrayList<Object> tableValue : tableValues) {
-      result.add((Double) tableValue.get(getColumnIndex(columnName)));
+    int columnIndex = getColumnIndex(columnName);
+    for (List<Object> tableValue : tableValues) {
+      result.add((Double) tableValue.get(columnIndex));
     }
     return result;
   }

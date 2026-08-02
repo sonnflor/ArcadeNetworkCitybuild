@@ -94,7 +94,12 @@ commands:
     usage: /testi
     permission: ac.developer
   friends:
-    usage: /frieds
+    usage: /friends
+  mail:
+    usage: /mail ([inbox|outbox|send])
+  sql:
+    usage: /sql <sql>
+    permission: ac.developer
 
 permissions:
   ac.crafter:

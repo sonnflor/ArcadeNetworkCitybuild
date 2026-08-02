@@ -1,5 +1,10 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketEvent;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.clickableMessages.PerformactionExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.AuszahlenExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.CoinRightclickListener;
@@ -11,6 +16,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee.InvseeTabCompleter;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mail.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorExecutor;
@@ -37,6 +43,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.vanish.UnvanishExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.vanish.VanishExecutor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -108,6 +115,8 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     initDiscord();
     initVanish();
     initFriends();
+    initMail();
+    initSql();
   }
   private void initConins(){
     getCommand("auszahlen").setExecutor(new AuszahlenExecutor());
@@ -218,6 +227,15 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
   private void initFriends(){
     getCommand("friends").setExecutor(new FriendsExecutor());
     getCommand("friends").setTabCompleter(new FriendsTabCompleter());
+  }
+  private void initMail(){
+    getCommand("mail").setExecutor(new MailExecutor());
+    getCommand("mail").setTabCompleter(new MailTabCompleter());
+    Bukkit.getPluginManager().registerEvents(new MailListener(), this);
+  }
+
+  private void initSql() {
+    getCommand("sql").setExecutor(new SqlExecutor());
   }
 }
 

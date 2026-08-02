@@ -1,46 +1,88 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.Namecolor;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Gui {
-  private final Map<Integer, Map<Integer, GuiElement<?>>> pages;
+  private final Map<Integer, Map<Integer, GuiElement<?>>> pages = new HashMap<>();
   private final Component title;
   private final int size;
   private int aktPage = 0;
   private boolean isTopBarActive = false;
   private boolean isBottomBarActive = false;
   private final Map<Integer,GuiElement<?>> topBar = new HashMap<>();
-  private final Map<Integer,GuiElement<?>> bottomBar = new HashMap<>();;
+  private final Map<Integer,GuiElement<?>> bottomBar = new HashMap<>();
+  public Map<String, String> customData = new HashMap<>();
 
-  public Gui(Map<Integer, Map<Integer, GuiElement<?>>> pages, int size, Component title) {
+  public Gui(int size, Component title) {
     this.size = size;
     this.title = title;
-    this.pages = pages;
   }
 
-  public void addElement(GuiElement<?> element, int pageIndex, int slot) {
-    if (slot >= size || slot < -1) throw new IllegalArgumentException("slot is out of the bounds of the gui");
+  public void setElement(GuiElement<?> element, int pageIndex, int slot) {
+    if (slot >= size || slot < 0) throw new IllegalArgumentException("slot is out of the bounds of the gui");
     pages.computeIfAbsent(pageIndex, k -> new HashMap<>())
         .put(slot, element);
   }
-  public void addElementToTopBar(GuiElement<?> element, int slot){
+  public void addElement(GuiElement<?> element) {
+    int page = pages.isEmpty() ? 0 : pages.keySet().stream().max(Integer::compareTo).get();
+    int slot = pages.getOrDefault(page, Map.of()).size();
+
+    if (slot >= size-(isBottomBarActive?9:0)) {
+      page++;
+      slot = 0;
+    }
+
+    setElement(element,page,slot);
+  }
+  public void addElements(List<GuiElement<?>> elements) {
+    for (GuiElement<?> element : elements) {
+      addElement(element);
+    }
+  }
+  public void setElementInTopBar(GuiElement<?> element, int slot){
     if (slot < 0 || slot > 8) throw new IllegalArgumentException("invalid slot");
     isTopBarActive = true;
     topBar.put(slot,element);
   }
-  public void addElementToBottomBar(GuiElement<?> element, int slot){
+  public void setElementInBottomBar(GuiElement<?> element, int slot){
     if (slot < 0 || slot > 8) throw new IllegalArgumentException("invalid slot");
     isBottomBarActive = true;
     bottomBar.put(slot,element);
   }
 
   public GuiElement<?> getElement(int pageIndex, int slot) {
-    return pages.get(pageIndex).get(slot);
+    return pages.getOrDefault(pageIndex, Collections.emptyMap()).get(slot);
+  }
+
+  public GuiElement<?> getElement(String elId) {
+    // Top-Bar
+    for (GuiElement<?> element : topBar.values()) {
+      if (element != null && Objects.equals(element.id, elId)) {
+        return element;
+      }
+    }
+    // Seiten
+    for (Map<Integer, GuiElement<?>> page : pages.values()) {
+      for (GuiElement<?> element : page.values()) {
+        if (element != null && Objects.equals(element.id, elId)) {
+          return element;
+        }
+      }
+    }
+    // Bottom-Bar
+    for (GuiElement<?> element : bottomBar.values()) {
+      if (element != null && Objects.equals(element.id, elId)) {
+        return element;
+      }
+    }
+    return null;
   }
 
   public GuiElement<?> getElementByInvSlot(int slot) {
@@ -80,7 +122,7 @@ public class Gui {
   public Inventory buildInventory() {
     GuiHolder holder = new GuiHolder(this);
     Component guiTitle = title;
-    if (getPageAmount() > 1) guiTitle = title.append(Component.text(" Seite " + aktPage+1 + "/" + getPageAmount()));
+    if (getPageAmount() > 1) guiTitle = title.append(Component.text(" Seite " + (aktPage + 1) + "/" + getPageAmount()));
     Inventory inv = Bukkit.createInventory(holder,size,guiTitle);
     Map<Integer,GuiElement<?>> page = pages.getOrDefault(aktPage, new HashMap<>());
     for (int i : page.keySet()) {
@@ -120,5 +162,24 @@ public class Gui {
 
   public int getPageAmount() {
     return pages.size();
+  }
+
+  public void setCustomData(Map<String, String> customData) {
+    this.customData = customData;
+  }
+
+  public static Gui getConfirmationGui(Map<String, String> customData, GuiButtonExecutor executor, String acceptDescription) {
+    GuiButton acceptButton = new GuiButton("accept", Material.LIME_DYE,executor, GuiButtonType.ACCEPT)
+        .title(Component.text("Akzeptieren").color(NamedTextColor.GREEN))
+        .lore(List.of(Component.text(acceptDescription)))
+        .sound(GuiSound.SUCCESS);
+    GuiButton rejectButton = new GuiButton("reject", Material.RED_DYE, executor, GuiButtonType.REJECT)
+        .title(Component.text("Abbrechen").color(NamedTextColor.RED))
+        .sound(GuiSound.FAILURE);
+    Gui gui = new Gui(27, Component.text("Bestätigung"));
+    gui.setElement(acceptButton,0,12);
+    gui.setElement(rejectButton,0,14);
+    gui.setCustomData(customData);
+    return gui;
   }
 }

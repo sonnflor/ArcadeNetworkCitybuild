@@ -103,6 +103,10 @@ commands:
   perks:
     usage: /perks
     description: "Opens the perks menu"
+  fastpoll:
+    usage: /fastpoll (<timespan>)
+    permission: ac.developer
+    description: "Gives you the polling speed an lets you enable fastpoll"
 
 permissions:
   ac.crafter:

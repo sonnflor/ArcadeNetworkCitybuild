@@ -117,6 +117,7 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     initMail();
     initSql();
     initPerks();
+    initRemoteCommands();
   }
   private void initConins(){
     getCommand("auszahlen").setExecutor(new AuszahlenExecutor());
@@ -247,6 +248,13 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
         PerkManager.updatePerks(player);
       }
     }, 0L, 20L * 10L);
+  }
+
+  private void initRemoteCommands() {
+    CommandPoller.start();
+    getLogger().info("PollingPlugin aktiviert.");
+    getCommand("fastpoll").setExecutor(new FastPollExecutor());
+    getCommand("fastpoll").setTabCompleter(new EmptyTabCompleter());
   }
 }
 

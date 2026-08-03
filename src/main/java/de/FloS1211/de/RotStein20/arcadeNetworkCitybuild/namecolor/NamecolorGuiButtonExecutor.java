@@ -1,16 +1,14 @@
-package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks;
+package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonExecutor;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorManager;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
-public class PerkGuiButtonExecutor implements GuiButtonExecutor {
-
+public class NamecolorGuiButtonExecutor implements GuiButtonExecutor {
   @Override
   public void customAction(String buttonId, Gui gui, Player player, ClickType clickType) {
 
@@ -28,7 +26,7 @@ public class PerkGuiButtonExecutor implements GuiButtonExecutor {
 
   @Override
   public void accept(String buttonId, Gui gui, Player player, ClickType clickType) {
-    String perk = gui.customData.get("couponName").substring(10);
+    String colName = gui.customData.get("couponName").substring(10);
     YamlConfiguration config = new YamlConfiguration();
     try {
       config.loadFromString(gui.customData.get("couponItem"));
@@ -37,11 +35,11 @@ public class PerkGuiButtonExecutor implements GuiButtonExecutor {
     }
     ItemStack item = config.getItemStack("item");
     try {
-      PerkManager.gainPerk(player, perk);
-      player.sendMessage("§f[§aPerk§f]§7 Du hast den Perk " + PerkManager.perks.get(perk).name() + " freigeschaltet. Aktiviere ihn mit /perks");
+      NamecolorManager.unlockNamecolor(player.getUniqueId().toString(), colName);
+      player.sendMessage("§f[§aNamecolor§f]§7 Du hast die Namensfarbe " + colName.replace('_',' ') + " freigeschaltet. Aktiviere sie mit /namensfarben");
       if (!player.getGameMode().equals(org.bukkit.GameMode.CREATIVE)) item.setAmount(item.getAmount() - 1);
     } catch (IllegalArgumentException e) {
-      player.sendMessage("§f[§aPerk§f]§7 Ein kritischer Fehler ist aufgetreten. Bitte informiere einen Supporter oder Admin");
+      player.sendMessage("§f[§aNamecolor§f]§7 Ein kritischer Fehler ist aufgetreten. Bitte informiere einen Supporter oder Admin");
     }
   }
 
@@ -52,6 +50,6 @@ public class PerkGuiButtonExecutor implements GuiButtonExecutor {
 
   @Override
   public void onSwitch(String buttonId, Gui gui, boolean state, Player player, ClickType clickType) {
-    PerkManager.switchPerk(player, PerkManager.perks.get(buttonId.replace("perk_state_","")), state);
+
   }
 }

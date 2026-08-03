@@ -3,6 +3,7 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins.CoinsManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.RankCouponManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,6 +32,8 @@ public class GetCustomItemExecutor implements CommandExecutor {
       ((Player)commandSender).getInventory().addItem(RankCouponManager.getRankCoupon(itemProperties[0]));
     } else if (itemName.equalsIgnoreCase("namecolorbook")) {
       ((Player)commandSender).getInventory().addItem(NamecolorCouponManager.getCoupon(itemProperties[0]));
+    } else if (itemName.equalsIgnoreCase("perkbook")) {
+      ((Player)commandSender).getInventory().addItem(PerkCouponManager.getPerkCoupon(itemProperties[0]));
     }
     return true;
   }

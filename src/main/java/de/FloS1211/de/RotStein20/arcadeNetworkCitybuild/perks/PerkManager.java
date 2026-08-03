@@ -13,30 +13,31 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PerkManager {
-  public static Map<String, Perk> perks = Map.ofEntries(
-    Map.entry("frog", new Perk("frog", "Frosch Perk", "Lässt dich höher Springen (Jump Boost 2)", Material.FROG_SPAWN_EGG, new PotionEffect(PotionEffectType.JUMP_BOOST, 15*20, 1), null)),
-    Map.entry("speed", new Perk("speed", "Speed Perk", "Macht dich schneller (Speed 2)", Material.DIAMOND_BOOTS, new PotionEffect(PotionEffectType.SPEED, 15*20, 1), null)),
-    Map.entry("nokia", new Perk("nokia", "Nokia Perk", "Macht dich resistenter (Resistance 4)", Material.BRICK, new PotionEffect(PotionEffectType.RESISTANCE, 15*20, 3), null)),
-    Map.entry("miner", new Perk("miner", "Miner Perk", "Lässt dich schneller Blöcke abbauen (Haste 2)", Material.DIAMOND_PICKAXE, new PotionEffect(PotionEffectType.HASTE, 15*20, 1), null)),
-    Map.entry("irongolem", new Perk("irongolem", "Eisengolem Perk", "Macht dich stärker (Strength 2)", Material.MACE, new PotionEffect(PotionEffectType.STRENGTH, 15*20, 1), null)),
-    Map.entry("heal", new Perk("heal", "Heilungs Perk", "Lässt dich schneller regenerieren (Regeneration 1)", Material.ENCHANTED_GOLDEN_APPLE, new PotionEffect(PotionEffectType.REGENERATION, 15*20, 0), null)),
-    Map.entry("fish", new Perk("fish", "Fisch Perk", "Lässt dich unterwasser atmen (Water Breathing 1)", Material.SALMON, new PotionEffect(PotionEffectType.WATER_BREATHING, 15*20, 0), null)),
-    Map.entry("no_hunger", new Perk("no_hunger", "Kein Hunger Perk", "Du hast nie wieder Hunger (Saturation 1)", Material.COOKED_BEEF, new PotionEffect(PotionEffectType.SATURATION, 15*20, 0), null)),
-    Map.entry("bird", new Perk("bird", "Vogel Perk", "Lässt dich fliegen, wie im Kreativ-Modus", Material.ELYTRA, null,  PerkEffectListener::switchBirdPerk)),
-    Map.entry("no_fall_damage", new Perk("no_fall_damage", "Katzen Perk", "Du erhältst keinen Fallschaden", Material.CAT_SPAWN_EGG,  null, null)),
-    Map.entry("telekinsis", new Perk("telekinsis", "Telekinese Perk", "Gedropte Items werden in dein Inventar teleportiert", Material.ENDER_EYE,  null, null)),
-    Map.entry("dolphin", new Perk("dolphin", "Delfin Perk", "Du kannst im Wasser nach vorn schießen, wie mit einem Dreizack", Material.DOLPHIN_SPAWN_EGG,  null, null)),
-    Map.entry("xp", new Perk("xp", "Doppelte XP Perk", "Du erhältst doppelte XP", Material.EXPERIENCE_BOTTLE, null, null)),
-    Map.entry("keep_inv", new Perk("keep_inv", "Keep Inventory Perk", "Du behältst dein Inventar nach dme Tod", Material.CHEST, null, null)),
-    Map.entry("rocket", new Perk("rocket", "Raketen Perk", "Du kannst dich mit Shift im Elytraflug nach vorn boosten", Material.FIREWORK_ROCKET, null, null)),
-    Map.entry("ghost", new Perk("ghost", "Geister Perk", "Du bist unsichtbar (Invisibility)", Material.VEX_SPAWN_EGG, new PotionEffect(PotionEffectType.INVISIBILITY, 15*20, 0), null)),
-    Map.entry("lava", new Perk("lava", "Lava Perk", "Du erhällst keinen Feuerschaden (Fire Resistance)", Material.LAVA_BUCKET, new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 15*20, 0), null))
-  );
-
+  public static LinkedHashMap<String, Perk> perks = new LinkedHashMap<>() {
+    {
+      put("frog", new Perk("frog", "Frosch Perk", "Lässt dich höher Springen (Jump Boost 2)", Material.FROG_SPAWN_EGG, new PotionEffect(PotionEffectType.JUMP_BOOST, 15 * 20, 1), null));
+      put("speed", new Perk("speed", "Speed Perk", "Macht dich schneller (Speed 2)", Material.DIAMOND_BOOTS, new PotionEffect(PotionEffectType.SPEED, 15 * 20, 1), null));
+      put("nokia", new Perk("nokia", "Nokia Perk", "Macht dich resistenter (Resistance 4)", Material.BRICK, new PotionEffect(PotionEffectType.RESISTANCE, 15 * 20, 3), null));
+      put("miner", new Perk("miner", "Miner Perk", "Lässt dich schneller Blöcke abbauen (Haste 2)", Material.DIAMOND_PICKAXE, new PotionEffect(PotionEffectType.HASTE, 15 * 20, 1), null));
+      put("irongolem", new Perk("irongolem", "Eisengolem Perk", "Macht dich stärker (Strength 2)", Material.MACE, new PotionEffect(PotionEffectType.STRENGTH, 15 * 20, 1), null));
+      put("heal", new Perk("heal", "Heilungs Perk", "Lässt dich schneller regenerieren (Regeneration 1)", Material.ENCHANTED_GOLDEN_APPLE, new PotionEffect(PotionEffectType.REGENERATION, 15 * 20, 0), null));
+      put("fish", new Perk("fish", "Fisch Perk", "Lässt dich unterwasser atmen (Water Breathing 1)", Material.SALMON, new PotionEffect(PotionEffectType.WATER_BREATHING, 15 * 20, 0), null));
+      put("no_hunger", new Perk("no_hunger", "Kein Hunger Perk", "Du hast nie wieder Hunger (Saturation 1)", Material.COOKED_BEEF, new PotionEffect(PotionEffectType.SATURATION, 15 * 20, 0), null));
+      put("bird", new Perk("bird", "Vogel Perk", "Lässt dich fliegen, wie im Kreativ-Modus", Material.ELYTRA, null, PerkEffectListener::switchBirdPerk));
+      put("cat", new Perk("cat", "Katzen Perk", "Du erhältst keinen Fallschaden", Material.CAT_SPAWN_EGG, null, null));
+      put("telekinesis", new Perk("telekinesis", "Telekinese Perk", "Gedropte Items werden in dein Inventar teleportiert", Material.ENDER_EYE, null, null));
+      put("dolphin", new Perk("dolphin", "Delfin Perk", "Du kannst im Wasser nach vorn schießen, wie mit einem Dreizack", Material.DOLPHIN_SPAWN_EGG, null, null));
+      put("xp", new Perk("xp", "Doppelte XP Perk", "Du erhältst doppelte XP", Material.EXPERIENCE_BOTTLE, null, null));
+      put("keep_inv", new Perk("keep_inv", "Keep Inventory Perk", "Du behältst dein Inventar nach dem Tod", Material.CHEST, null, null));
+      put("rocket", new Perk("rocket", "Raketen Perk", "Du kannst dich mit Shift im Elytraflug nach vorn boosten", Material.FIREWORK_ROCKET, null, null));
+      put("ghost", new Perk("ghost", "Geister Perk", "Du bist unsichtbar (Invisibility)", Material.VEX_SPAWN_EGG, new PotionEffect(PotionEffectType.INVISIBILITY, 15 * 20, 0), null));
+      put("lava", new Perk("lava", "Lava Perk", "Du erhällst keinen Feuerschaden (Fire Resistance)", Material.LAVA_BUCKET, new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 15 * 20, 0), null));
+    }};
   public static void switchPerk(OfflinePlayer player, Perk perk, boolean state) {
     DatabaseManager.executeSQL("UPDATE perks SET " + perk.perkId() + " = ? WHERE uuid = ?", List.of(state ? 2 : 1, player.getUniqueId().toString()));
     if (perk.complexSingleAction() != null) {
@@ -67,10 +68,15 @@ public class PerkManager {
       DatabaseManager.executeSQL("INSERT INTO perks (uuid) VALUES (?)", List.of(player.getUniqueId().toString()));
       perkStates = DatabaseManager.getTable("perks", "uuid = ?", List.of(player.getUniqueId().toString()));
     }
-    for (String perkId : perks.keySet()) {
+    for (String perkId : perks.sequencedKeySet()) {
       perkStateMap.put(perkId, perkStates.getValue(perkId, 0));
     }
     return perkStateMap;
+  }
+
+  public static boolean isPerkActive(OfflinePlayer player, String perkId) {
+    Map<String, Integer> perkStates = getPerkStates(player);
+    return perkStates.getOrDefault(perkId, 0) == 2;
   }
 
   public static void openPerkMenu(Player player) {
@@ -79,11 +85,11 @@ public class PerkManager {
     gui.setElementInBottomBar(GuiButton.getPrevPageButton(new PerkGuiButtonExecutor()),0);
     gui.setElementInBottomBar(GuiButton.getNextPageButton(new PerkGuiButtonExecutor()),8);
     int i = 0;
-    for (Perk perk : perks.values()) {
+    for (Perk perk : perks.sequencedValues()) {
       int state = perkStates.getOrDefault(perk.perkId(), 0);
       gui.setElement(new GuiDisplay("perk_" + perk.perkId(), perk.displayedItem())
           .title(Component.text(perk.name()))
-          .lore(List.of(Component.text(perk.description()))),Math.round(i / 4f),(i%4)*2+1);
+          .lore(List.of(Component.text(perk.description()))),(int) Math.floor(i / 4f),(i%4)*2+1);
       GuiElement<?> stateDisplay;
       if (state == 0) {
         stateDisplay = new GuiDisplay("perk_state_" + perk.perkId(), Material.LIGHT_GRAY_DYE)
@@ -99,7 +105,7 @@ public class PerkManager {
             state == 2
         );
       }
-      gui.setElement(stateDisplay,Math.round(i / 4f),(i%4)*2+1+9);
+      gui.setElement(stateDisplay,(int) Math.floor(i / 4f),(i%4)*2+1+9);
       i++;
     }
     player.openInventory(gui.buildInventory());
@@ -117,7 +123,6 @@ public class PerkManager {
           player.addPotionEffect(perk.simplePotionEffect());
         }
       }
-
     }
   }
 }

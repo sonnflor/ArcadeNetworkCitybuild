@@ -41,6 +41,7 @@ public class Utils {
   public static NamespacedKey key_custom = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(), "custom");
   public static NamespacedKey key_coin_amount = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(), "coin_amount");
   public static NamespacedKey key_sidebar = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"sidebar");
+  public static NamespacedKey key_keep_inv = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"keep_inv");
 
   public static Integer canFitItem(Player player, ItemStack itemsToAdd) {
     if (itemsToAdd == null || itemsToAdd.getAmount() <= 0) return 0;
@@ -78,26 +79,6 @@ public class Utils {
 
     // 3. Was übrig bleibt, passt nicht mehr rein
     return remaining;
-  }
-  @SuppressWarnings("UnstableApiUsage")
-  public static Dialog getConsentDialog(Player player, Component title, Consumer<Player> onAccept) {
-    return Dialog.create(builder -> builder
-        .empty()
-        .base(DialogBase.builder(title)
-            .inputs(List.of())
-            .build()
-        )
-        .type(DialogType.confirmation(
-            ActionButton.builder(Component.text("Akzeptieren"))
-                .action(DialogAction.customClick(
-                    (view, audience) -> onAccept.accept(player),
-                    ClickCallback.Options.builder().build()
-                ))
-                .build(),
-            ActionButton.builder(Component.text("Abbrechen"))
-                .build()
-        ))
-    );
   }
   public static String formatDate(long unixSec, String pattern) {
     ZoneId zone = ZoneId.systemDefault();

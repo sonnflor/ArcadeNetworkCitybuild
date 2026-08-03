@@ -16,6 +16,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorGuiListener;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkEffectListener;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkManager;
@@ -240,11 +241,12 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getCommand("perks").setExecutor(new PerkExecutor());
     getCommand("perks").setTabCompleter(new EmptyTabCompleter());
     Bukkit.getPluginManager().registerEvents(new PerkEffectListener(), this);
+    Bukkit.getPluginManager().registerEvents(new PerkCouponManager(), this);
     Bukkit.getScheduler().runTaskTimer(this, () -> {
       for (Player player : Bukkit.getOnlinePlayers()) {
         PerkManager.updatePerks(player);
       }
-    }, 0L, 20L * 10L); // Update every minute
+    }, 0L, 20L * 10L);
   }
 }
 

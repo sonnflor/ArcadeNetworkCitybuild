@@ -6,3 +6,7 @@ database:
   password: T(cZ<EjxiB-U?8P
   #password: a-bsdciisMOLIa-cdsb12das
 forbidden_words: ["hurensohn","spast","käsiger michael"]
+bridge:
+  ws-url: "ws://myberry.v6.rocks:3000/mc-bridge"
+  api-key: "Lange_Schlüssel"
+  reconnect-delay-seconds: 5

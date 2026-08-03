@@ -1,8 +1,11 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorGuiButtonExecutor;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +14,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+
+import java.util.Map;
 
 public class RankCouponManager implements Listener {
   @EventHandler
@@ -26,16 +31,9 @@ public class RankCouponManager implements Listener {
     if (!couponName.startsWith("rank_")) {
       return;
     }
-    player.showDialog(Utils.getConsentDialog(player, Component.text("Sind sie sicher, dass sie diesen Rang-Coupon einlösen möchten?"), p -> {
-      String rank = couponName.substring(5);
-      try {
-        RankManager.improveRank(player.getUniqueId().toString(), rank);
-        player.sendMessage("§f[§aRank§f]§7 Dein Rang wurde auf " + rank.replace('_',' ') + " gesetzt");
-        if (!player.getGameMode().equals(org.bukkit.GameMode.CREATIVE)) itemStack.setAmount(itemStack.getAmount() - 1);
-      } catch (IllegalArgumentException e) {
-        player.sendMessage("§f[§aRank§f]§7 Ein kritischer Fehler ist aufgetreten. Bitte informiere einen Supporter oder Admin");
-      }
-    }));
+    YamlConfiguration config = new YamlConfiguration();
+    config.set("item", itemStack);
+    player.openInventory(Gui.getConfirmationGui(Map.of("couponName",couponName,"couponItem",config.saveToString()), new NamecolorGuiButtonExecutor(), "Akzeptiere, um den Rang-Gutschein einzulösen").buildInventory());
   }
 
   public static ItemStack getRankCoupon(String rank) {

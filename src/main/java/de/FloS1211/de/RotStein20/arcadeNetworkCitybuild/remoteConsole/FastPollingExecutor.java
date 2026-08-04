@@ -9,12 +9,12 @@ import org.jetbrains.annotations.NotNull;
 public class FastPollingExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
-    if (args.length == 1) {
+    if (args.length == 0) {
       commandSender.sendMessage(Component.text("FastPolling: " + (CommandPoller.fastPollingUntil == 0 ? "§cfalse" : "§atrue")));
       commandSender.sendMessage(Component.text("PollingSpeed: 1 request every " + (CommandPoller.fastPollingUntil == 0 ? "2 minutes" : "5 seconds")));
     }
-    if (args.length == 2) {
-      long fastPollingTimeSpan = Long.parseLong(args[1]);
+    if (args.length == 1) {
+      long fastPollingTimeSpan = Long.parseLong(args[0]);
       if (fastPollingTimeSpan < 0 || fastPollingTimeSpan > 1200) {
         commandSender.sendMessage(fastPollingTimeSpan + " is an invalid timespan. ");
         commandSender.sendMessage("Please enter a time span between 0 and 1200 seconds. ");

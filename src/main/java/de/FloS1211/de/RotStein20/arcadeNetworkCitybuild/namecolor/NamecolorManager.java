@@ -1,9 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor;
 
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButton;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonType;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiDisplay;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PlayerNameManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable;
@@ -171,7 +168,8 @@ public class NamecolorManager {
       if (unlockedNamecolors.contains(namecolor.name())) {
         gui.addElement(new GuiButton(namecolor.name(), namecolor.item(), new NamecolorGuiButtonExecutor(), GuiButtonType.CUSTOM)
             .title(Component.text("Namensfarbe").color(NamedTextColor.GREEN).append(Component.text(" • ").color(NamedTextColor.GRAY).append(NamecolorManager.getColoredName(namecolor.name(),namecolor.name(),true))))
-            .lore(List.of(Component.text("Klicke, um die Namensfarbe zu aktivieren").color(NamedTextColor.GRAY))));
+            .lore(List.of(Component.text("Klicke, um die Namensfarbe zu aktivieren").color(NamedTextColor.GRAY)))
+            .sound(GuiSound.SUCCESS));
       } else {
         gui.addElement(new GuiDisplay(namecolor.name(), Material.BARRIER)
             .title(Component.text("Namensfarbe").color(NamedTextColor.RED).append(Component.text(" • ").color(NamedTextColor.RED).append(NamecolorManager.getColoredName(namecolor.name(),namecolor.name(),true))))

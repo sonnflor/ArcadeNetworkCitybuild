@@ -12,14 +12,10 @@ import java.util.UUID;
 public class TpaListener implements PluginMessageListener {
   @Override
   public void onPluginMessageReceived(String channel, @NotNull Player player, byte @NotNull [] message) {
-    Bukkit.getLogger().info("0");
     if (!channel.equals("arcadenetwork:tpa")) return;
-    Bukkit.getLogger().info("1");
     ByteArrayDataInput in = ByteStreams.newDataInput(message);
     String action = in.readUTF();
-    Bukkit.getLogger().info(action);
     if (action.equals("SEND_TPA")) {
-      Bukkit.getLogger().info("2");
       String senderUuid = in.readUTF();
       String targetUuid = in.readUTF();
       String  direction = in.readUTF();

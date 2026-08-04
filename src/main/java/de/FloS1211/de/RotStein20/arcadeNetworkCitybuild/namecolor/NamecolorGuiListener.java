@@ -46,7 +46,7 @@ public class NamecolorGuiListener implements Listener {
       NamecolorManager.setNamecolor(uuid,"default");
     } else {
       NamecolorManager.setNamecolor(uuid,namecolor);
-      player.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize("§f[§aNamensfarben§f] §7").append(NamecolorManager.getColoredName(namecolor,"Du hast die Namensfarbe " + NamecolorManager.namecolors.get(namecolor).getName() + " aktiviert",true)));
+      player.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize("§f[§aNamensfarben§f] §7").append(NamecolorManager.getColoredName(namecolor,"Du hast die Namensfarbe " + NamecolorManager.namecolors.get(namecolor).name() + " aktiviert",true)));
     }
     PlayerNameManager.updatePlayerName(uuid);
     player.closeInventory();

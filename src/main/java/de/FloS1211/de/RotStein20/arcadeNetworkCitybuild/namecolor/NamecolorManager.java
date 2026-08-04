@@ -1,5 +1,9 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButton;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonType;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiDisplay;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PlayerNameManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable;
@@ -9,49 +13,51 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.SequencedCollection;
 
 public class NamecolorManager {
-  public static List<String> namecolorNames = List.of("red","orange", "yellow", "green", "darkgreen", "cyan", "blue", "purple", "magenta","white", "gray", "sea", "redstone", "lava","forest", "chess", "space", "constuction", "diamond", "enchanted","stone", "cobblestone", "discord", "gold", "hacker", "candycane","sky","flamingo", "iron", "copper","sun", "duck","twitch");
-  public static Map<String,Namecolor> namecolors = Map.ofEntries(
-      Map.entry("red",new Namecolor("red", NamedTextColor.RED,NamedTextColor.RED, Material.RED_DYE,"solid")),
-      Map.entry("orange", new Namecolor("orange", NamedTextColor.GOLD,NamedTextColor.GOLD, Material.ORANGE_DYE,"solid")),
-      Map.entry("yellow", new Namecolor("yellow", NamedTextColor.YELLOW,NamedTextColor.YELLOW, Material.YELLOW_DYE,"solid")),
-      Map.entry("green", new Namecolor("green", NamedTextColor.GREEN,NamedTextColor.GREEN, Material.LIME_DYE,"solid")),
-      Map.entry("darkgreen", new Namecolor("darkgreen", NamedTextColor.DARK_GREEN,NamedTextColor.DARK_GREEN, Material.GREEN_DYE,"solid")),
-      Map.entry("cyan", new Namecolor("cyan", NamedTextColor.DARK_AQUA,NamedTextColor.DARK_AQUA, Material.CYAN_DYE,"solid")),
-      Map.entry("blue", new Namecolor("blue", NamedTextColor.BLUE,NamedTextColor.BLUE, Material.BLUE_DYE,"solid")),
-      Map.entry("purple", new Namecolor("purple", NamedTextColor.DARK_PURPLE,NamedTextColor.DARK_PURPLE, Material.PURPLE_DYE,"solid")),
-      Map.entry("magenta", new Namecolor("magenta", NamedTextColor.LIGHT_PURPLE,NamedTextColor.LIGHT_PURPLE, Material.MAGENTA_DYE,"solid")),
-      Map.entry("white", new Namecolor("white", NamedTextColor.WHITE,NamedTextColor.WHITE, Material.WHITE_DYE,"solid")),
-      Map.entry("gray", new Namecolor("gray", NamedTextColor.DARK_GRAY,NamedTextColor.DARK_GRAY, Material.GRAY_DYE,"solid")),
-      Map.entry("sea", new Namecolor("sea",NamedTextColor.DARK_BLUE,NamedTextColor.BLUE,Material.WATER_BUCKET,"gradient")),
-      Map.entry("redstone", new Namecolor("redstone",NamedTextColor.RED,NamedTextColor.DARK_RED,Material.REDSTONE,"gradient")),
-      Map.entry("lava", new Namecolor("lava",NamedTextColor.RED,NamedTextColor.GOLD,Material.LAVA_BUCKET,"gradient")),
-      Map.entry("forest", new Namecolor("forest",NamedTextColor.GREEN,NamedTextColor.DARK_GREEN,Material.OAK_SAPLING,"gradient")),
-      Map.entry("chess", new Namecolor("chess",NamedTextColor.BLACK,NamedTextColor.WHITE,Material.DAYLIGHT_DETECTOR,"alternate1")),
-      Map.entry("space", new Namecolor("space",NamedTextColor.DARK_PURPLE,NamedTextColor.BLACK,Material.SCULK,"gradient")),
-      Map.entry("constuction", new Namecolor("constuction",NamedTextColor.YELLOW,NamedTextColor.BLACK,Material.DEEPSLATE_GOLD_ORE,"alternate2")),
-      Map.entry("diamond", new Namecolor("diamond",NamedTextColor.DARK_AQUA,NamedTextColor.AQUA,Material.DIAMOND,"gradient")),
-      Map.entry("enchanted", new Namecolor("enchanted",NamedTextColor.LIGHT_PURPLE,NamedTextColor.DARK_PURPLE,Material.ENCHANTING_TABLE,"gradient")),
-      Map.entry("stone", new Namecolor("stone",NamedTextColor.GRAY,NamedTextColor.DARK_GRAY,Material.STONE,"gradient")),
-      Map.entry("cobblestone", new Namecolor("cobblestone",NamedTextColor.GRAY,NamedTextColor.DARK_GRAY,Material.COBBLESTONE,"alternate2")),
-      Map.entry("discord", new Namecolor("discord",NamedTextColor.BLUE,NamedTextColor.WHITE,Material.REPEATING_COMMAND_BLOCK,"alternate2")),
-      Map.entry("gold", new Namecolor("gold",NamedTextColor.GOLD,NamedTextColor.YELLOW,Material.GOLD_INGOT,"gradient")),
-      Map.entry("hacker", new Namecolor("hacker",NamedTextColor.BLACK,NamedTextColor.GREEN,Material.COMMAND_BLOCK,"special0010110101011011")),
-      Map.entry("candycane", new Namecolor("candycane",NamedTextColor.RED,NamedTextColor.WHITE,Material.FIREWORK_ROCKET,"alternate1")),
-      Map.entry("sky", new Namecolor("sky",NamedTextColor.AQUA,NamedTextColor.WHITE,Material.LIGHT_BLUE_STAINED_GLASS_PANE,"gradient")),
-      Map.entry("flamingo", new Namecolor("flamingo",NamedTextColor.LIGHT_PURPLE,NamedTextColor.WHITE,Material.MAGENTA_CARPET,"gradient")),
-      Map.entry("iron", new Namecolor("iron",NamedTextColor.GRAY,NamedTextColor.WHITE,Material.IRON_INGOT,"gradient")),
-      Map.entry("copper", new Namecolor("copper",NamedTextColor.GOLD,NamedTextColor.DARK_AQUA,Material.COPPER_INGOT,"gradient")),
-      Map.entry("sun", new Namecolor("sun",NamedTextColor.YELLOW,NamedTextColor.WHITE,Material.SUNFLOWER,"gradient")),
-      Map.entry("duck", new Namecolor("duck",NamedTextColor.DARK_GREEN,NamedTextColor.GRAY,Material.SUNFLOWER,"gradient")),
-      Map.entry("twitch", new Namecolor("twitch",NamedTextColor.DARK_PURPLE,NamedTextColor.WHITE,Material.REPEATING_COMMAND_BLOCK,"alternate2")),
-      Map.entry("default", new Namecolor("default",NamedTextColor.GRAY,NamedTextColor.GRAY,Material.STRUCTURE_VOID,"solid"))
-  );
+  public static LinkedHashMap<String,Namecolor> namecolors = new LinkedHashMap<>(){
+    {
+      put("red", new Namecolor("Rot", NamedTextColor.RED, NamedTextColor.RED, Material.RED_DYE, "solid"));
+      put("orange", new Namecolor("Orange", NamedTextColor.GOLD, NamedTextColor.GOLD, Material.ORANGE_DYE, "solid"));
+      put("yellow", new Namecolor("Gelb", NamedTextColor.YELLOW, NamedTextColor.YELLOW, Material.YELLOW_DYE, "solid"));
+      put("green", new Namecolor("Grün", NamedTextColor.GREEN, NamedTextColor.GREEN, Material.LIME_DYE, "solid"));
+      put("darkgreen", new Namecolor("Dunkelgrün", NamedTextColor.DARK_GREEN, NamedTextColor.DARK_GREEN, Material.GREEN_DYE, "solid"));
+      put("cyan", new Namecolor("Türkis", NamedTextColor.DARK_AQUA, NamedTextColor.DARK_AQUA, Material.CYAN_DYE, "solid"));
+      put("blue", new Namecolor("Blau", NamedTextColor.BLUE, NamedTextColor.BLUE, Material.BLUE_DYE, "solid"));
+      put("purple", new Namecolor("Lila", NamedTextColor.DARK_PURPLE, NamedTextColor.DARK_PURPLE, Material.PURPLE_DYE, "solid"));
+      put("magenta", new Namecolor("Magenta", NamedTextColor.LIGHT_PURPLE, NamedTextColor.LIGHT_PURPLE, Material.MAGENTA_DYE, "solid"));
+      put("white", new Namecolor("Weiß", NamedTextColor.WHITE, NamedTextColor.WHITE, Material.WHITE_DYE, "solid"));
+      put("gray", new Namecolor("Grau", NamedTextColor.DARK_GRAY, NamedTextColor.DARK_GRAY, Material.GRAY_DYE, "solid"));
+      put("sea", new Namecolor("Meer", NamedTextColor.DARK_BLUE, NamedTextColor.BLUE, Material.WATER_BUCKET, "gradient"));
+      put("redstone", new Namecolor("Redstone", NamedTextColor.RED, NamedTextColor.DARK_RED, Material.REDSTONE, "gradient"));
+      put("lava", new Namecolor("Lava", NamedTextColor.RED, NamedTextColor.GOLD, Material.LAVA_BUCKET, "gradient"));
+      put("forest", new Namecolor("Wald", NamedTextColor.GREEN, NamedTextColor.DARK_GREEN, Material.OAK_SAPLING, "gradient"));
+      put("chess", new Namecolor("Schach", NamedTextColor.BLACK, NamedTextColor.WHITE, Material.DAYLIGHT_DETECTOR, "alternate1"));
+      put("space", new Namecolor("Space", NamedTextColor.DARK_PURPLE, NamedTextColor.BLACK, Material.SCULK, "gradient"));
+      put("construction", new Namecolor("Baustelle", NamedTextColor.YELLOW, NamedTextColor.BLACK, Material.DEEPSLATE_GOLD_ORE, "alternate2"));
+      put("diamond", new Namecolor("Diamant", NamedTextColor.DARK_AQUA, NamedTextColor.AQUA, Material.DIAMOND, "gradient"));
+      put("enchanted", new Namecolor("Verzaubert", NamedTextColor.LIGHT_PURPLE, NamedTextColor.DARK_PURPLE, Material.ENCHANTING_TABLE, "gradient"));
+      put("stone", new Namecolor("Stein", NamedTextColor.GRAY, NamedTextColor.DARK_GRAY, Material.STONE, "gradient"));
+      put("cobblestone", new Namecolor("Bruchstein", NamedTextColor.GRAY, NamedTextColor.DARK_GRAY, Material.COBBLESTONE, "alternate2"));
+      put("discord", new Namecolor("Discord", NamedTextColor.BLUE, NamedTextColor.WHITE, Material.REPEATING_COMMAND_BLOCK, "alternate2"));
+      put("gold", new Namecolor("Gold", NamedTextColor.GOLD, NamedTextColor.YELLOW, Material.GOLD_INGOT, "gradient"));
+      put("hacker", new Namecolor("Gacker", NamedTextColor.BLACK, NamedTextColor.GREEN, Material.COMMAND_BLOCK, "special0010110101011011"));
+      put("candycane", new Namecolor("Zuckerstange", NamedTextColor.RED, NamedTextColor.WHITE, Material.FIREWORK_ROCKET, "alternate1"));
+      put("sky", new Namecolor("Himmel", NamedTextColor.AQUA, NamedTextColor.WHITE, Material.LIGHT_BLUE_STAINED_GLASS_PANE, "gradient"));
+      put("flamingo", new Namecolor("Flamingo", NamedTextColor.LIGHT_PURPLE, NamedTextColor.WHITE, Material.MAGENTA_CARPET, "gradient"));
+      put("iron", new Namecolor("Eisen", NamedTextColor.GRAY, NamedTextColor.WHITE, Material.IRON_INGOT, "gradient"));
+      put("copper", new Namecolor("Kupfer", NamedTextColor.GOLD, NamedTextColor.DARK_AQUA, Material.COPPER_INGOT, "gradient"));
+      put("sun", new Namecolor("Sonne", NamedTextColor.YELLOW, NamedTextColor.WHITE, Material.SUNFLOWER, "gradient"));
+      put("duck", new Namecolor("Ente", NamedTextColor.DARK_GREEN, NamedTextColor.GRAY, Material.SUNFLOWER, "gradient"));
+      put("twitch", new Namecolor("Twitch", NamedTextColor.DARK_PURPLE, NamedTextColor.WHITE, Material.REPEATING_COMMAND_BLOCK, "alternate2"));
+      put("default", new Namecolor("default", NamedTextColor.GRAY, NamedTextColor.GRAY, Material.STRUCTURE_VOID, "solid"));
+    }};
 
   public static void setNamecolor(String uuid, String namecolor) {
     DatabaseManager.executeSQL("INSERT INTO player_data (uuid,namecolor) VALUES (?,?) ON DUPLICATE KEY UPDATE namecolor = ?", java.util.List.of(uuid, namecolor, namecolor));
@@ -87,8 +93,8 @@ public class NamecolorManager {
   }
 
   public static Component getGradient(String name, Namecolor col, boolean isSmooth) {
-    NamedTextColor col1 = col.getCol1();
-    NamedTextColor col2 = col.getCol2();
+    NamedTextColor col1 = col.col1();
+    NamedTextColor col2 = col.col2();
     Component result = Component.text("");
     if (isSmooth) {
       int r1 = col1.red();
@@ -119,31 +125,31 @@ public class NamecolorManager {
   public static Component getColoredName(String colName,String name, boolean isSmooth) {
     Namecolor col = namecolors.get(colName);
     Component result;
-    switch (col.getType().replaceAll("\\d","")) {
+    switch (col.type().replaceAll("\\d","")) {
       case "solid" -> {
-        result = Component.text(name).color(col.getCol1());
+        result = Component.text(name).color(col.col1());
       }
       case "gradient" -> {
         result = getGradient(name,col,isSmooth);
       }
       case "alternate" -> {
         result = Component.text("");
-        int sequenceLength = Integer.parseInt(col.getType().replaceAll("\\D",""));
+        int sequenceLength = Integer.parseInt(col.type().replaceAll("\\D",""));
         for (int i = 0; i < name.length(); i++) {
           boolean firstColor = ((i / sequenceLength) % 2 == 0);
 
           result = result.append(
               Component.text(name.substring(i, i + 1))
-                  .color(firstColor ? col.getCol1() : col.getCol2())
+                  .color(firstColor ? col.col1() : col.col2())
           );
         }
       }
       case "special" -> {
         result = Component.text("");
-        String sequence = col.getType().replaceAll("\\D","");
-        if (sequence.length() != 16) Bukkit.getLogger().warning("[Namensfarben] Special-sequence from " + col.getName() + " is not 16 chars long");
+        String sequence = col.type().replaceAll("\\D","");
+        if (sequence.length() != 16) Bukkit.getLogger().warning("[Namensfarben] Special-sequence from " + col.name() + " is not 16 chars long");
         for (int i = 0; i < name.length(); i++) {
-          result = result.append(Component.text(name.charAt(i)).color(sequence.charAt(i%sequence.length()) == '0' ? col.getCol1() : col.getCol2()));
+          result = result.append(Component.text(name.charAt(i)).color(sequence.charAt(i%sequence.length()) == '0' ? col.col1() : col.col2()));
         }
       }
       case null, default -> result = Component.text(name).color(NamedTextColor.GRAY);
@@ -153,5 +159,32 @@ public class NamecolorManager {
 
   public static String getColoredNameAsString(String colName,String name) {
     return LegacyComponentSerializer.legacySection().serialize(getColoredName(colName,name,false));
+  }
+
+  public static Gui getNamecolorGUI(Player player) {
+    String uuid = player.getUniqueId().toString();
+    Gui gui = new Gui(54, Component.text("Namensfarben"));
+    SequencedCollection<Namecolor> namecolors = NamecolorManager.namecolors.sequencedValues();
+    namecolors.removeLast();
+    List<String> unlockedNamecolors = NamecolorManager.getUnlockedNamecolors(uuid);
+    for (Namecolor namecolor : namecolors) {
+      if (unlockedNamecolors.contains(namecolor.name())) {
+        gui.addElement(new GuiButton(namecolor.name(), namecolor.item(), new NamecolorGuiButtonExecutor(), GuiButtonType.CUSTOM)
+            .title(Component.text("Namensfarbe").color(NamedTextColor.GREEN).append(Component.text(" • ").color(NamedTextColor.GRAY).append(NamecolorManager.getColoredName(namecolor.name(),namecolor.name(),true))))
+            .lore(List.of(Component.text("Klicke, um die Namensfarbe zu aktivieren").color(NamedTextColor.GRAY))));
+      } else {
+        gui.addElement(new GuiDisplay(namecolor.name(), Material.BARRIER)
+            .title(Component.text("Namensfarbe").color(NamedTextColor.RED).append(Component.text(" • ").color(NamedTextColor.RED).append(NamecolorManager.getColoredName(namecolor.name(),namecolor.name(),true))))
+            .lore(List.of(
+                Component.text("Du hast diese Namensfarbe noch nicht freigeschaltet.")
+                    .color(NamedTextColor.RED),
+                Component.text("Du kannst Namensfarben über Crates erhalten. ")
+                    .color(NamedTextColor.RED))));
+      }
+    }
+    gui.setElement(new GuiButton("default",Material.STRUCTURE_VOID,new NamecolorGuiButtonExecutor(),GuiButtonType.CUSTOM)
+        .title(Component.text("Namensfarbe deaktivieren").color(NamedTextColor.GRAY))
+        .lore(List.of(Component.text("Klicke, um deine Namensfarbe zu deaktivieren").color(NamedTextColor.GRAY))),0,40);
+    return gui;
   }
 }

@@ -1,6 +1,8 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiDisplay;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable;
@@ -58,16 +60,16 @@ public class MuteinfoExecutor implements CommandExecutor {
     String muterUuid = mute.getMuterUuid();
     String muterName = Bukkit.getOfflinePlayer(UUID.fromString(mute.getMuterUuid())).getName();
     if (commandSender instanceof Player player) {
-      Inventory gui = Bukkit.createInventory(new CustomGuiHolder(),9, Component.text("Mute Informationen"));
-      gui.addItem(createItemStack("Spieler Name",playerName,Material.PLAYER_HEAD));
-      gui.addItem(createItemStack("Spieler UUID",uuid,Material.NAME_TAG));
-      gui.addItem(createItemStack("Unmute Zeitpunkt",unmuteTime,Material.CLOCK));
-      gui.addItem(createItemStack("Mute Dauer",muteDuration,Material.CLOCK));
-      gui.addItem(createItemStack("Reason",reason,Material.NAME_TAG));
-      gui.addItem(createItemStack("Mute Zeitpunkt",muteTimestamp,Material.CLOCK));
-      gui.addItem(createItemStack("Muter Name",muterName,Material.OBSERVER));
-      gui.addItem(createItemStack("Muter UUID",muterUuid,Material.OBSERVER));
-      player.openInventory(gui);
+      Gui gui = new Gui(9,Component.text("Mute Informationen"));
+      gui.addElement(createDisplay("Spieler Name",playerName,Material.PLAYER_HEAD));
+      gui.addElement(createDisplay("Spieler UUID",uuid,Material.NAME_TAG));
+      gui.addElement(createDisplay("Unmute Zeitpunkt",unmuteTime,Material.CLOCK));
+      gui.addElement(createDisplay("Mute Dauer",muteDuration,Material.CLOCK));
+      gui.addElement(createDisplay("Reason",reason,Material.NAME_TAG));
+      gui.addElement(createDisplay("Mute Zeitpunkt",muteTimestamp,Material.CLOCK));
+      gui.addElement(createDisplay("Muter Name",muterName,Material.OBSERVER));
+      gui.addElement(createDisplay("Muter UUID",muterUuid,Material.OBSERVER));
+      player.openInventory(gui.buildInventory());
     } else {
       Bukkit.getLogger().info("player-name=\""+playerName+"\"");
       Bukkit.getLogger().info("player-uuid=\""+uuid+"\"");
@@ -81,14 +83,9 @@ public class MuteinfoExecutor implements CommandExecutor {
     return true;
   }
 
-  private ItemStack createItemStack(String itemName, String lore, Material material) {
-    ItemStack itemStack = new ItemStack(material);
-    ItemMeta itemMeta = itemStack.getItemMeta();
-    itemMeta.lore(List.of(
-        Component.text(lore).color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC,false)
-    ));
-    itemMeta.itemName(Component.text(itemName).color(NamedTextColor.WHITE));
-    itemStack.setItemMeta(itemMeta);
-    return itemStack;
+  private GuiDisplay createDisplay(String title, String lore, Material material) {
+    return new GuiDisplay(title,material)
+        .title(Component.text(title))
+        .lore(List.of(Component.text(lore).color(NamedTextColor.GREEN).decoration(TextDecoration.ITALIC,false)));
   }
 }

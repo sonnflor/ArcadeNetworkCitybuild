@@ -25,6 +25,8 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PermissionManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PlayerNameManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankTabCompleter;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.remoteConsole.CommandPoller;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.remoteConsole.FastPollingExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.ConfigSidebarExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.ConfigSidebarTabCompleter;
@@ -253,7 +255,7 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
   private void initRemoteCommands() {
     CommandPoller.start();
     getLogger().info("PollingPlugin aktiviert.");
-    getCommand("fastpoll").setExecutor(new FastPollExecutor());
+    getCommand("fastpoll").setExecutor(new FastPollingExecutor());
     getCommand("fastpoll").setTabCompleter(new EmptyTabCompleter());
   }
 }

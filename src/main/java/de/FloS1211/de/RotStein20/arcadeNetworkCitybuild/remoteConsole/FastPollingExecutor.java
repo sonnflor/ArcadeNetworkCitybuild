@@ -1,4 +1,4 @@
-package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure;
+package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.remoteConsole;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-public class FastPollExecutor implements CommandExecutor {
+public class FastPollingExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
     if (args.length == 1) {
@@ -25,3 +25,4 @@ public class FastPollExecutor implements CommandExecutor {
     return true;
   }
 }
+

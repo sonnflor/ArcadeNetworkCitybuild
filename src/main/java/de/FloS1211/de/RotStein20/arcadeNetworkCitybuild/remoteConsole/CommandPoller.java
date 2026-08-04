@@ -1,4 +1,4 @@
-package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure;
+package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.remoteConsole;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.ArcadeNetworkCitybuild;
 import org.bukkit.Bukkit;
@@ -15,8 +15,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class CommandPoller {
   private static final JavaPlugin plugin = ArcadeNetworkCitybuild.getInstance();
   private static final HttpClient client = HttpClient.newBuilder()
-                                        .connectTimeout(Duration.ofSeconds(5))
-                                        .build();
+      .connectTimeout(Duration.ofSeconds(5))
+      .build();
   public static long fastPollingUntil = 0;
   private static final AtomicBoolean polling = new AtomicBoolean(false);
 
@@ -86,3 +86,4 @@ public class CommandPoller {
     Bukkit.getScheduler().runTaskAsynchronously(plugin, CommandPoller::poll);
   }
 }
+

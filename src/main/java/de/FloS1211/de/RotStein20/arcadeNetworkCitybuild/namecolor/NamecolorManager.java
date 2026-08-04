@@ -12,10 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.SequencedCollection;
+import java.util.*;
 
 public class NamecolorManager {
   public static LinkedHashMap<String,Namecolor> namecolors = new LinkedHashMap<>(){
@@ -161,10 +158,10 @@ public class NamecolorManager {
   public static Gui getNamecolorGUI(Player player) {
     String uuid = player.getUniqueId().toString();
     Gui gui = new Gui(54, Component.text("Namensfarben"));
-    SequencedCollection<Namecolor> namecolors = NamecolorManager.namecolors.sequencedValues();
-    namecolors.removeLast();
+    SequencedCollection<Namecolor> namecolorValues = NamecolorManager.namecolors.sequencedValues();
+    namecolorValues.removeLast();
     List<String> unlockedNamecolors = NamecolorManager.getUnlockedNamecolors(uuid);
-    for (Namecolor namecolor : namecolors) {
+    for (Namecolor namecolor : namecolorValues) {
       if (unlockedNamecolors.contains(namecolor.name())) {
         gui.addElement(new GuiButton(namecolor.name(), namecolor.item(), new NamecolorGuiButtonExecutor(), GuiButtonType.CUSTOM)
             .title(Component.text("Namensfarbe").color(NamedTextColor.GREEN).append(Component.text(" • ").color(NamedTextColor.GRAY).append(NamecolorManager.getColoredName(namecolor.name(),namecolor.name(),true))))
@@ -172,7 +169,7 @@ public class NamecolorManager {
             .sound(GuiSound.SUCCESS));
       } else {
         gui.addElement(new GuiDisplay(namecolor.name(), Material.BARRIER)
-            .title(Component.text("Namensfarbe").color(NamedTextColor.RED).append(Component.text(" • ").color(NamedTextColor.RED).append(NamecolorManager.getColoredName(namecolor.name(),namecolor.name(),true))))
+            .title(Component.text("Namensfarbe").color(NamedTextColor.RED).append(Component.text(" • ").color(NamedTextColor.RED).append(NamecolorManager.getColoredName(namecolors.entrySet().stream().filter(entry -> entry.getValue().equals(namecolor)).map(Map.Entry::getKey).findFirst().orElse(null),namecolor.name(),true))))
             .lore(List.of(
                 Component.text("Du hast diese Namensfarbe noch nicht freigeschaltet.")
                     .color(NamedTextColor.RED),

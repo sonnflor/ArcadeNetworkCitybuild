@@ -15,6 +15,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mail.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorGuiListener;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkEffectListener;
@@ -168,6 +169,7 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getCommand("namecolor").setExecutor(new NamecolorExecutor());
     getCommand("namecolor").setTabCompleter(new EmptyTabCompleter());
     Bukkit.getPluginManager().registerEvents(new NamecolorCouponManager(), this);
+    Bukkit.getPluginManager().registerEvents(new NamecolorGuiListener(), this);
   }
   private void initMute(){
     getCommand("mute").setExecutor(new MuteExecutor());

@@ -31,7 +31,7 @@ public class PerkManager {
       put("bird", new Perk("bird", "Vogel Perk", "Lässt dich fliegen, wie im Kreativ-Modus", Material.ELYTRA, null, PerkEffectListener::switchBirdPerk));
       put("cat", new Perk("cat", "Katzen Perk", "Du erhältst keinen Fallschaden", Material.CAT_SPAWN_EGG, null, null));
       put("telekinesis", new Perk("telekinesis", "Telekinese Perk", "Gedropte Items werden in dein Inventar teleportiert", Material.ENDER_EYE, null, null));
-      put("dolphin", new Perk("dolphin", "Delfin Perk", "Du kannst im Wasser nach vorn schießen, wie mit einem Dreizack", Material.DOLPHIN_SPAWN_EGG, new PotionEffect(PotionEffectType.DOLPHINS_GRACE,15*20,0), null));
+      put("dolphin", new Perk("dolphin", "Delfin Perk", "Du kannst im Wasser nach vorn schießen, wie mit einem Dreizack", Material.DOLPHIN_SPAWN_EGG, null, null));
       put("xp", new Perk("xp", "Doppelte XP Perk", "Du erhältst doppelte XP", Material.EXPERIENCE_BOTTLE, null, null));
       put("keep_inv", new Perk("keep_inv", "Keep Inventory Perk", "Du behältst dein Inventar nach dem Tod", Material.CHEST, null, null));
       put("rocket", new Perk("rocket", "Raketen Perk", "Du kannst dich mit Shift im Elytraflug nach vorn boosten", Material.FIREWORK_ROCKET, null, null));

@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GetCustomItemExecutor implements CommandExecutor {
-  public static List<String> validItems = List.of("coin","rankbook","namecolorbook");
+  public static List<String> validItems = List.of("coin","rankbook","namecolorbook", "perkbook");
   @Override
   public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
     if (args.length < 1) return false;

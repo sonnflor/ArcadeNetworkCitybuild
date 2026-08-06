@@ -31,7 +31,7 @@ public class AuszahlenExecutor implements CommandExecutor {
     }
 
     if (!(commandSender instanceof Player player)) {
-      commandSender.sendMessage("§f[§aCoins§f]§7 Kann nur von einem Spieler ausgeführt werden!");
+      commandSender.sendMessage(MessageManager.get("general-invalid-executor"));
       return true;
     }
     String uuid = player.getUniqueId().toString();

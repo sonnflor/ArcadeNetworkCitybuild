@@ -8,7 +8,6 @@ coins-auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> Du hast nicht g
 coins-deposit: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins eingezahlt"
 coins-pay-negative: "<white>[<green>Coins<white>]<gray> Du kannst keine negativen Coins verschenken"
 
-
 mute-unmute-sender: "<white>[<green>Mute<white>]<gray> Du hast {player} unmutet"
 mute-unmute-target: "<white>[<green>Mute<white>]<gray> Du wurdest unmutet (Du darftst dich jetzt freuen yay!! :D)"
 mute-mute-sender: "<white>[<green>Mute<white>]<gray> Du hast {player} permanet gemuted. Begründung: {reason}"
@@ -69,3 +68,6 @@ mail-deleted: "<white>[<green>Mail<white>]<gray> Du hast die Mail von {sender} m
 
 perk-gain-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green>{perk}</green> erhalten"
 perk-switch-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green>{perk}</green> {state}"
+
+namecolor-deactivate: "<white>[<green>Namensfarben<white>]<gray> Du hast deine Namensfarbe deaktiviert"
+namecolor-activate: "<white>[<green>Namensfarben<white>]<gray> Du hast die Namensfarbe {color} aktiviert"

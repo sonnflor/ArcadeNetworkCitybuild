@@ -28,6 +28,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankTabCompleter
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.remoteConsole.CommandPoller;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.remoteConsole.FastPollingExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.*;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.shop.ShopManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.ConfigSidebarExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.ConfigSidebarTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.SidebarManager;
@@ -120,6 +121,7 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     initSql();
     initPerks();
     initRemoteCommands();
+    initShop();
   }
   private void initConins(){
     getCommand("auszahlen").setExecutor(new AuszahlenExecutor());
@@ -152,9 +154,12 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getCommand("performaction").setExecutor(new PerformactionExecutor());
     Bukkit.getPluginManager().registerEvents(new AntiXashinnListener(), this);
     Bukkit.getPluginManager().registerEvents(new LobbyProtectListener(), this);
+    LobbyProtectListener.startVoidProtection();
     getCommand("testcom").setExecutor(new TestCom());
     Bukkit.getPluginManager().registerEvents(new TabListManager(), this);
     Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
+    getCommand("spawn").setExecutor(new SpawnExecutor());
+    getCommand("spawn").setTabCompleter(new EmptyTabCompleter());
   }
   private void initRank(){
     PermissionManager.initialize();
@@ -257,6 +262,10 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getLogger().info("PollingPlugin aktiviert.");
     getCommand("fastpoll").setExecutor(new FastPollingExecutor());
     getCommand("fastpoll").setTabCompleter(new EmptyTabCompleter());
+  }
+
+  private void initShop() {
+    ShopManager.registerShelfRecipes();
   }
 }
 

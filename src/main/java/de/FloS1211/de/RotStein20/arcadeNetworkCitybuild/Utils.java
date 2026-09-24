@@ -19,6 +19,9 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -33,6 +36,9 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.CustomGuiHolder;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.io.BukkitObjectInputStream;
+import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 public class Utils {
   public static void init() {
@@ -42,44 +48,9 @@ public class Utils {
   public static NamespacedKey key_coin_amount = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(), "coin_amount");
   public static NamespacedKey key_sidebar = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"sidebar");
   public static NamespacedKey key_keep_inv = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"keep_inv");
+  public static NamespacedKey key_shop_owner = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"shop_owner");
+  public static NamespacedKey key_shop_storage = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"shop_storage");
 
-  public static Integer canFitItem(Player player, ItemStack itemsToAdd) {
-    if (itemsToAdd == null || itemsToAdd.getAmount() <= 0) return 0;
-
-    Inventory inv = player.getInventory();
-    int remaining = itemsToAdd.getAmount();
-    int maxStackSize = itemsToAdd.getMaxStackSize();
-
-    // 1. Bestehende, gleiche ItemStacks auffüllen
-    for (ItemStack content : inv.getStorageContents()) {
-      if (content == null) continue;
-
-      if (content.isSimilar(itemsToAdd)) {
-        int space = maxStackSize - content.getAmount();
-        if (space > 0) {
-          int used = Math.min(space, remaining);
-          remaining -= used;
-          if (remaining <= 0) {
-            return 0;
-          }
-        }
-      }
-    }
-
-    // 2. Leere Slots nutzen
-    for (ItemStack content : inv.getStorageContents()) {
-      if (content == null) {
-        int used = Math.min(maxStackSize, remaining);
-        remaining -= used;
-        if (remaining <= 0) {
-          return 0;
-        }
-      }
-    }
-
-    // 3. Was übrig bleibt, passt nicht mehr rein
-    return remaining;
-  }
   public static String formatDate(long unixSec, String pattern) {
     ZoneId zone = ZoneId.systemDefault();
     ZonedDateTime zonedDateTime = Instant.ofEpochSecond(unixSec).atZone(zone);
@@ -117,5 +88,42 @@ public class Utils {
       itemStack.setItemMeta(itemMeta);
     }
     return itemStack;
+  }
+  public static String itemStackArrayToBase64(ItemStack[] items) throws IllegalStateException {
+    try {
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
+
+      // Write the size of the inventory
+      dataOutput.writeInt(items.length);
+
+      // Save every element in the list
+      for (int i = 0; i < items.length; i++) {
+        dataOutput.writeObject(items[i]);
+      }
+
+      // Serialize that array
+      dataOutput.close();
+      return Base64Coder.encodeLines(outputStream.toByteArray());
+    } catch (Exception e) {
+      throw new IllegalStateException("Unable to save item stacks.", e);
+    }
+  }
+  public static ItemStack[] itemStackArrayFromBase64(String data) throws IOException {
+    try {
+      ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
+      BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream);
+      ItemStack[] items = new ItemStack[dataInput.readInt()];
+
+      // Read the serialized inventory
+      for (int i = 0; i < items.length; i++) {
+        items[i] = (ItemStack) dataInput.readObject();
+      }
+
+      dataInput.close();
+      return items;
+    } catch (ClassNotFoundException e) {
+      throw new IOException("Unable to decode class type.", e);
+    }
   }
 }

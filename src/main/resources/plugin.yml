@@ -107,6 +107,8 @@ commands:
     usage: /fastpoll (<timespan>)
     permission: ac.developer
     description: "Gives you the polling speed an lets you enable fastpoll"
+  spawn:
+    usage: /spawn
 
 permissions:
   ac.crafter:

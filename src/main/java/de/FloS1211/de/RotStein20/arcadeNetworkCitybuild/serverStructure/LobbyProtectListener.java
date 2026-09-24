@@ -1,5 +1,8 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.ArcadeNetworkCitybuild;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +17,8 @@ import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 public class LobbyProtectListener implements Listener {
   private boolean shouldCancel(Player player) {
@@ -95,5 +100,23 @@ public class LobbyProtectListener implements Listener {
     if (shouldCancel(event.getPlayer())) {
       event.setCancelled(true);
     }
+  }
+
+  public static void startVoidProtection() {
+    if (!ProxyManager.getServerName().equalsIgnoreCase("lobby")) return;
+    Bukkit.getScheduler().runTaskTimer(ArcadeNetworkCitybuild.getInstance(), () -> {
+      for (Player player : Bukkit.getOnlinePlayers()) {
+        if (player.getLocation().getY() < 0) {
+          Vector direction = player.getLocation().getDirection().normalize();
+
+          Vector boost = direction.multiply(2.0);
+          boost.setY(boost.getY() + 2.5);
+
+          player.setVelocity(boost);
+          player.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
+          player.setGliding(true);
+        }
+      }
+    }, 0L, 10L);
   }
 }

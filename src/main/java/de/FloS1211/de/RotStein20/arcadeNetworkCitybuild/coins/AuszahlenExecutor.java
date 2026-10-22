@@ -1,7 +1,7 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.SidebarManager;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 public class AuszahlenExecutor implements CommandExecutor {
   @Override
@@ -25,13 +24,13 @@ public class AuszahlenExecutor implements CommandExecutor {
       try {
         coinValue = Integer.parseInt(args[1]);
       } catch (NumberFormatException e) {
-        commandSender.sendMessage(MessageManager.get("general-invalid-number"));
+        LanguageManager.send(commandSender, "general.invalid-number");
         return true;
       }
     }
 
     if (!(commandSender instanceof Player player)) {
-      commandSender.sendMessage(MessageManager.get("general-invalid-executor"));
+      LanguageManager.send(commandSender, "general.invalid-executor");
       return true;
     }
     String uuid = player.getUniqueId().toString();
@@ -41,20 +40,20 @@ public class AuszahlenExecutor implements CommandExecutor {
     try {
       amount = new BigDecimal(args[0]);
     } catch (NumberFormatException e) {
-      commandSender.sendMessage(MessageManager.get("general-invalid-number"));
+      LanguageManager.send(commandSender, "general.invalid-number");
       return true;
     }
     if (amount.scale() > 2) {
-      commandSender.sendMessage(MessageManager.get("general-invalid-number"));
+      LanguageManager.send(commandSender, "general.invalid-number");
       return true;
     }
     BigDecimal playerCoins = CoinsManager.getCoins(uuid);
     if (amount.compareTo(playerCoins)>0) {
-      commandSender.sendMessage(MessageManager.get("coins-auszahlen-failed-poor"));
+      LanguageManager.send(commandSender, "coins.chat.auszahlen-failed-poor");
       return true;
     }
     if (amount.doubleValue() <= 0) {
-      commandSender.sendMessage(MessageManager.get("coins-auszahlen-failed-negative"));
+      LanguageManager.send(commandSender, "coins.chat.auszahlen-failed-negative");
       return true;
     }
     int itemAmount = (int) Math.floor(amount.doubleValue() / coinValue);
@@ -79,7 +78,7 @@ public class AuszahlenExecutor implements CommandExecutor {
         inventory.addItem(lastStack);
       }
     }
-    player.sendMessage(MessageManager.get("coins-auszahlen-succeed", Map.of("amount",amount+"","coinValue",coinValue+"")));
+    LanguageManager.send(player, "coins.chat.auszahlen-succeed", "amount",amount+"","coinValue",coinValue+"");
     return true;
   }
 }

@@ -36,7 +36,7 @@ public class CoinsManager {
     ItemStack itemStack = new ItemStack(Material.SUNFLOWER, itemAmount);
     ItemMeta itemMeta = itemStack.getItemMeta();
     itemMeta.itemName(Component.text(amount + " Coins").color(NamedTextColor.GOLD));
-    itemMeta.getPersistentDataContainer().set(Utils.key_custom, PersistentDataType.STRING, "Coin");
+    itemMeta.getPersistentDataContainer().set(Utils.key_custom, PersistentDataType.STRING, "coin");
     itemMeta.getPersistentDataContainer().set(Utils.key_coin_amount, PersistentDataType.DOUBLE, amount.doubleValue());
     itemStack.setItemMeta(itemMeta);
     return itemStack;

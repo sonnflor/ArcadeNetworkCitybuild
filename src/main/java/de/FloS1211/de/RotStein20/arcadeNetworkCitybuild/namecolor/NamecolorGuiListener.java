@@ -2,6 +2,7 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.PlayerNameManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.CustomGuiHolder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -37,16 +38,15 @@ public class NamecolorGuiListener implements Listener {
     ItemMeta meta = item.getItemMeta();
     if (meta == null) return;
     PersistentDataContainer pdc = meta.getPersistentDataContainer();
-    PersistentDataContainer playerPdc = player.getPersistentDataContainer();
     if (!pdc.has(Utils.key_custom)) return;
     String namecolor = pdc.get(Utils.key_custom, PersistentDataType.STRING);
 
     if (Objects.equals(namecolor, "default")) {
-      player.sendMessage("§f[§aNamensfarben§f] §7Du hast deine Namensfarbe deaktiviert");
+      LanguageManager.send(player, "namecolor.chat.deactivate");
       NamecolorManager.setNamecolor(uuid,"default");
     } else {
       NamecolorManager.setNamecolor(uuid,namecolor);
-      player.sendMessage(LegacyComponentSerializer.legacyAmpersand().deserialize("§f[§aNamensfarben§f] §7").append(NamecolorManager.getColoredName(namecolor,"Du hast die Namensfarbe " + NamecolorManager.namecolors.get(namecolor).name() + " aktiviert",true)));
+      player.sendMessage(LanguageManager.get(player, "namecolor.chat.activate-pre").append(NamecolorManager.getColoredName(namecolor, NamecolorManager.namecolors.get(namecolor).name(), true)).append(LanguageManager.get(player, "namecolor.chat.activate-aft")));
     }
     PlayerNameManager.updatePlayerName(uuid);
     player.closeInventory();

@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.SidebarManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -19,7 +20,7 @@ public class PayExecutor implements CommandExecutor {
       return false;
     }
     if (!Bukkit.getOfflinePlayer(args[0]).hasPlayedBefore() && !Bukkit.getOfflinePlayer(args[0]).isOnline()) {
-      commandSender.sendMessage("§f[§aPay§f]§7 Bitte gib einen gültigen Spieler an");
+      LanguageManager.send(commandSender, "general.invalid-player");
       return false;
     }
     OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[0]);
@@ -27,21 +28,21 @@ public class PayExecutor implements CommandExecutor {
     try {
       amount = new BigDecimal(args[1]);
     } catch (NumberFormatException e) {
-      commandSender.sendMessage("§f[§aPay§f]§7 Bitte gib eine gültige Zahl an");
+      LanguageManager.send(commandSender, "general.invalid-number");
       return false;
     }
     if (amount.scale() > 2) {
-      commandSender.sendMessage("§f[§aPay§f]§7 Bitte gib eine gültige Zahl an");
+      LanguageManager.send(commandSender, "general.invalid-number");
       return true;
     }
     if (commandSender instanceof Player player) {
       if (!player.getGameMode().equals(GameMode.CREATIVE)) {
         if (CoinsManager.getCoins(player.getUniqueId().toString()).compareTo(amount) < 0) {
-          commandSender.sendMessage("§f[§aPay§f]§7 Du hast nicht genug Coins");
+          LanguageManager.send(commandSender, "coins.chat.pay-failed-poor", "amount", amount+"");
           return true;
         }
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
-          commandSender.sendMessage("§f[§aPay§f]§7 Du kannst keine Coins klauen");
+          LanguageManager.send(commandSender, "coins.chat.pay-failed-steel", "amount", amount+"");
           return true;
         }
       }
@@ -50,9 +51,9 @@ public class PayExecutor implements CommandExecutor {
     if ((commandSender instanceof Player player)&&!player.getGameMode().equals(GameMode.CREATIVE)) {
       CoinsManager.addCoins(player.getUniqueId().toString(),amount.negate());
     }
-    commandSender.sendMessage("§f[§aPay§f]§7 Transaktion wurde erfolgreich abgeschlossen");
+    LanguageManager.send(commandSender, "coins.chat.pay-succeed", "amount", amount+"");
     if (targetPlayer.isOnline()) {
-      ((Player) targetPlayer).sendMessage("§f[§aPay§f]§7 " + commandSender.getName() + " hat dir " + amount + " Coins gegeben");
+      LanguageManager.send(((Player) targetPlayer), "coins.chat.pay-succeed-target", "player", commandSender.getName(),"amount", amount+"");
       SidebarManager.setSidebar((Player) targetPlayer);
     }
     return true;

@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -20,7 +21,7 @@ public class MuteExecutor implements CommandExecutor{
     }
     OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[0]);
     if (!targetPlayer.hasPlayedBefore() && !targetPlayer.isOnline()) {
-      commandSender.sendMessage(MessageManager.get("general-invalid-player"));
+      LanguageManager.send(commandSender, "general.invalid-player");
       return false;
     }
     String reason = String.join(" ",Arrays.asList(args).subList(1,args.length));
@@ -31,9 +32,9 @@ public class MuteExecutor implements CommandExecutor{
       uuid = "console";
     }
     MuteManager.mutePlayer(targetPlayer.getUniqueId().toString(),-1,uuid,reason);
-    commandSender.sendMessage(MessageManager.get("mute-mute-sender", Map.of("player", targetPlayer.getName(), "reason", reason)));
+    LanguageManager.send(commandSender, "mute.chat.mute-succeed-sender", "player", targetPlayer.getName(), "reason", reason);
     if (targetPlayer.isOnline()) {
-      ((Player) targetPlayer).sendMessage(MessageManager.get("mute-mute-target", Map.of("reason", reason)));
+      LanguageManager.send(targetPlayer.getPlayer(), "mute.chat.mute-succeed-target", "reason", reason);
     }
     return true;
   }

@@ -1,6 +1,7 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable;
 import io.papermc.paper.event.player.AsyncChatEvent;
@@ -79,7 +80,7 @@ public class MuteManager implements Listener {
     String uuid = player.getUniqueId().toString();
     if (checkWhetherPlayerIsMuted(uuid)) {
       event.setCancelled(true);
-      player.sendMessage(MessageManager.get("mute-reject-message"));
+      LanguageManager.send(player, "mute.chat.reject-message");
     }
   }
 }

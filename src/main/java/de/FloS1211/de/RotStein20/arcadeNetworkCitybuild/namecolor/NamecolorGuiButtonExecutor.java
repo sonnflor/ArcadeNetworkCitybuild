@@ -2,6 +2,7 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -36,10 +37,10 @@ public class NamecolorGuiButtonExecutor implements GuiButtonExecutor {
     ItemStack item = config.getItemStack("item");
     try {
       NamecolorManager.unlockNamecolor(player.getUniqueId().toString(), colName);
-      player.sendMessage("§f[§aNamecolor§f]§7 Du hast die Namensfarbe " + colName.replace('_',' ') + " freigeschaltet. Aktiviere sie mit /namensfarben");
+      LanguageManager.send(player, "namecolor.chat.unlock", "color", colName.replace('_',' '));
       if (!player.getGameMode().equals(org.bukkit.GameMode.CREATIVE)) item.setAmount(item.getAmount() - 1);
     } catch (IllegalArgumentException e) {
-      player.sendMessage("§f[§aNamecolor§f]§7 Ein kritischer Fehler ist aufgetreten. Bitte informiere einen Supporter oder Admin");
+      e.printStackTrace();
     }
   }
 

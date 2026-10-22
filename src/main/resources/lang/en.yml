@@ -1,0 +1,179 @@
+general:
+  chat:
+    invalid-player: "<white>[<green>ArcadeNetwork<white>]<gray> Please provide a valid player"
+    invalid-number: "<white>[<green>ArcadeNetwork<white>]<gray> Please provide a valid number"
+    invalid-executor: "<white>[<green>ArcadeNetwork<white>]<gray> This command can only be executed by a player"
+
+coins:
+  chat:
+    auszahlen-succeed: "<white>[<green>Coins<white>]<gray> You paid out <amount> Coins in <coinValue>-coin units"
+    auszahlen-failed-negative: "<white>[<green>Coins<white>]<gray> You cannot pay out negative Coins"
+    auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> You do not have enough Coins"
+    deposit-succeed: "<white>[<green>Coins<white>]<gray> You deposited <amount> Coins"
+    pay-failed-negative: "<white>[<green>Coins<white>]<gray> You cannot give away negative Coins"
+    pay-failed-poor: "<white>[<green>Coins<white>]<gray> You do not have enough Coins. You need <amount>"
+    pay-succeed: "<white>[<green>Coins<white>]<gray> The transaction was successfully completed."
+
+mute:
+  chat:
+    unmute-succeed-sender: "<white>[<green>Mute<white>]<gray> You unmuted <player>"
+    unmute-succeed-target: "<white>[<green>Mute<white>]<gray> You have been unmuted (You may celebrate now, yay!! :D)"
+    mute-succeed-sender: "<white>[<green>Mute<white>]<gray> You permanently muted <player>. Reason: <reason>"
+    mute-succeed-target: "<white>[<green>Mute<white>]<gray> You have been permanently muted. Reason: <reason>"
+    tempmute-succeed-sender: "<white>[<green>Mute<white>]<gray> You temporarily muted <player> for <days> days, <hours> hours and <minutes> minutes. Reason: <reason>"
+    tempmute-succeed-target: "<white>[<green>Mute<white>]<gray> You have been temporarily muted for <days> days, <hours> hours and <minutes> minutes. Reason: <reason>"
+    reject-message: "<white>[<green>Mute<white>]<gray> You are muted and cannot send messages. Details: /muteinfo"
+    muteinfo-failed-no-mute: "<white>[<green>Mute<white>]<gray> Player <player> is not muted. "
+  gui:
+    muteinfo:
+      title: "Mute Information"
+      player-name-title: "Player Name"
+      player-uuid-title: "Player UUID"
+      unmute-timestamp-title: "Mute Expiration"
+      mute-duration-title: "Mute Duration"
+      reason-title: "Mute Reason"
+      mute-timestamp-title: "Mute Start"
+      muter-name-title: "Muter Name"
+      muter-name-uuid: "Muter UUID"
+
+tpa:
+  chat:
+    reject-target: "<white>[<green>Tpa<white>]<gray> <player> rejected your teleport request"
+    reject-rejecter: "<white>[<green>Tpa<white>]<gray> You rejected the teleport request from <player>"
+    me_to_player-sender: "<white>[<green>Tpa<white>]<gray> You requested to teleport to <player>"
+    me_to_player-target: "<white>[<green>Tpa<white>]<gray> <player> has requested to teleport to you <green><hover:show_text:'<gray>Click to accept the TPA'><click:run_command:'/performaction <acceptToken>'>[Accept]</click></hover></green> <red><hover:show_text:'<gray>Click to reject the TPA'><click:run_command:'/performaction <rejectToken>'>[Reject]</click></hover></red>"
+    player_to_me-sender: "<white>[<green>Tpa<white>]<gray> You requested <player> to teleport to you"
+    player_to_me-target: "<white>[<green>Tpa<white>]<gray> <player> has requested to teleport to you <green><hover:show_text:'<gray>Click to accept the TPA'><click:run_command:'/performaction <acceptToken>'>[Accept]</click></hover></green> <red><hover:show_text:'<gray>Click to reject the TPA'><click:run_command:'/performaction <rejectToken>'>[Reject]</click></hover></red>"
+
+clickablemessage:
+  chat:
+    invalid-token: "<red>Invalid token: <token>"
+
+invsee:
+  chat:
+    open: "<white>[<green>Invsee<white>]<gray> Opened inventory of <player>"
+  gui:
+    invsee:
+      title: "Inventory of <player>"
+
+sign:
+  chat:
+    invalid-item: "<white>[<green>Sign<white>]<gray> You must be holding an item to sign it"
+    succeed: "<white>[<green>Sign<white>]<gray> You signed your item"
+  items:
+    signed-item:
+      lore-line: "<gray>Signed by <green><player> <gray>on <green><date><gray>. "
+
+position:
+  chat:
+    invalid-name: "<white>[<green>Position<white>]<gray> Please provide the name of a valid position"
+    remove-succeed: "<white>[<green>Position<white>]<gray> The position \"<pos>\" has been deleted"
+    add-already-existing: "<white>[<green>Position<white>]<gray> This position already exists. Delete it with /position remove or move it with /position move"
+    add-succeed: "<white>[<green>Position<white>]<gray> You saved your current location under the name \"<pos>\""
+    move-succeed: "<white>[<green>Position<white>]<gray> You successfully moved the position <pos> to your current location"
+    get-head: "<white>[<green>Position<white>]<gray> Information about the saved position \"<pos>\":"
+    get-dimension: "<gray>Dimension: <dimension>"
+    get-distance: "<gray>Distance: <distance>"
+    get-elytra: "<gray>With an Elytra, this distance takes approximately <minutes> minutes"
+    get-teleport: "<green><hover:show_text:'<gray>Click to teleport'><click:run_command:'/execute in minecraft:<dim> run tp @s <x> <y> <z>'>[Teleport]</click></hover>"
+    add-too-many: "<white>[<green>Position<white>]<gray> You already have 100 positions saved. You can delete them with /position remove <name>"
+    list-head: "<white>[<green>Position<white>]<gray> Your saved positions: "
+    list-no-pos: "<white>[<green>Position<white>]<gray> You have no saved positions yet. Save your current position with /position add <name>"
+    share-sender: "<white>[<green>Position<white>]<gray> You shared the position <name> with <targetPlayer>"
+    share-target: "<white>[<green>Position<white>]<gray> <player> shared their position <name> with you. <green><hover:show_text:'<gray>Add the position to your saved positions'><click:run_command:'/performaction <token>'>[Add]</click></hover></green>"
+
+tempban:
+  chat:
+    succeed: "<white>[<green>TempBan<white>]<gray> You banned player <player> for <time>"
+
+ping:
+  chat:
+    ping-own: "<white>[<green>Ping<white>]<gray> Your ping is <ping>ms"
+    ping-other: "<white>[<green>Ping<white>]<gray> <targetPlayer>'s ping is <ping>ms"
+
+discord:
+  chat:
+    discord: "<white>[<green>Discord<white>]<gray> You can find our Discord at <green><click:open_url:'https://discord.gg/HEUmzZ9UEC'><underlined><hover:show_text:'<gray>Click to open the link</gray>'>https://discord.gg/HEUmzZ9UEC</hover></underlined></click></green>"
+
+friends:
+  chat:
+    double-friend: "<white>[<green>Friends<white>]<gray> You have either already sent a friend request or you are already friends"
+    request-information: "<white>[<green>Friends<white>]<gray> You sent <target> a friend request"
+    request: "<white>[<green>Friends<white>]<gray> <sender> sent you a friend request. <green><click:run_command:'/performaction <token>'><hover:show_text:'<gray>Click to accept the friend request'>[Accept]</hover></click></green>"
+    succeed: "<white>[<green>Friends<white>]<gray> You and <player> are now friends (yay) :D"
+    delete: "<white>[<green>Friends<white>]<gray> You and <player> are no longer friends D:"
+    rejected-sender: "<white>[<green>Friends<white>]<gray> Your friend request to <target> was rejected D:"
+    rejected-target: "<white>[<green>Friends<white>]<gray> You rejected the friend request from <player> (why D: ?)"
+    failed-already_befriended: "<white>[<green>Friends<white>]<gray> You are already friends"
+    failed-no_friend: "<white>[<green>Friends<white>]<gray> You are not friends"
+  gui:
+    friends:
+      button-invite: "Add Friend"
+      button-delete: "Remove Friend"
+      display-amount: "Number of Friends: "
+      display-friend-online: "<green>Online"
+      display-friend-offline: "<green>Offline"
+      display-friend-timespan: "Friends for <days> days (<date>)"
+      button-invitation: "Invitation: <player>"
+      button-invitation-accept: "Click to accept the invitation"
+      button-invitation-reject: "Right-click to reject the invitation"
+    invite:
+      title: "Add Friend"
+      text: "Name"
+      not-found: "Not found"
+    delete:
+      title: "Remove Friend"
+      text: "Name"
+      not-found: "Not found"
+
+mail:
+  chat:
+    wrong-inputs: "<white>[<green>Mail<white>]<gray> Please fill in recipient, subject and message"
+    new-mail: "<white>[<green>Mail<white>]<gray> You have <green><count></green> new mails! Open your inbox with <green><click:run_command:'/mail'><hover:show_text:'<gray>Click to open the mail menu</gray>'>/mail</hover></click></green>"
+    received: "<white>[<green>Mail<white>]<gray> You received a new mail from <sender> with the subject \"<caption>\". <green><click:run_command:'/mail'><hover:show_text:'<gray>Click to open the mail menu'>/mail</hover></click></green> to open it"
+    sent: "<white>[<green>Mail<white>]<gray> You sent a mail to <target> with the subject \"<caption>\""
+    deleted: "<white>[<green>Mail<white>]<gray> You deleted the mail from <sender> with the subject \"<caption>\""
+  gui:
+    send:
+      title: "New Mail"
+      caption-inputs: "Please enter a subject and message: "
+      input-target: "Recipient: "
+      input-caption: "Subject: "
+      input-message: "Message: "
+      button-send: "Send"
+    post-office-box:
+      title-inbox: "Inbox"
+      title-outbox: "Outbox"
+      button-new_mail: "New Mail"
+      button-favorites-only: "Favorites Only"
+      button-favorites-all: "All Mails"
+      display-mail-sender: "from: <sender>"
+      display-mail-target: "to: <target>"
+      display-mail-read: "<green>Read"
+      display-mail-unread: "<red>Unread"
+      button-mail-controls-left: "Left-Click"
+      button-mail-controls-left-val: "Open Mail"
+      button-mail-controls-right: "Right-Click"
+      button-mail-controls-right-val: "Delete Mail"
+      button-mail-controls-shift: "Shift-Click"
+      button-mail-controls-shift-val-favorite: "Add to Favorites"
+      button-mail-controls-shift-val-no_favorite: "Remove from Favorites"
+    delete:
+      accept: "Accept to delete the mail"
+
+perk:
+  chat:
+    gain-perk: "<white>[<green>Perks<white>]<gray> You received the perk <green><perk></green>"
+    activate-perk: "<white>[<green>Perks<white>]<gray> You activated the perk <green><perk></green>"
+    disable-perk: "<white>[<green>Perks<white>]<gray> You deactivated the perk <green><perk></green>"
+
+namecolor:
+  chat:
+    deactivate: "<white>[<green>Name Colors<white>]<gray> You deactivated your name color"
+    activate: "<white>[<green>Name Colors<white>]<gray> You activated the name color <color>"
+    unlock: "<white>[<green>Name Colors<white>]<gray> You unlocked the name color <color>. Activate it with <green><hover:show_text:'<gray>Click to activate it'><click:suggest_command:'/namensfarben'>/namensfarben</click></hover></green>"
+
+sidebar:
+  gui:
+    sidebar:
+      config: "<dark_gray>Configure the sidebar with <green><hover:show_text:'<gray>Click to configure the sidebar'><click:suggest_command:'/configsidebar '>/configsidebar</click></hover></green>"

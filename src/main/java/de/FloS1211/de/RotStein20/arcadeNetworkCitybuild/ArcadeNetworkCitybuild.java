@@ -72,6 +72,7 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
     getServer().getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:chat");
     getServer().getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:tpa");
     getServer().getMessenger().registerIncomingPluginChannel(this, "arcadenetwork:tpa", new TpaListener());
+    LanguageManager.load();
 
     databaseManager = new DatabaseManager();
     try {

@@ -3,9 +3,11 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mail;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButton;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import net.kyori.adventure.inventory.Book;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
@@ -39,7 +41,7 @@ public class MailButtonExecutor implements GuiButtonExecutor {
                 "onlyFavorites", gui.customData.get("onlyFavorites")
             ),
             this,
-            "Akzeptieren, um die Mail zu löschen"
+            LanguageManager.getString(player, "mail.gui.delete.accept")
             ).buildInventory());
       } else if (clickType.isShiftClick()) { //favorite mail
         boolean isFavorite = Boolean.parseBoolean(button.customData.get("favorite"));

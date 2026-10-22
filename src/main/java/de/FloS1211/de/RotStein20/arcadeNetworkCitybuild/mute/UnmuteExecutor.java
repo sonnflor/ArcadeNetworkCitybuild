@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -19,13 +20,13 @@ public class UnmuteExecutor implements CommandExecutor {
     }
     OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[0]);
     if (!targetPlayer.hasPlayedBefore() && !targetPlayer.isOnline()) {
-      commandSender.sendMessage(MessageManager.get("general-invalid-player"));
+      LanguageManager.send(commandSender, "general.invalid-player");
       return false;
     }
     MuteManager.unmutePlayer(targetPlayer.getUniqueId().toString());
-    commandSender.sendMessage(MessageManager.get("mute-unmute-sender", Map.of("player", targetPlayer.getName())));
+    LanguageManager.send(commandSender, "mute.chat.unmute-succeed-sender", "player", targetPlayer.getName());
     if (targetPlayer.isOnline()) {
-      ((Player) targetPlayer).sendMessage(MessageManager.get("mute-unmute-target"));
+      LanguageManager.send(targetPlayer.getPlayer(), "mute.chat.unmute-succeed-target");
     }
     return true;
   }

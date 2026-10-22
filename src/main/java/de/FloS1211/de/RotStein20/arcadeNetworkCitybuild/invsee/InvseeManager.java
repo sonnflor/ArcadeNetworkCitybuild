@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.invsee;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.CustomGuiHolder;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.utils.CustomGuiHolderCanMoveItem;
 import de.tr7zw.nbtapi.*;
@@ -35,12 +36,12 @@ public class InvseeManager implements Listener {
     }
   }
   // Beispielmethode: Inventory zurückliefern (ohne Threading)
-  public static Inventory getOfflineInv(UUID uuid, boolean shouldReplace) {
+  public static Inventory getOfflineInv(UUID uuid, boolean shouldReplace, Player viewer) {
     File file = new File(Bukkit.getWorlds().get(0).getWorldFolder(), "playerdata/"+uuid+".dat");
     if (!file.exists()) return null;
     try {
       ReadWriteNBT nbt = NBT.readFile(file);
-      Inventory inv = Bukkit.createInventory(shouldReplace ? new CustomGuiHolderCanMoveItem() : new CustomGuiHolder(), 54, "Inventar von " + Bukkit.getOfflinePlayer(uuid).getName());
+      Inventory inv = Bukkit.createInventory(shouldReplace ? new CustomGuiHolderCanMoveItem() : new CustomGuiHolder(), 54, LanguageManager.get(viewer, "invsee.gui.title", "player", Bukkit.getOfflinePlayer(uuid).getName()));
       ReadWriteNBTCompoundList list = nbt.getCompoundList("Inventory");
       for (ReadWriteNBT tag : list) {
         int slot = tag.getInteger("Slot");
@@ -54,13 +55,13 @@ public class InvseeManager implements Listener {
       }
       return inv;
     } catch (IOException e) {
-      return Bukkit.createInventory(new CustomGuiHolder(), 54, "Inventar von " + Bukkit.getPlayer(uuid).getName());
+      return Bukkit.createInventory(new CustomGuiHolder(), 54, LanguageManager.get(viewer, "invsee.gui.title", "player", Bukkit.getOfflinePlayer(uuid).getName()));
     }
   }
 
 
-  public static Inventory getOnlineInv(Player player, boolean shouldReplace) {
-    Inventory inv = Bukkit.createInventory(shouldReplace ? new CustomGuiHolderCanMoveItem() : new CustomGuiHolder(), 54, "Inventar von " + Bukkit.getPlayer(player.getUniqueId()).getName());
+  public static Inventory getOnlineInv(Player player, boolean shouldReplace, Player viewer) {
+    Inventory inv = Bukkit.createInventory(shouldReplace ? new CustomGuiHolderCanMoveItem() : new CustomGuiHolder(), 54, LanguageManager.get(viewer, "invsee.gui.title", "player",Bukkit.getPlayer(player.getUniqueId()).getName()));
     PlayerInventory playerInv = player.getInventory();
 
     for (int i = 9; i < 36; i++) {

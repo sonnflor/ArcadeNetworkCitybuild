@@ -5,10 +5,8 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButton;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonType;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiSwitch;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.Namecolor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable;
 import io.papermc.paper.dialog.Dialog;
 import io.papermc.paper.dialog.DialogResponseView;
@@ -22,6 +20,7 @@ import net.kyori.adventure.text.Component;
 import io.papermc.paper.registry.data.dialog.*;
 import net.kyori.adventure.text.event.ClickCallback;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -35,16 +34,16 @@ public class MailManager {
   @SuppressWarnings("UnstableApiUsage")
   public static void sendMail(Player sender) {
     List<DialogBody> bodyContent = List.of(
-        DialogBody.plainMessage(Component.text("Bitte gib Betreff und Nachricht ein: "))
+        DialogBody.plainMessage(LanguageManager.get(sender, "mail.gui.send.caption-inputs"))
     );
     List<DialogInput> bodyInputs = List.of(
-        DialogInput.text("input_target" ,Component.text("Empfänger: ")).maxLength(16).build(),
-        DialogInput.text("input_caption",Component.text("Betreff: ")).maxLength(35).build(),
-        DialogInput.text("input_message",Component.text("Nachricht: ")).maxLength(3000).multiline(TextDialogInput.MultilineOptions.create(50,120)).build()
+        DialogInput.text("input_target" ,LanguageManager.get(sender, "mail.gui.send.input-target")).maxLength(16).build(),
+        DialogInput.text("input_caption",LanguageManager.get(sender, "mail.gui.send.input-caption")).maxLength(35).build(),
+        DialogInput.text("input_message",LanguageManager.get(sender, "mail.gui.send.input-message")).maxLength(3000).multiline(TextDialogInput.MultilineOptions.create(50,120)).build()
     );
-    ActionButton cancelButton = ActionButton.builder(Component.text("Abbrechen")).build();
+    ActionButton cancelButton = ActionButton.builder(LanguageManager.get(sender, "mail.gui.send.button-cancel")).build();
     ActionButton sendButton = ActionButton
-        .builder(Component.text("Senden"))
+        .builder(LanguageManager.get(sender, "mail.gui.send.button-send"))
         .action(
             DialogAction.customClick(
                 (DialogResponseView view, Audience audience) -> {
@@ -53,14 +52,14 @@ public class MailManager {
                   String targetName = view.getText("input_target");
                   if (caption == null || caption.isBlank() || message == null || message.isBlank() || targetName == null || targetName.isBlank()) {
                     if (audience instanceof Player player) {
-                      player.sendMessage(MessageManager.get("mail-wrong-inputs"));
+                      LanguageManager.send(player, "mail.wrong-inputs");
                     }
                     return;
                   }
                   OfflinePlayer target = Bukkit.getOfflinePlayer(targetName);
                   if (!target.hasPlayedBefore() && !target.isOnline()) {
                     if (audience instanceof Player player) {
-                      player.sendMessage(MessageManager.get("general-invalid-player"));
+                      LanguageManager.send(player,"general.invalid-player");
                     }
                     return;
                   }
@@ -69,9 +68,9 @@ public class MailManager {
                   int days = (int) TimeUnit.MILLISECONDS.toDays(millis);
                   DatabaseManager.executeSQL("INSERT INTO mail (uuidSender, uuidTarget, unixDay, message, caption) VALUES (?,?,?,?,?)", List.of(sender.getUniqueId().toString(), target.getUniqueId().toString(),days, message, caption));
                   if (audience instanceof Player player) {
-                    sender.sendMessage(MessageManager.get("mail-sent", Map.of("target", target.getName(), "caption", caption)));
+                    LanguageManager.send(sender, "mail-sent", "target", target.getName(), "caption", caption);
                     if (target.isOnline()) {
-                      target.getPlayer().sendMessage(MessageManager.get("mail-received", Map.of("sender", sender.getName(), "caption", caption)));
+                      LanguageManager.send(target.getPlayer(), "mail-received", "sender", sender.getName(), "caption", caption);
                     }
                     Bukkit.getScheduler().runTaskLater(ArcadeNetworkCitybuild.getInstance(), () -> {
                       openMail(player, "outbox",false);
@@ -84,7 +83,7 @@ public class MailManager {
         .build();
     Dialog dialog = Dialog.create(builder -> builder
         .empty()
-        .base(DialogBase.builder(Component.text("Neue Mail"))
+        .base(DialogBase.builder(LanguageManager.get(sender, "mail.gui.send.title"))
             .body(bodyContent)
             .inputs(bodyInputs)
             .canCloseWithEscape(false)
@@ -95,17 +94,17 @@ public class MailManager {
     sender.showDialog(dialog);
   }
   public static void openMail(Player player, String postOfficeBox, boolean onlyFavorites) { //postOfficeBox = Postfach
-    Component guiTitle = Component.text(postOfficeBox.equals("inbox") ? "Posteingang" : "Postausgang");
+    Component guiTitle = LanguageManager.get(player, "mail.gui.post-office-box.title-" + postOfficeBox);
     Gui gui = new Gui(54, guiTitle);
     gui.setElementInBottomBar(new GuiButton("sendMailButton", Material.NETHER_STAR, new MailButtonExecutor(), GuiButtonType.CUSTOM)
-        .title(Component.text("Neue Mail").color(NamedTextColor.GREEN)),4);
+        .title(LanguageManager.get(player, "mail.gui.post-office-box.button-new_mail")),4);
     gui.setElementInBottomBar(GuiButton.getPrevPageButton(new MailButtonExecutor()),0);
     gui.setElementInBottomBar(GuiButton.getNextPageButton(new MailButtonExecutor()),8);
     gui.setElementInBottomBar(postOfficeBox.equals("inbox") ?
-        new GuiButton("outbox",Material.CHEST,new MailButtonExecutor(),GuiButtonType.CUSTOM).title(Component.text("Postausgang")) :
-        new GuiButton("inbox", Material.CHEST,new MailButtonExecutor(),GuiButtonType.CUSTOM).title(Component.text("Posteingang")),3);
+        new GuiButton("outbox",Material.CHEST,new MailButtonExecutor(),GuiButtonType.CUSTOM).title(LanguageManager.get(player, "title-outbox")) :
+        new GuiButton("inbox", Material.CHEST,new MailButtonExecutor(),GuiButtonType.CUSTOM).title(LanguageManager.get(player, "title-inbox")),3);
     gui.setElementInBottomBar(new GuiButton("onlyFavorites",onlyFavorites ? Material.ENCHANTED_BOOK : Material.BOOK, new MailButtonExecutor(), GuiButtonType.CUSTOM)
-        .title(Component.text(onlyFavorites ? "Nur Favoriten" : "Alle Mails"))
+        .title(LanguageManager.get(player, "mail.gui.post-office-box." + (onlyFavorites ? "button-favorites-only" : "button-favorites-all")))
         .customData(Map.of("onlyFavorites", String.valueOf(!onlyFavorites))),5);
     SQLTable sqlTable = postOfficeBox.equals("inbox") ? getInbox(player.getUniqueId(),onlyFavorites) : getOutbox(player.getUniqueId(),onlyFavorites);
     for (int i = 0; i < sqlTable.size(); i++) {
@@ -127,19 +126,22 @@ public class MailManager {
       OfflinePlayer sender = Bukkit.getOfflinePlayer(UUID.fromString(sqlTable.getStringValue("uuidSender",i)));
       OfflinePlayer target = Bukkit.getOfflinePlayer(UUID.fromString(sqlTable.getStringValue("uuidTarget",i)));
       List<Component> lore = new ArrayList<>(List.of(
-          Component.text("von: " + sender.getName()),
-          Component.text("an: " + target.getName()),
+          LanguageManager.get(player, "mail.gui.post-office-box.display-mail-sender", "sender", sender.getName()),
+          LanguageManager.get(player, "mail.gui.post-office-box.display-mail-target", "target", target.getName()),
           Component.text(date)
       ));
       if (playerRole.equals("sender") || playerRole.equals("both")) {
         boolean isRead = sqlTable.getBooleanValue("isRead",i);
-        lore.add(Component.text(isRead ? "Gelesen" : "Ungelesen").color(isRead ? NamedTextColor.GREEN : NamedTextColor.RED));
+        lore.add(LanguageManager.get(player, "mail.gui.post-office-box." + (isRead ? "display-mail-read" : "display-mail-unread")));
       }
       boolean favorite = sqlTable.getBooleanValue((playerRole.equals("sender") ? "favoritedBySender" : "favoritedByTarget"),i);
       GuiButton button = new GuiButton("mail"+sqlTable.getStringValue("caption",i), Material.BOOK, new MailButtonExecutor(), GuiButtonType.CUSTOM)
           .title(Component.text((favorite ? "♥ " : "") +sqlTable.getStringValue("caption",i)))
           .lore(lore)
-          .controls(Map.of("Links-Klick", "Mail öffnen", "Rechts-Klick", "Mail löschen", "Shift-Klick", favorite ? "Aus Favoriten entfernen" : "Zu Favoriten hinzufügen"))
+          .controls(Map.of(
+              LanguageManager.getString(player, "mail.gui.post-office-box.button-mail-controls-left"), LanguageManager.getString(player, "mail.gui.post-office-box.button-mail-controls-left-val"),
+              LanguageManager.getString(player, "mail.gui.post-office-box.button-mail-controls-right"), LanguageManager.getString(player, "mail.gui.post-office-box.button-mail-controls-right-val"),
+              LanguageManager.getString(player, "mail.gui.post-office-box.button-mail-controls-shift"), LanguageManager.getString(player, "mail.gui.post-office-box.button-mail-controls-shift-val-" + (favorite ? "no_favorite" : "favorite"))))
           .enchantment(favorite)
           .customData(Map.of("message",sqlTable.getStringValue("message",i),
               "caption", sqlTable.getStringValue("caption",i),
@@ -163,7 +165,7 @@ public class MailManager {
     }
     OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(DatabaseManager.getTable("mail","id = ?", List.of(id)).getStringValue("uuidTarget",0)));
     if (player.isOnline()) {
-      ((Player) player).sendMessage(MessageManager.get("mail-deleted", Map.of("caption", DatabaseManager.getTable("mail","id = ?", List.of(id)).getStringValue("caption",0))));
+      LanguageManager.send(player.getPlayer(), "mail-deleted", "caption", DatabaseManager.getTable("mail","id = ?", List.of(id)).getStringValue("caption",0));
     }
   }
 

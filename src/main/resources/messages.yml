@@ -5,8 +5,8 @@ general-invalid-executor: "<white>[<green>ArcadeNetwork<white>]<gray> Dieser Com
 coins-auszahlen-succeed: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins in {coinValue}er-Coins ausgezahlt"
 coins-auszahlen-failed-negative: "<white>[<green>Coins<white>]<gray> Du darfst keine negativen Coins auszahlen"
 coins-auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> Du hast nicht genug Coins"
-coins-deposit: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins eingezahlt"
-coins-pay-negative: "<white>[<green>Coins<white>]<gray> Du kannst keine negativen Coins verschenken"
+coins-deposit-succeed: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins eingezahlt"
+coins-pay-failed-negative: "<white>[<green>Coins<white>]<gray> Du kannst keine negativen Coins verschenken"
 
 mute-unmute-sender: "<white>[<green>Mute<white>]<gray> Du hast {player} unmutet"
 mute-unmute-target: "<white>[<green>Mute<white>]<gray> Du wurdest unmutet (Du darftst dich jetzt freuen yay!! :D)"

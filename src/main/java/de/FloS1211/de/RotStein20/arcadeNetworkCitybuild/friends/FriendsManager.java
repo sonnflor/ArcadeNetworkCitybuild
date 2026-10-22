@@ -4,10 +4,12 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.clickableMessages.ClickableMessageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.SQLTable;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -87,12 +89,12 @@ public class FriendsManager {
   public static void openGui(Player player) {
     String uuid = player.getUniqueId().toString();
     SQLTable friends = getFriends(uuid);
-    Gui gui = new Gui(54, Component.text("Freunde"));
+    Gui gui = new Gui(54, LanguageManager.get(player, "friends.gui.friends.title"));
     gui.setElementInBottomBar(GuiButton.getPrevPageButton(new FriendsGuiButtonExecutor()),0);
     gui.setElementInBottomBar(GuiButton.getNextPageButton(new FriendsGuiButtonExecutor()),8);
-    gui.setElementInBottomBar(new GuiButton("invite_button",Material.NETHER_STAR,new FriendsGuiButtonExecutor(),GuiButtonType.CUSTOM).title(Component.text("Freund hinzufügen").color(NamedTextColor.GREEN)),4);
-    gui.setElementInBottomBar(new GuiButton("delete_button",Material.BARRIER,new FriendsGuiButtonExecutor(),GuiButtonType.CUSTOM).title(Component.text("Freund löschen").color(NamedTextColor.RED)),3);
-    gui.setElementInBottomBar(new GuiDisplay("friend_count_display",Material.PLAYER_HEAD).title(Component.text("Anzahl Freunde: "+friends.size()).color(NamedTextColor.YELLOW)).amount(Math.max(friends.size(),1)),5);
+    gui.setElementInBottomBar(new GuiButton("invite_button",Material.NETHER_STAR,new FriendsGuiButtonExecutor(),GuiButtonType.CUSTOM).title(LanguageManager.get(player, "friends.gui.friends.button-invite")),4);
+    gui.setElementInBottomBar(new GuiButton("delete_button",Material.BARRIER,new FriendsGuiButtonExecutor(),GuiButtonType.CUSTOM).title(LanguageManager.get(player, "friends.gui.friends.button-delete")),3);
+    gui.setElementInBottomBar(new GuiDisplay("friend_count_display",Material.PLAYER_HEAD).title(LanguageManager.get(player, "friends.gui.friends.display-amount", "amount", friends.size()+"")).amount(Math.max(friends.size(),1)),5);
 
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     long millis = timestamp.getTime();
@@ -106,8 +108,8 @@ public class FriendsManager {
       String date = Utils.formatDate((unixDays * 86400L),"dd.MM.yyyy");
       int days = todayUnixDays-unixDays;
       List<Component> lore = List.of(
-        friend.isOnline() ? Component.text("§aOnline"):Component.text("§cOffline"),
-        Component.text("Befreundet seit " + days + " Tagen (" + date + ")")
+        LanguageManager.get(player, "friends.gui.friends.display-friend-" + (friend.isOnline() ? "online" : "offline")),
+        LanguageManager.get(player, "display-friend-timespan", "days", days+"", "date", date)
       );
       GuiDisplay display = new GuiDisplay("friendDisplay"+friendUuid,Material.PLAYER_HEAD)
         .playerHead(friendUuid)
@@ -121,11 +123,11 @@ public class FriendsManager {
       if (Objects.equals(friendUuid, uuid)) friendUuid = requests.getStringValue("targetUuid",i);
       OfflinePlayer friend = Bukkit.getOfflinePlayer(UUID.fromString(friendUuid));
       List<Component> lore = List.of(
-        Component.text("Klicke, um die Einladung anzunehmen"),
-        Component.text("Rechtsklicke, um die Einladung abzulehnen")
+        LanguageManager.get(player, "button-invitation-accept"),
+        LanguageManager.get(player, "button-invitation-reject")
       );
       GuiButton button = new GuiButton("requestButton"+friendUuid,Material.PAPER,new FriendsGuiButtonExecutor(),GuiButtonType.CUSTOM)
-        .title(Component.text("Einladung: " + friend.getName()))
+        .title(LanguageManager.get(player, "button-invitation", "player", friend.getName()))
         .lore(lore)
         .customData(Map.of("uuid",friendUuid));
       gui.addElement(button);

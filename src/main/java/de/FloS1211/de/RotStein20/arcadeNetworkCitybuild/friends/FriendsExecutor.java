@@ -1,7 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.friends;
 
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.DatabaseManager;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -14,7 +13,7 @@ public class FriendsExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(MessageManager.get("general-invalid-executor"));
+            LanguageManager.send(sender, "general.invalid-executor");
             return true;
         }
         if (args.length == 0){
@@ -24,14 +23,14 @@ public class FriendsExecutor implements CommandExecutor {
             switch (args[0]) {
                 case "invite" -> {
                     if (!target.hasPlayedBefore() && !target.isOnline()) {
-                        player.sendMessage(MessageManager.get("general-invalid-player"));
+                        LanguageManager.send(player, "general.invalid-player");
                         return false;
                     }
                     FriendsManager.inviteFriend(player, target);
                 }
                 case "delete" -> {
                     if (!target.hasPlayedBefore() && !target.isOnline()) {
-                        player.sendMessage(MessageManager.get("general-invalid-player"));
+                        LanguageManager.send(player, "general.invalid-player");
                         return false;
                     }
                     FriendsManager.deleteFriend(player, target, true);

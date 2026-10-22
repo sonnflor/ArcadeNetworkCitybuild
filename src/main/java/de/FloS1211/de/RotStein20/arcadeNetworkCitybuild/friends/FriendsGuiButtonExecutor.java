@@ -4,7 +4,8 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.ArcadeNetworkCitybuild;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButton;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonExecutor;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonType;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,14 +23,14 @@ public class FriendsGuiButtonExecutor implements GuiButtonExecutor {
         player.closeInventory();
         new AnvilGUI.Builder()
             .plugin(ArcadeNetworkCitybuild.getInstance())
-            .title("Freund hinzufügen")
-            .text("Name")
+            .title(LanguageManager.getString(player, "friends.gui.invite.title"))
+            .text(LanguageManager.getString(player, "friends.gui.invite.text"))
             .onClick((slot, state) -> {
               if (slot != AnvilGUI.Slot.OUTPUT) return Collections.emptyList();
               String playerName = state.getText();
               Player target = Bukkit.getPlayerExact(playerName);
               if (target == null) {
-                return List.of(AnvilGUI.ResponseAction.replaceInputText("Nicht gefunden"));
+                return List.of(AnvilGUI.ResponseAction.replaceInputText(LanguageManager.getString(player, "friends.gui.invite.not-found")));
               }
               FriendsManager.inviteFriend(state.getPlayer(), target);
               return List.of(AnvilGUI.ResponseAction.close());
@@ -40,14 +41,14 @@ public class FriendsGuiButtonExecutor implements GuiButtonExecutor {
         player.closeInventory();
         new AnvilGUI.Builder()
             .plugin(ArcadeNetworkCitybuild.getInstance())
-            .title("Freund entfreunden")
-            .text("Name")
+            .title(LanguageManager.getString(player, "friends.gui.delete.title"))
+            .text(LanguageManager.getString(player, "friends.gui.delete.text"))
             .onClick((slot, state) -> {
               if (slot != AnvilGUI.Slot.OUTPUT) return Collections.emptyList();
               String playerName = state.getText();
               Player target = Bukkit.getPlayerExact(playerName);
               if (target == null) {
-                return List.of(AnvilGUI.ResponseAction.replaceInputText("Nicht gefunden"));
+                return List.of(AnvilGUI.ResponseAction.replaceInputText(LanguageManager.getString(player, "friends.gui.delete.not-found")));
               }
               FriendsManager.deleteFriend(state.getPlayer(), target, true);
               return List.of(AnvilGUI.ResponseAction.close());

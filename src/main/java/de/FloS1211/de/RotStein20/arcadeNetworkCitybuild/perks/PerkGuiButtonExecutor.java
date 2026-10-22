@@ -2,7 +2,6 @@ package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks;
 
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.Gui;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.gui.GuiButtonExecutor;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorManager;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;

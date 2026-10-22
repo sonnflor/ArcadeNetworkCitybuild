@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.coins;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.SidebarManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.Utils;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
@@ -35,7 +36,7 @@ public class CoinRightclickListener implements Listener {
     }
     event.setCancelled(true);
     PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-    if (!Objects.equals(container.get(Utils.key_custom, PersistentDataType.STRING), "Coin")) {
+    if (!Objects.equals(container.get(Utils.key_custom, PersistentDataType.STRING), "coin")) {
       return;
     }
     BigDecimal coins = new BigDecimal(container.get(Utils.key_coin_amount, PersistentDataType.DOUBLE));
@@ -49,7 +50,7 @@ public class CoinRightclickListener implements Listener {
     CoinsManager.addCoins(player.getUniqueId().toString(),coins.multiply(new BigDecimal(itemAmount)));
     SidebarManager.setSidebar(player);
 
-    player.sendMessage(MessageManager.get("coins-deposit", Map.of("amount",(coins.doubleValue() * itemAmount)+"")));
+    LanguageManager.send(player, "coins.chat.deposit-succeed", "amount", (coins.doubleValue() * itemAmount) + "");
     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
   }
 }

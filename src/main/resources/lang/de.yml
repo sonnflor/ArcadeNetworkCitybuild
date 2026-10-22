@@ -1,0 +1,201 @@
+general:
+  chat:
+    invalid-player: "<white>[<green>ArcadeNetwork<white>]<gray> Bitte gib einen gültigen Spieler an"
+    invalid-number: "<white>[<green>ArcadeNetwork<white>]<gray> Bitte gib eine gültige Zahl an"
+    invalid-executor: "<white>[<green>ArcadeNetwork<white>]<gray> Dieser Command kann nur von einem Spieler ausgeführt werden"
+
+coins:
+  chat:
+    auszahlen-succeed: "<white>[<green>Coins<white>]<gray> Du hast <amount> Coins in <coinValue>er-Coins ausgezahlt"
+    auszahlen-failed-negative: "<white>[<green>Coins<white>]<gray> Du darfst keine negativen Coins auszahlen"
+    auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> Du hast nicht genug Coins"
+    deposit-succeed: "<white>[<green>Coins<white>]<gray> Du hast <amount> Coins eingezahlt"
+    pay-failed-negative: "<white>[<green>Coins<white>]<gray> Du kannst keine negativen Coins verschenken"
+    pay-failed-poor: "<white>[<green>Coins<white>]<gray> Du hast nicht genug Coins. Du brauchst <amount>"
+    pay-succeed: "<white>[<green>Coins<white>]<gray> Die Transaktion wurde erfolgreich abgeschlossen"
+    pay-succeed-target: "<white>[<green>Coins<white>]<gray> <player> hat die <amount> Coins gegeben"
+    pay-failed-steel: "<white>[<green>Coins<white>]<gray> Du kannst keine Coins klauen"
+    payall-succeed: "<white>[<green>Coins<white>]<gray> <player> hat allen <amount> Coins gegeben <green><hover:show_text:'<gray>Einfach klicken'><click:suggest_command:'thx <player>'>[thx zurück senden]</click></hover><green>"
+
+mute:
+  chat:
+    unmute-succeed-sender: "<white>[<green>Mute<white>]<gray> Du hast <player> unmutet"
+    unmute-succeed-target: "<white>[<green>Mute<white>]<gray> Du wurdest unmutet (Du darftst dich jetzt freuen yay!! :D)"
+    mute-succeed-sender: "<white>[<green>Mute<white>]<gray> Du hast <player> permanet gemuted. Begründung: <reason>"
+    mute-succeed-target: "<white>[<green>Mute<white>]<gray> Du wurdest permanet gemuted. Begründung: <reason>"
+    tempmute-succeed-sender: "<white>[<green>Mute<white>]<gray> Du hast <player> temporär für <days> Tage, <hours> Stunden und <minutes> Minuten gemuted. Begründung: <reason>"
+    tempmute-succeed-target: "<white>[<green>Mute<white>]<gray> Du wurdest temporär für <days> Tage, <hours> Stunden und <minutes> Minuten gemuted. Begründung: <reason>"
+    reject-message: "<white>[<green>Mute<white>]<gray> Du bist gemuted und kannst keine Nachrichten senden. Details: /muteinfo"
+    muteinfo-failed-no-mute: "<white>[<green>Mute<white>]<gray> Der Spieler <player> ist nicht gemuted. "
+  gui:
+    muteinfo:
+      title: "Mute Informationen"
+      player-name-title: "Name des Spieler"
+      player-uuid-title: "UUID des Spielers"
+      unmute-timestamp-title: "Auslaufen des Mutes"
+      mute-duration-title: "Dauer des Mutes"
+      reason-title: "Grund des Mutes"
+      mute-timestamp-title: "Beginn des Mutes"
+      muter-name-title: "Name des Muter"
+      muter-name-uuid: "UUID des Muter"
+
+tpa:
+  chat:
+    reject-target: "<white>[<green>Tpa<white>]<gray> <player> hat dein Teleportanfrage abgelehnt"
+    reject-rejecter: "<white>[<green>Tpa<white>]<gray> Du hast die Teleportanfrage von <player> abgelehnt"
+    me_to_player-sender: "<white>[<green>Tpa<white>]<gray> Du hast angefragt, ob du dich zu <player> teleportieren darfst"
+    me_to_player-target: "<white>[<green>Tpa<white>]<gray> <player> hat angefragt, ob er sich zu dir teleportieren darf <green><hover:show_text:'<gray>Kleicke, um die TPA anzunehmen'><click:run_command:'/performaction <acceptToken>'>[Annehmen]</click></hover></green> <red><hover:show_text:'<gray>Klicke, um die TPA abzulehnen'><click:run_command:'/performaction <rejectToken>'>[Ablehnen]</click></hover></red>"
+    player_to_me-sender: "<white>[<green>Tpa<white>]<gray> Du hast angefragt, ob <player> sich zu dir teleportieren will"
+    player_to_me-target: "<white>[<green>Tpa<white>]<gray> <player> hat angefragt, ob du dich zu ihm teleportieren willst <green><hover:show_text:'<gray>Kleicke, um die TPA anzunehmen'><click:run_command:'/performaction <acceptToken>'>[Annehmen]</click></hover></green> <red><hover:show_text:'<gray>Klicke, um die TPA abzulehnen'><click:run_command:'/performaction <rejectToken>'>[Ablehnen]</click></hover></red>"
+
+clickablemessage:
+  chat:
+    invalid-token: "<red>Token invalid: <token>"
+
+invsee:
+  chat:
+    open: "<white>[<green>Invsee<white>]<gray> Öffne Inventar von <player>"
+  gui:
+    invsee:
+      title: "Inventar von <player>"
+
+sign:
+  chat:
+    invalid-item: "<white>[<green>Sign<white>]<gray> Du musst ein Item in der Hand halten, um es zu signieren"
+    succeed: "<white>[<green>Sign<white>]<gray> Du hast dein Item signiert"
+  items:
+    signed-item:
+      lore-line: "<gray>Signiert von <green><player> <gray>am <green><date><gray>. "
+
+position:
+  chat:
+    invalid-name: "<white>[<green>Position<white>]<gray> Bitte gib den Namen einer gültigen Position an"
+    remove-succeed: "<white>[<green>Position<white>]<gray> Die Position \"<pos>\" wurde gelöscht"
+    add-already-existing: "<white>[<green>Position<white>]<gray> Diese Position existiert bereits. Lösche sie mit /position remove oder verschiebe sie mit /position move"
+    add-succeed: "<white>[<green>Position<white>]<gray> Du hast deinen aktuellen Standort unter dem Namen \"<pos>\" gespeichert"
+    move-succeed: "<white>[<green>Position<white>]<gray> Du hast erfolgreich die Position <pos> zu deinem aktuellen Standort verschoben"
+    get-head: "<white>[<green>Position<white>]<gray> Information zur gespeicherten Position \"<pos>\":"
+    get-dimension: "<gray>Dimension: <dimension>"
+    get-distance: "<gray>Entfernung: <distance>"
+    get-elytra: "<gray>Mit eine Elytra benötigt man für diese Strecke ca. <minutes> Minuten für diese Strecke"
+    get-teleport: "<green><hover:show_text:'<gray>Klicke zum Teleportieren'><click:run_command:'/execute in minecraft:<dim> run tp @s <x> <y> <z>'>[Teleportieren]</click></hover>"
+    add-too-many: "<white>[<green>Position<white>]<gray> Du hast bereits 100 Positionen gespeichert. Du kannst sie löschen mit /position remove <name>"
+    list-head: "<white>[<green>Position<white>]<gray> Deine gespeicherten Positionen: "
+    list-no-pos: "<white>[<green>Position<white>]<gray> Du hast noch keine Position gespeichert. Speichere deine aktuelle Position mit /position add <name>"
+    share-sender: "<white>[<green>Position<white>]<gray> Du hast die Position <name> mit <targetPlayer> geteilt"
+    share-target: "<white>[<green>Position<white>]<gray> <player> hat seine Position <name> mit dir geteilt. <green><hover:show_text:'<gray>Fügt die Position zu dir hinzu'><click:run_command:'/performaction <token>'>[Hinzufügen]</click></hover></green>"
+
+tempban:
+  chat:
+    succeed: "<white>[<green>TempBan<white>]<gray> Du hast den Spieler <player> für <time> gebannt"
+
+ping:
+  chat:
+    ping-own: "<white>[<green>Ping<white>]<gray> Dein Ping beträgt <ping>ms"
+    ping-other: "<white>[<green>Ping<white>]<gray> Der Ping von <targetPlayer> beträgt <ping>ms"
+
+discord:
+  chat:
+    discord: "<white>[<green>Discord<white>]<gray> Du findest unseren Discord auf <green><click:open_url:'https://discord.gg/HEUmzZ9UEC'><underlined><hover:show_text:'<gray>Klicke, um den Link zu öffnen</gray>'>https://discord.gg/HEUmzZ9UEC</hover></underlined></click></green>"
+
+friends:
+  chat:
+    double-friend: "<white>[<green>Friends<white>]<gray> Du hast entweder schon eine Freundschaftsanfrage gesendet oder ihr seid schon Freunde"
+    request-information: "<white>[<green>Friends<white>]<gray> Du hast <target> eine Anfrage gesendet"
+    request: "<white>[<green>Friends<white>]<gray> <sender> hat dir eine Freundschaftsanfrage gesendet. <green><click:run_command:'/performaction <token>'><hover:show_text:'<gray>Klicke, um die Freundschaftsanfrage anzunehmen'>[Annehmen]</hover></click></green>"
+    succeed: "<white>[<green>Friends<white>]<gray> Du und <player> seid jetzt Freunde (yay) :D"
+    delete: "<white>[<green>Friends<white>]<gray> Du und <player> seid keine Freunde mehr D:"
+    rejected-sender: "<white>[<green>Friends<white>]<gray> Deine Freundschaftsanfrage an <target> wurde abgelehnt D:"
+    rejected-target: "<white>[<green>Friends<white>]<gray> Du hast die Freundschaftsanfrage von <player> abgelehnt (warum D: ?)"
+    failed-already_befriended: "<white>[<green>Friends<white>]<gray> Ihr seid schon befreundet"
+    failed-no_friend: "<white>[<green>Friends<white>]<gray> Ihr seid nicht befreundet"
+  gui:
+    friends:
+      title: "Freunde"
+      button-invite: "<green>Freund hinzufügen"
+      button-delete: "<red>Freund löschen"
+      display-amount: "<yellow>Anzahl Freunde: <amount>"
+      display-friend-online: "<green>Online"
+      display-friend-offline: "<green>Offline"
+      display-friend-timespan: "Befreundet seit <days> Tagen (<date>)"
+      button-invitation: "Einladung: <player>"
+      button-invitation-accept: "Klicke, um die Einladung anzunehmen"
+      button-invitation-reject: "Rechtsklicke, um die Einladung abzulehnen"
+    invite:
+      title: "Freund hinzufügen"
+      text: "Name"
+      not-found: "Nicht gefunden"
+    delete:
+      title: "Freund entfreunden"
+      text: "Name"
+      not-found: "Nicht gefunden"
+
+mail:
+  chat:
+    wrong-inputs: "<white>[<green>Mail<white>]<gray> Bitte fülle Empfänger, Betreff und Nachricht aus"
+    new-mail: "<white>[<green>Mail<white>]<gray> Du hast <green><count></green> neue Mails! Öffne dein Postfach mit <green><click:run_command:'/mail'><hover:show_text:'<gray>Klicke, um das Mail Menü zu öffnen</gray>'>/mail</hover></click></green>"
+    received: "<white>[<green>Mail<white>]<gray> Du hast eine neue Mail von <sender> mit dem Betreff \"<caption>\" erhalten. <green><click:run_command:'/mail'><hover:show_text:'<gray>Klicke, um das Mail Menü zu öffnen'>/mail</hover></click></green> zum Öffnen"
+    sent: "<white>[<green>Mail<white>]<gray> Du hast eine Mail an <target> mit dem Betreff \"<caption>\" gesendet"
+    deleted: "<white>[<green>Mail<white>]<gray> Du hast die Mail von <sender> mit dem Betreff \"<caption>\" gelöscht"
+  gui:
+    send:
+      title: "Neue Mail"
+      caption-inputs: "Bitte gib Betreff und Nachricht ein: "
+      input-target: "Empfänger: "
+      input-caption: "Betreff: "
+      input-message: "Nachricht: "
+      button-send: "Senden"
+      button-cancel: "Abbrechen"
+    post-office-box:
+      title-inbox: "Posteingang"
+      title-outbox: "Postausgang"
+      button-new_mail: "<green>Neue Mail"
+      button-favorites-only: "Nur Favoriten"
+      button-favorites-all: "Alle Mails"
+      display-mail-sender: "von: <sender>"
+      display-mail-target: "an: <target>"
+      display-mail-read: "<green>Gelesen"
+      display-mail-unread: "<red>Ungelesen"
+      button-mail-controls-left: "Links-Klick"
+      button-mail-controls-left-val: "Mail öffnen"
+      button-mail-controls-right: "Rechts-Klick"
+      button-mail-controls-right-val: "Mail löschen"
+      button-mail-controls-shift: "Shift-Klick"
+      button-mail-controls-shift-val-favorite: "Zu Favoriten hinzufügen"
+      button-mail-controls-shift-val-no_favorite: "Aus Favoriten entfernen"
+    delete:
+      accept: "Akzeptieren, um die Mail zu löschen"
+
+perk:
+  chat:
+    gain-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green><perk></green> erhalten"
+    activate-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green><perk></green> aktiviert"
+    disable-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green><perk></green> deaktiviert"
+  gui:
+    confirmation:
+      accept: "Akzeptiere, um den Perk-Gutschein einzulösen"
+
+namecolor:
+  chat:
+    deactivate: "<white>[<green>Namensfarben<white>]<gray> Du hast deine Namensfarbe deaktiviert"
+    activate-pre: "<white>[<green>Namensfarben<white>]<gray> Du hast die Namensfarbe"
+    activate-aft: "<gray>aktiviert"
+    unlock: "<white>[<green>Namensfarben<white>]<gray> Du hast die Namensfarbe <color> freigeschaltet. Aktiviere sie mit <green><hover:show_text:'<gray>Klicke um die zu aktivieren'><click:suggest_command:'/namensfarben'>/namensfarben</click></hover></green>"
+  gui:
+    namecolor:
+      title: "Namensfarben"
+      deactivate: "<gray>Namensfarbe deaktivieren"
+      deactivate-lore:
+        - "<gray>Klicke, um deine Namensfarbe zu deaktivieren"
+      namecolor-pre: "<green>Namensfarbe <gray>• "
+      namecolor-lore:
+        - "<gray>Klicke, um die Namensfarbe zu aktivieren"
+      forbidden-pre: "<red>Namensfarbe • "
+      forbidden-lore:
+        - "<red>Du hast diese Namensfarbe noch nicht freigeschaltet. "
+        - "<red>Du kannst Namensfarben über Crates erhalten. "
+
+sidebar:
+  gui:
+    sidebar:
+      config: "<dark_gray>Konfiguriere die Sidebar mit <green><hover:show_text:'<gray>Klicke, um die Sidebar zu konfigurieren'><click:suggest_command:'/configsidebar '>/configsidebar</click></hover></green>"

@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.mute;
 
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -20,7 +21,7 @@ public class TempmuteExecutor implements CommandExecutor {
     }
     OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[0]);
     if (!targetPlayer.hasPlayedBefore() && !targetPlayer.isOnline()) {
-      commandSender.sendMessage(MessageManager.get("general-invalid-player"));
+      LanguageManager.send(commandSender, "general.invalid-player");
       return false;
     }
     int days = Integer.parseInt(args[1]);
@@ -35,9 +36,9 @@ public class TempmuteExecutor implements CommandExecutor {
       uuid = "console";
     }
     MuteManager.mutePlayer(targetPlayer.getUniqueId().toString(),muteDuration,uuid,reason);
-    commandSender.sendMessage(MessageManager.get("mute-tempmute-sender", Map.of("player",targetPlayer.getName(),"days",days+"","hours",hours+"","minutes",minutes+"","reason",reason)));
+    LanguageManager.send(commandSender, "mute.chat.tempmute-succeed-sender", "player",targetPlayer.getName(),"days",days+"","hours",hours+"","minutes",minutes+"","reason",reason);
     if (targetPlayer.isOnline()) {
-      ((Player) targetPlayer).sendMessage(MessageManager.get("mute-tempmute-target", Map.of("days",days+"","hours",hours+"","minutes",minutes+"","reason",reason)));
+      LanguageManager.send(targetPlayer.getPlayer(), "mute.chat.tempmute-succeed-target", "days",days+"","hours",hours+"","minutes",minutes+"","reason",reason);
     }
     return true;
   }

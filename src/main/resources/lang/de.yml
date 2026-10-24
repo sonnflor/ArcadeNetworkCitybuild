@@ -6,7 +6,7 @@ general:
 
 coins:
   chat:
-    auszahlen-succeed: "<white>[<green>Coins<white>]<gray> Du hast <amount> Coins in <coinValue>er-Coins ausgezahlt"
+    auszahlen-succeed: "<white>[<green>Coins<white>]<gray> Du hast <amount> Coins in <coin-value>er-Coins ausgezahlt"
     auszahlen-failed-negative: "<white>[<green>Coins<white>]<gray> Du darfst keine negativen Coins auszahlen"
     auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> Du hast nicht genug Coins"
     deposit-succeed: "<white>[<green>Coins<white>]<gray> Du hast <amount> Coins eingezahlt"
@@ -199,3 +199,31 @@ sidebar:
   gui:
     sidebar:
       config: "<dark_gray>Konfiguriere die Sidebar mit <green><hover:show_text:'<gray>Klicke, um die Sidebar zu konfigurieren'><click:suggest_command:'/configsidebar '>/configsidebar</click></hover></green>"
+
+shop:
+  chat:
+    click-failed-wrong_coin: "<white>[<green>Shop<white>]<gray> Bitte klicke ein gültiges Coin Item mit dem gewünschtem Preis an. Erzeuge Coins mit /auszahlen <amount> <price per coin>"
+    click-failed-filled_storage: "<white>[<green>Shop<white>]<gray> Bitte leere zuerst das Lager dieses Items, bevor du das Angebot wechseln kannst!"
+    interaction-failed-other_interaction: "<white>[<green>Shop<white>]<gray> Mit diesem Shop interagiert bereits ein anderer Spieler"
+    interaction-failed-no_trades: "<white>[<green>Shop<white>]<gray> Dieser Shop hat keine Trades"
+  gui:
+    shop-config:
+      title: "Shop Regal Konfiguration"
+      select-placeholder-name: "Auswählen"
+      select-placeholder-lore:
+        - "<gray>Klicke auf das zu verkaufende Item in deinem Inventar"
+      select-placeholder-coin-name: "Auswählen"
+      select-placeholder-coin-lore:
+        - "<gray>Klicke auf ein Coin-Item mit dem passendem Preis. "
+        - "<gray>Du kannst Coins mit /auszahlen <amount> <price per item> auszahlen"
+      item-placeholder-name: "Leer"
+      item-placeholder-lore:
+        "<gray>Klicke, um diesen Regalslot zu konfigurieren"
+      price: "Preis: <price> Coins"
+      price-lore:
+        - "<gray>Klicke, um diesen Preis zu konfigurieren"
+      storage: "Lagerbestand: <amount>/<max>"
+      help: "<gray>Klicke auf ein Item um es zu bearbeiten"
+    storage:
+      title: "Shop Lagerbestand"
+      item_move-failed: "<white>[<green>Shop<white>]<gray> Du kannst nur <green><material></green> in dieses Fach legen!"

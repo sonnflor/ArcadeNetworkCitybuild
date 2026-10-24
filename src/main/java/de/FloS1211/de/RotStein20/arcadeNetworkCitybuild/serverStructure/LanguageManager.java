@@ -32,14 +32,11 @@ public final class LanguageManager {
   }
 
   private static void loadLanguage(String language) {
+    ArcadeNetworkCitybuild.getInstance().saveResource("lang/" + language + ".yml", true);
     File file = new File(
         ArcadeNetworkCitybuild.getInstance().getDataFolder(),
         "lang/" + language + ".yml"
     );
-
-    if (!file.exists()) {
-      ArcadeNetworkCitybuild.getInstance().saveResource("lang/" + language + ".yml", false);
-    }
 
     languages.put(
         language,

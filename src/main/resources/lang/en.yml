@@ -6,7 +6,7 @@ general:
 
 coins:
   chat:
-    auszahlen-succeed: "<white>[<green>Coins<white>]<gray> You paid out <amount> Coins in <coinValue>-coin units"
+    auszahlen-succeed: "<white>[<green>Coins<white>]<gray> You paid out <amount> Coins in <coin-value>-coin units"
     auszahlen-failed-negative: "<white>[<green>Coins<white>]<gray> You cannot pay out negative Coins"
     auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> You do not have enough Coins"
     deposit-succeed: "<white>[<green>Coins<white>]<gray> You deposited <amount> Coins"
@@ -177,3 +177,31 @@ sidebar:
   gui:
     sidebar:
       config: "<dark_gray>Configure the sidebar with <green><hover:show_text:'<gray>Click to configure the sidebar'><click:suggest_command:'/configsidebar '>/configsidebar</click></hover></green>"
+
+shop:
+  chat:
+    click-failed-wrong_coin: "<white>[<green>Shop<white>]<gray> Please click a valid coin item with the desired price. Create coins using /auszahlen <amount> <price per coin>"
+    click-failed-filled_storage: "<white>[<green>Shop<white>]<gray> Please empty this item's storage before changing the offer!"
+    interaction-failed-other_interaction: "<white>[<green>Shop<white>]<gray> Another player is already interacting with this shop"
+    interaction-failed-no_trades: "<white>[<green>Shop<white>]<gray> This shop has no trades"
+  gui:
+    shop-config:
+      title: "Shop Shelf Configuration"
+      select-placeholder-name: "Select"
+      select-placeholder-lore:
+        - "<gray>Click the item you want to sell in your inventory"
+      select-placeholder-coin-name: "Select"
+      select-placeholder-coin-lore:
+        - "<gray>Click a coin item with the matching price."
+        - "<gray>You can withdraw coins using /auszahlen <amount> <price per item>"
+      item-placeholder-name: "Empty"
+      item-placeholder-lore:
+        - "<gray>Click to configure this shelf slot"
+      price: "Price: <price> Coins"
+      price-lore:
+        - "<gray>Click to configure this price"
+      storage: "Stock: <amount>/<max>"
+      help: "<gray>Click an item to edit it"
+    storage:
+      title: "Shop Storage"
+      item_move-failed: "<white>[<green>Shop<white>]<gray> You can only place <green><material></green> in this slot!"

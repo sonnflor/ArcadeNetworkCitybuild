@@ -5,6 +5,8 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorCoupo
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.namecolor.NamecolorManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.perks.PerkCouponManager;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.RankCouponManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.shop.ShopManager;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GetCustomItemExecutor implements CommandExecutor {
-  public static List<String> validItems = List.of("coin","rankbook","namecolorbook", "perkbook");
+  public static List<String> validItems = List.of("coin","rankbook","namecolorbook", "perkbook", "shopshelf");
   @Override
   public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
     if (args.length < 1) return false;
@@ -34,6 +36,8 @@ public class GetCustomItemExecutor implements CommandExecutor {
       ((Player)commandSender).getInventory().addItem(NamecolorCouponManager.getCoupon(itemProperties[0]));
     } else if (itemName.equalsIgnoreCase("perkbook")) {
       ((Player)commandSender).getInventory().addItem(PerkCouponManager.getPerkCoupon(itemProperties[0]));
+    } else if (itemName.equalsIgnoreCase("shopshelf")) {
+      ((Player)commandSender).getInventory().addItem(ShopManager.getShopShelf(Material.OAK_SHELF));
     }
     return true;
   }

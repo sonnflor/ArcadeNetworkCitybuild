@@ -16,39 +16,41 @@ import java.math.BigDecimal;
 public class AuszahlenExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
-    if (args.length < 1) {
-      return false;
-    }
-    int coinValue = 1;
-    if (args.length >= 2) {
-      try {
-        coinValue = Integer.parseInt(args[1]);
-      } catch (NumberFormatException e) {
-        LanguageManager.send(commandSender, "general.invalid-number");
-        return true;
-      }
-    }
-
     if (!(commandSender instanceof Player player)) {
       LanguageManager.send(commandSender, "general.invalid-executor");
       return true;
     }
-    String uuid = player.getUniqueId().toString();
-    Inventory inventory = player.getInventory();
-
+    if (args.length < 1) {
+      return false;
+    }
     BigDecimal amount;
     try {
       amount = new BigDecimal(args[0]);
+      if (amount.doubleValue() <= 0) throw new NumberFormatException();
     } catch (NumberFormatException e) {
-      LanguageManager.send(commandSender, "general.invalid-number");
+      LanguageManager.send(commandSender, "general.chat.invalid-number");
       return true;
     }
-    if (amount.scale() > 2) {
-      LanguageManager.send(commandSender, "general.invalid-number");
+    BigDecimal coinValue = amount;
+    if (args.length >= 2) {
+      try {
+        coinValue = new BigDecimal(args[1]);
+        if (coinValue.doubleValue() <= 0) throw new NumberFormatException();
+      } catch (NumberFormatException e) {
+        LanguageManager.send(commandSender, "general.chat.invalid-number");
+        return true;
+      }
+    }
+
+    String uuid = player.getUniqueId().toString();
+    Inventory inventory = player.getInventory();
+
+    if (amount.scale() > 2 || coinValue.scale() > 2) {
+      LanguageManager.send(commandSender, "general.chat.invalid-number");
       return true;
     }
     BigDecimal playerCoins = CoinsManager.getCoins(uuid);
-    if (amount.compareTo(playerCoins)>0) {
+    if (amount.compareTo(playerCoins) > 0) {
       LanguageManager.send(commandSender, "coins.chat.auszahlen-failed-poor");
       return true;
     }
@@ -56,9 +58,9 @@ public class AuszahlenExecutor implements CommandExecutor {
       LanguageManager.send(commandSender, "coins.chat.auszahlen-failed-negative");
       return true;
     }
-    int itemAmount = (int) Math.floor(amount.doubleValue() / coinValue);
+    int itemAmount = (int) Math.floor(amount.doubleValue() / coinValue.doubleValue());
     int stackAmount = (int) Math.floor((double) itemAmount / 64);
-    CoinsManager.addCoins(uuid,BigDecimal.valueOf((long) itemAmount *coinValue).negate());
+    CoinsManager.addCoins(uuid,BigDecimal.valueOf(itemAmount * coinValue.doubleValue()).negate());
     SidebarManager.setSidebar(player);
     ItemStack coinStackItem = CoinsManager.getCoinItem(amount, 64);
     for (int i = 0; i < stackAmount; i++) {
@@ -70,7 +72,7 @@ public class AuszahlenExecutor implements CommandExecutor {
       }
     }
     if (itemAmount % 64 != 0) {
-      ItemStack lastStack = CoinsManager.getCoinItem(BigDecimal.valueOf(coinValue), itemAmount % 64);
+      ItemStack lastStack = CoinsManager.getCoinItem(coinValue, itemAmount % 64);
       if (inventory.firstEmpty() == -1) {
         Item item = player.getWorld().dropItem(player.getLocation(), lastStack);
         item.setPickupDelay(0);
@@ -78,7 +80,7 @@ public class AuszahlenExecutor implements CommandExecutor {
         inventory.addItem(lastStack);
       }
     }
-    LanguageManager.send(player, "coins.chat.auszahlen-succeed", "amount",amount+"","coinValue",coinValue+"");
+    LanguageManager.send(player, "coins.chat.auszahlen-succeed", "amount",amount+"","coin-value",coinValue+"");
     return true;
   }
 }

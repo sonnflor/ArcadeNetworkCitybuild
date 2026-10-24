@@ -2,7 +2,7 @@ general-invalid-player: "<white>[<green>ArcadeNetwork<white>]<gray> Bitte gib ei
 general-invalid-number: "<white>[<green>ArcadeNetwork<white>]<gray> Bitte gib eine gültige Zahl an"
 general-invalid-executor: "<white>[<green>ArcadeNetwork<white>]<gray> Dieser Command kann nur von einem Spieler ausgeführt werden"
 
-coins-auszahlen-succeed: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins in {coinValue}er-Coins ausgezahlt"
+coins-auszahlen-succeed: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins in {coin-value}er-Coins ausgezahlt"
 coins-auszahlen-failed-negative: "<white>[<green>Coins<white>]<gray> Du darfst keine negativen Coins auszahlen"
 coins-auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> Du hast nicht genug Coins"
 coins-deposit-succeed: "<white>[<green>Coins<white>]<gray> Du hast {amount} Coins eingezahlt"

@@ -28,7 +28,7 @@ import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.rank.SetRankTabCompleter
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.remoteConsole.CommandPoller;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.remoteConsole.FastPollingExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.serverStructure.*;
-import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.shop.ShopManager;
+import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.shop.*;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.ConfigSidebarExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.ConfigSidebarTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.sidebar.SidebarManager;
@@ -57,6 +57,8 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
   public String databasePath = getDataFolder().getAbsolutePath() + "/ArcadeCraftPlugin.db";
   public static ArcadeNetworkCitybuild instance;
   private DatabaseManager databaseManager;
+  //shop
+  public ShopManager shopManager;
 
   @Override
   public void onEnable() {
@@ -266,7 +268,11 @@ public final class ArcadeNetworkCitybuild extends JavaPlugin {
   }
 
   private void initShop() {
+    shopManager = new ShopManager();
     ShopManager.registerShelfRecipes();
+    Bukkit.getPluginManager().registerEvents(new ShopListener(), this);
+    Bukkit.getPluginManager().registerEvents(new ShopConfigGuiListener(), this);
+    Bukkit.getPluginManager().registerEvents(new ShopStorageGuiListener(), this);
   }
 }
 

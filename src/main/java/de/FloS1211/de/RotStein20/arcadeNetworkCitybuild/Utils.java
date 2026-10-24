@@ -7,16 +7,13 @@ import io.papermc.paper.registry.data.dialog.action.DialogAction;
 import io.papermc.paper.registry.data.dialog.type.DialogType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickCallback;
-import org.bukkit.NamespacedKey;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.Bukkit;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.io.ByteArrayInputStream;
@@ -26,6 +23,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.UUID;
@@ -49,7 +47,8 @@ public class Utils {
   public static NamespacedKey key_sidebar = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"sidebar");
   public static NamespacedKey key_keep_inv = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"keep_inv");
   public static NamespacedKey key_shop_owner = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"shop_owner");
-  public static NamespacedKey key_shop_storage = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"shop_storage");
+  public static NamespacedKey key_shop_trades = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"shop_trades");
+  public static NamespacedKey key_shop_interaction = new NamespacedKey(ArcadeNetworkCitybuild.getInstance(),"shop_interaction");
 
   public static String formatDate(long unixSec, String pattern) {
     ZoneId zone = ZoneId.systemDefault();
@@ -124,6 +123,31 @@ public class Utils {
       return items;
     } catch (ClassNotFoundException e) {
       throw new IOException("Unable to decode class type.", e);
+    }
+  }
+
+  public static List<ItemStack> splitItemsInStacks(ItemStack item, int amount) {
+    List<ItemStack> result = new ArrayList<>();
+    int maxStackSize = item.getMaxStackSize();
+
+    while (amount > 0) {
+      int stackAmount = Math.min(amount, maxStackSize);
+
+      ItemStack drop = item.clone();
+      drop.setAmount(stackAmount);
+
+      result.add(drop);
+
+      amount -= stackAmount;
+    }
+    return result;
+  }
+
+  public static void dropItems(Location location, ItemStack item, int amount) {
+    World world = location.getWorld();
+    if (world == null || item == null || item.getType().isAir() || amount <= 0) return;
+    for (ItemStack drop : splitItemsInStacks(item, amount)) {
+      world.dropItemNaturally(location, drop);
     }
   }
 }

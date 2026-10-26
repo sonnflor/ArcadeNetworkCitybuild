@@ -1,0 +1,56 @@
+package de.FloS1211.de.RotStein20.arcadeNetwork.namecolor;
+
+import de.FloS1211.de.RotStein20.arcadeNetwork.gui.Gui;
+import de.FloS1211.de.RotStein20.arcadeNetwork.gui.GuiButtonExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.inventory.ItemStack;
+
+public class NamecolorGuiButtonExecutor implements GuiButtonExecutor {
+  @Override
+  public void customAction(String buttonId, Gui gui, Player player, ClickType clickType) {
+
+  }
+
+  @Override
+  public void switchPage(String buttonId, Gui gui, int page, Player player, ClickType clickType) {
+
+  }
+
+  @Override
+  public void closeGui(String buttonId, Gui gui, Player player, ClickType clickType) {
+
+  }
+
+  @Override
+  public void accept(String buttonId, Gui gui, Player player, ClickType clickType) {
+    String colName = gui.customData.get("couponName").substring(10);
+    YamlConfiguration config = new YamlConfiguration();
+    try {
+      config.loadFromString(gui.customData.get("couponItem"));
+    } catch (InvalidConfigurationException e) {
+      e.printStackTrace();
+    }
+    ItemStack item = config.getItemStack("item");
+    try {
+      NamecolorManager.unlockNamecolor(player.getUniqueId().toString(), colName);
+      LanguageManager.send(player, "namecolor.chat.unlock", "color", colName.replace('_',' '));
+      if (!player.getGameMode().equals(org.bukkit.GameMode.CREATIVE)) item.setAmount(item.getAmount() - 1);
+    } catch (IllegalArgumentException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Override
+  public void reject(String buttonId, Gui gui, Player player, ClickType clickType) {
+
+  }
+
+  @Override
+  public void onSwitch(String buttonId, Gui gui, boolean state, Player player, ClickType clickType) {
+
+  }
+}

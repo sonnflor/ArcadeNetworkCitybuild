@@ -218,7 +218,7 @@ shop:
         - "<gray>Du kannst Coins mit /auszahlen <amount> <price per item> auszahlen"
       item-placeholder-name: "Leer"
       item-placeholder-lore:
-        "<gray>Klicke, um diesen Regalslot zu konfigurieren"
+        - "<gray>Klicke, um diesen Regalslot zu konfigurieren"
       price: "Preis: <price> Coins"
       price-lore:
         - "<gray>Klicke, um diesen Preis zu konfigurieren"

@@ -1,6 +1,6 @@
-name: ArcadeNetworkCitybuild
+name: ArcadeNetwork
 version: '1.0-SNAPSHOT'
-main: de.FloS1211.de.RotStein20.arcadeNetworkCitybuild.ArcadeNetworkCitybuild
+main: de.FloS1211.de.RotStein20.arcadeNetwork.ArcadeNetwork
 api-version: '1.21'
 authors: [ FloS1211, RotStein20 ]
 commands:

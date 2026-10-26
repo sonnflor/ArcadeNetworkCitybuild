@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.FloS1211.de.RotStein20</groupId>
-    <artifactId>ArcadeNetworkCitybuild</artifactId>
+    <artifactId>ArcadeNetwork</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ArcadeNetworkCitybuild</name>
+    <name>ArcadeNetwork</name>
 
     <properties>
         <java.version>21</java.version>

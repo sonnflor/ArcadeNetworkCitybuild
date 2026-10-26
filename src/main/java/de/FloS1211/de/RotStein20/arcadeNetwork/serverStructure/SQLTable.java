@@ -1,0 +1,153 @@
+package de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure;
+
+import de.FloS1211.de.RotStein20.arcadeNetwork.ArcadeNetwork;
+import org.bukkit.Bukkit;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SQLTable {
+  private final String name;
+  private final List<String> tableColumns;
+  private final List<List<Object>> tableValues;
+
+  private Integer getColumnIndex(String columnName) {
+    for (int i = 0; i < tableColumns.size(); i++) {
+      String aktColumnName = tableColumns.get(i);
+      if (aktColumnName.equals(columnName)) {
+        return i;
+      }
+    }
+    throw new IllegalArgumentException("Spaltenname \""+columnName+"\" doesnt exist in table \"" + name + "\"");
+  }
+
+  public SQLTable(String tableName) {
+    this(tableName, "", List.of());
+  }
+
+  public SQLTable(String tableName, String condition, List<Object> args) {
+    this(tableName, condition, args, null);
+  }
+
+  public SQLTable(String tableName, String condition, List<Object> args, String sortColumn) {
+    this.name = tableName;
+    List<String> preapredTableColums = new ArrayList<>();
+    List<List<Object>> preparedTableValues = new ArrayList<>();
+    String sql = "SELECT * FROM " + tableName;
+    if (condition != null && !condition.isBlank()) {
+      sql += " WHERE " + condition;
+    }
+    if (sortColumn != null && !sortColumn.isBlank()) {
+      sql += " ORDER BY " + sortColumn;
+    }
+    try (PreparedStatement preparedStatement = ArcadeNetwork.getInstance().getDatabaseManager().getConnection().prepareStatement(sql)) {
+      if (condition != null && !condition.isBlank()) {
+        if (condition.contains("?")) {
+          int i = 0;
+          for (Object arg : args) {
+            preparedStatement.setObject(i + 1, arg);
+            i++;
+          }
+        }
+      }
+      ResultSet resultSet = preparedStatement.executeQuery();
+      for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
+        preapredTableColums.add(resultSet.getMetaData().getColumnName(i + 1));
+      }
+      while (resultSet.next()) {
+        ArrayList<Object> valueList = new ArrayList<>();
+        for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
+          valueList.add(resultSet.getObject(i + 1));
+        }
+        preparedTableValues.add(valueList);
+      }
+    } catch (SQLException e) {
+      Bukkit.getLogger().severe(String.valueOf(e));
+    }
+    this.tableColumns = preapredTableColums;
+    this.tableValues = preparedTableValues;
+  }
+
+  public String getTableName() {
+    return name;
+  }
+
+  public String getStringValue(String columnName, int index) {
+    int columnIndex = getColumnIndex(columnName);
+    return (String) tableValues.get(index).get(columnIndex);
+  }
+
+  public Integer getIntValue(String columnName, int index) {
+    int columnIndex = getColumnIndex(columnName);
+    return (Integer) tableValues.get(index).get(columnIndex);
+  }
+
+  public Boolean getBooleanValue(String columnName, int index) {
+    int columnIndex = getColumnIndex(columnName);
+    Object value = tableValues.get(index).get(columnIndex);
+    if (value instanceof Boolean b) {
+      return b;
+    }
+    if (value instanceof Number n) {
+      return n.intValue() != 0;
+    }
+    return false;
+  }
+
+  @SuppressWarnings("unchecked")
+  public <T> T getValue(String column, int row) {
+    return (T) tableValues.get(row).get(getColumnIndex(column));
+  }
+
+  public double getDoubleValue(String columnName, int index) {
+    int columnIndex = getColumnIndex(columnName);
+    return (Double) tableValues.get(index).get(columnIndex);
+  }
+
+  public List<String> getStringColumn(String columnName) {
+    List<String> result = new ArrayList<>();
+    int columnIndex = getColumnIndex(columnName);
+    for (List<Object> tableValue : tableValues) {
+      result.add((String) tableValue.get(columnIndex));
+    }
+    return result;
+  }
+
+  public List<Integer> getIntColumn(String columnName) {
+    List<Integer> result = new ArrayList<>();
+    int columnIndex = getColumnIndex(columnName);
+    for (List<Object> tableValue : tableValues) {
+      result.add((Integer) tableValue.get(columnIndex));
+    }
+    return result;
+  }
+
+  public List<Double> getDoubleColumn(String columnName) {
+    List<Double> result = new ArrayList<>();
+    int columnIndex = getColumnIndex(columnName);
+    for (List<Object> tableValue : tableValues) {
+      result.add((Double) tableValue.get(columnIndex));
+    }
+    return result;
+  }
+
+  public Integer getColumnCount() {
+    return tableColumns.size();
+  }
+
+  public Integer size() {
+    return tableValues.size();
+  }
+
+  public boolean isEmpty() {
+    return tableValues.isEmpty();
+  }
+
+  @Override
+  public String toString() {
+    return "SQLTable{name='" + name + "',columnNames=" + tableColumns.toString() + ", values=" + tableValues.toString();
+  }
+}

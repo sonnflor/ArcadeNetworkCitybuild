@@ -19,7 +19,7 @@ public class TpaListener implements PluginMessageListener {
       String senderUuid = in.readUTF();
       String targetUuid = in.readUTF();
       String  direction = in.readUTF();
-      TpaManager.sendTpa(direction,senderUuid, Bukkit.getPlayer(UUID.fromString(targetUuid)));
+      TpaManager.sendTpa(direction,senderUuid, Bukkit.getPlayer(UUID.fromString(targetUuid)), true);
     } else if (action.equals("EXECUTE_TELEPORT")) {
       boolean succeed = in.readBoolean();
       UUID senderUuid = UUID.fromString(in.readUTF());

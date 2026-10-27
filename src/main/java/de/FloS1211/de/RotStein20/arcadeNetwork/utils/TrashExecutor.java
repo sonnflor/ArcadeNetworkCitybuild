@@ -1,19 +1,19 @@
-package de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure;
+package de.FloS1211.de.RotStein20.arcadeNetwork.utils;
 
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.MessageManager;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class SpawnExecutor implements CommandExecutor {
+public class TrashExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
     if (commandSender instanceof Player player) {
-      World overworld = Bukkit.getWorlds().get(0);
-      player.teleport(overworld.getSpawnLocation());
+      player.openInventory(Bukkit.createInventory(player,54, Component.text("Müll")));
     } else {
       commandSender.sendMessage(MessageManager.get("general-invalid-executor"));
     }

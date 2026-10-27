@@ -6,3 +6,32 @@ database:
   password: T(cZ<EjxiB-U?8P
   #password: a-bsdciisMOLIa-cdsb12das
 forbidden_words: ["hurensohn","spast","käsiger michael"]
+features:
+  coins: true
+  pay: true
+  colorcodes: true
+  proxy_teleport: true
+  arcade_attack: true
+  server_structure: true
+  sidebar: true
+  anti_xashinn: true
+  spawn: true
+  lobby: true
+  rank: true
+  namecolor: true
+  mute: true
+  tpa: true
+  invsee: true
+  position: true
+  sign: true
+  ban: true
+  trash: true
+  ping: true
+  discord: true
+  vanish: true
+  friends: true
+  mail: true
+  perks: true
+  remote: true
+  shop: true
+  proxy: true

@@ -1,5 +1,7 @@
 package de.FloS1211.de.RotStein20.arcadeNetwork.tpa;
 
+import de.FloS1211.de.RotStein20.arcadeNetwork.ArcadeNetwork;
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -27,8 +29,12 @@ public class TpaExecutor implements CommandExecutor {
       return false;
     }
     OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-    TpaManager.requestTpaCrossServer(type,player,target);
-    player.sendMessage(MessageManager.get("tpa-"+type+"-sender", Map.of("player",args[1])));
+    if (target.isOnline()) {
+      TpaManager.sendTpa(type, player.getUniqueId().toString(), target.getPlayer(), false);
+    } else {
+      if (ArcadeNetwork.getInstance().featureManager.getState("proxy")) TpaManager.requestTpaCrossServer(type,player,target);
+    }
+    LanguageManager.send(player, "tpa.chat."+type+"-sender", "player", target.getName());
     return true;
   }
 }

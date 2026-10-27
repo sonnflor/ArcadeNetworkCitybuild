@@ -44,9 +44,9 @@ tpa:
     reject-target: "<white>[<green>Tpa<white>]<gray> <player> hat dein Teleportanfrage abgelehnt"
     reject-rejecter: "<white>[<green>Tpa<white>]<gray> Du hast die Teleportanfrage von <player> abgelehnt"
     me_to_player-sender: "<white>[<green>Tpa<white>]<gray> Du hast angefragt, ob du dich zu <player> teleportieren darfst"
-    me_to_player-target: "<white>[<green>Tpa<white>]<gray> <player> hat angefragt, ob er sich zu dir teleportieren darf <green><hover:show_text:'<gray>Kleicke, um die TPA anzunehmen'><click:run_command:'/performaction <acceptToken>'>[Annehmen]</click></hover></green> <red><hover:show_text:'<gray>Klicke, um die TPA abzulehnen'><click:run_command:'/performaction <rejectToken>'>[Ablehnen]</click></hover></red>"
+    me_to_player-target: "<white>[<green>Tpa<white>]<gray> <player> hat angefragt, ob er sich zu dir teleportieren darf <green><hover:show_text:'<gray>Kleicke, um die TPA anzunehmen'><click:run_command:'/performaction <accept_token>'>[Annehmen]</click></hover></green> <red><hover:show_text:'<gray>Klicke, um die TPA abzulehnen'><click:run_command:'/performaction <reject_token>'>[Ablehnen]</click></hover></red>"
     player_to_me-sender: "<white>[<green>Tpa<white>]<gray> Du hast angefragt, ob <player> sich zu dir teleportieren will"
-    player_to_me-target: "<white>[<green>Tpa<white>]<gray> <player> hat angefragt, ob du dich zu ihm teleportieren willst <green><hover:show_text:'<gray>Kleicke, um die TPA anzunehmen'><click:run_command:'/performaction <acceptToken>'>[Annehmen]</click></hover></green> <red><hover:show_text:'<gray>Klicke, um die TPA abzulehnen'><click:run_command:'/performaction <rejectToken>'>[Ablehnen]</click></hover></red>"
+    player_to_me-target: "<white>[<green>Tpa<white>]<gray> <player> hat angefragt, ob du dich zu ihm teleportieren willst <green><hover:show_text:'<gray>Kleicke, um die TPA anzunehmen'><click:run_command:'/performaction <accept_token>'>[Annehmen]</click></hover></green> <red><hover:show_text:'<gray>Klicke, um die TPA abzulehnen'><click:run_command:'/performaction <reject_token>'>[Ablehnen]</click></hover></red>"
 
 clickablemessage:
   chat:

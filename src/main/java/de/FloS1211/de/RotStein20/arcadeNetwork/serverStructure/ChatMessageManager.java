@@ -99,7 +99,7 @@ public class ChatMessageManager implements Listener {
     ByteArrayDataOutput out = ByteStreams.newDataOutput();
     out.writeUTF(MiniMessage.miniMessage().serialize(message));
 
-    player.sendPluginMessage(ArcadeNetwork.getInstance(), "arcadenetwork:chat", out.toByteArray());
+    if (ArcadeNetwork.getInstance().featureManager.getState("proxy")) player.sendPluginMessage(ArcadeNetwork.getInstance(), "arcadenetwork:chat", out.toByteArray());
   }
     public static void handleOpenItemMessageClick(String[] args, CommandSender commandSender) {
       if (!(commandSender instanceof Player player)) {

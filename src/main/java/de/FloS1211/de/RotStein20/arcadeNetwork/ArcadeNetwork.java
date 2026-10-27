@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetwork;
 
+import de.FloS1211.de.RotStein20.arcadeNetwork.arcadeattack.ArcadeAttackEggListener;
 import de.FloS1211.de.RotStein20.arcadeNetwork.clickableMessages.PerformactionExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.coins.AuszahlenExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.coins.CoinRightclickListener;
@@ -21,6 +22,7 @@ import de.FloS1211.de.RotStein20.arcadeNetwork.perks.PerkExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.perks.PerkEffectListener;
 import de.FloS1211.de.RotStein20.arcadeNetwork.perks.PerkManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.position.PositionTabCompleter;
+import de.FloS1211.de.RotStein20.arcadeNetwork.proxyTeleport.*;
 import de.FloS1211.de.RotStein20.arcadeNetwork.rank.PermissionManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.rank.PlayerNameManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.rank.SetRankExecutor;
@@ -59,21 +61,30 @@ public final class ArcadeNetwork extends JavaPlugin {
   private DatabaseManager databaseManager;
   //shop
   public ShopManager shopManager;
+  //features
+  public FeatureManager featureManager;
 
   @Override
   public void onEnable() {
     instance = this;
     saveDefaultConfig();
+    getConfig().options().copyDefaults(true);
+    saveConfig();
+    FeatureVisibilityListener.disabledCommands.clear();
+    featureManager = new FeatureManager(getConfig());
     saveResource("messages.yml", true);
     MessageManager.load();
 
     Utils.init();
     registerFeatures();
+    getServer().getPluginManager().registerEvents(new FeatureVisibilityListener(this), this);
     getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-    Bukkit.getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:tab");
-    getServer().getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:chat");
-    getServer().getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:tpa");
-    getServer().getMessenger().registerIncomingPluginChannel(this, "arcadenetwork:tpa", new TpaListener());
+    if (featureManager.getState("proxy")) {
+      Bukkit.getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:tab");
+      getServer().getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:chat");
+      getServer().getMessenger().registerOutgoingPluginChannel(this, "arcadenetwork:tpa");
+      getServer().getMessenger().registerIncomingPluginChannel(this, "arcadenetwork:tpa", new TpaListener());
+    }
     LanguageManager.load();
 
     databaseManager = new DatabaseManager();
@@ -102,177 +113,180 @@ public final class ArcadeNetwork extends JavaPlugin {
   }
 
   private void registerFeatures() {
-    initConins();
-    initPay();
-    initColorCodes();
-    initServerStructure();
-    initRank();
-    initNameColor();
-    initMute();
-    initTpa();
-    initInvsee();
-    initPosition();
-    initSign();
-    initSidBar();
-    initBan();
-    initMüll();
-    initPing();
-    initDiscord();
-    initVanish();
-    initFriends();
-    initMail();
-    initSql();
-    initPerks();
-    initRemoteCommands();
-    initShop();
+    initCoins(featureManager.getState("coins"));
+    initPay(featureManager.getState("pay"));
+    initColorCodes(featureManager.getState("colorcodes"));
+    initProxyTeleport(featureManager.getState("proxy_teleport"));
+    initArcadeAttack(featureManager.getState("arcade_attack"));
+    initServerStructure(featureManager.getState("server_structure"));
+    initSidebar(featureManager.getState("sidebar"));
+    if (featureManager.getState("anti_xashinn")) Bukkit.getPluginManager().registerEvents(new AntiXashinnListener(), this);
+    initSpawn(featureManager.getState("spawn"));
+    initLobby(featureManager.getState("lobby"));
+    initRank(featureManager.getState("rank"));
+    initNameColor(featureManager.getState("namecolor"));
+    initMute(featureManager.getState("mute"));
+    initTpa(featureManager.getState("tpa"));
+    initInvsee(featureManager.getState("invsee"));
+    initPosition(featureManager.getState("position"));
+    initSign(featureManager.getState("sign"));
+    initBan(featureManager.getState("ban"));
+    initTrash(featureManager.getState("trash"));
+    initPing(featureManager.getState("ping"));
+    initDiscord(featureManager.getState("discord"));
+    initVanish(featureManager.getState("vanish"));
+    initFriends(featureManager.getState("friends"));
+    initMail(featureManager.getState("mail"));
+    initPerks(featureManager.getState("perks"));
+    initRemoteCommands(featureManager.getState("remote"));
+    initShop(featureManager.getState("shop"));
   }
-  private void initConins(){
-    getCommand("auszahlen").setExecutor(new AuszahlenExecutor());
-    getCommand("auszahlen").setTabCompleter(new EmptyTabCompleter());
-    Bukkit.getPluginManager().registerEvents(new CoinRightclickListener(), this);
+  private void initCoins(boolean enabled){
+    FeatureManager.registerCommand("auszahlen", new AuszahlenExecutor(), new EmptyTabCompleter(), enabled);
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new CoinRightclickListener(), this);
+    }
   }
-  private void initPay(){
-    getCommand("pay").setExecutor(new PayExecutor());
-    getCommand("pay").setTabCompleter(new PlayerTabCompleter());
-    getCommand("payall").setExecutor(new PayAllExecutor());
-    getCommand("payall").setTabCompleter(new EmptyTabCompleter());
+  private void initPay(boolean enabled){
+    FeatureManager.registerCommand("pay", new PayExecutor(), new PlayerTabCompleter(), enabled);
+    FeatureManager.registerCommand("payall", new PayAllExecutor(), new EmptyTabCompleter(), enabled);
   }
-  private void initColorCodes(){
-    getCommand("colorcodes").setExecutor(new ColorcodesExecutor());
-    getCommand("colorcodes").setTabCompleter(new EmptyTabCompleter());
+  private void initColorCodes(boolean enabled){
+    FeatureManager.registerCommand("colorcodes", new ColorcodesExecutor(), new EmptyTabCompleter(), enabled);
   }
-  private void initServerStructure(){
-    getCommand("citybuild").setExecutor(new CitybuildTpExecutor());
-    getCommand("citybuild").setTabCompleter(new EmptyTabCompleter());
-    getCommand("farming").setExecutor(new FarmingTpExecutor());
-    getCommand("farming").setTabCompleter(new EmptyTabCompleter());
-    getCommand("lobby").setExecutor(new LobbyTpExecutor());
-    getCommand("lobby").setTabCompleter(new EmptyTabCompleter());
-    getCommand("arcadeattack").setExecutor(new ArcadeAttackTpExecutor());
-    getCommand("arcadeattack").setTabCompleter(new EmptyTabCompleter());
-    org.bukkit.Bukkit.getPluginManager().registerEvents(new de.FloS1211.de.RotStein20.arcadeNetwork.arcadeattack.ArcadeAttackEggListener(), this);
-    de.FloS1211.de.RotStein20.arcadeNetwork.arcadeattack.ArcadeAttackEggListener.startEggParticleTask();
-    SidebarManager.startUpdateCycle();
-    Bukkit.getPluginManager().registerEvents(new CustomGuiHolder(), this);
-    getCommand("performaction").setExecutor(new PerformactionExecutor());
-    Bukkit.getPluginManager().registerEvents(new AntiXashinnListener(), this);
-    Bukkit.getPluginManager().registerEvents(new LobbyProtectListener(), this);
-    LobbyProtectListener.startVoidProtection();
-    getCommand("testcom").setExecutor(new TestCom());
-    Bukkit.getPluginManager().registerEvents(new TabListManager(), this);
-    Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
-    getCommand("spawn").setExecutor(new SpawnExecutor());
-    getCommand("spawn").setTabCompleter(new EmptyTabCompleter());
+  private void initProxyTeleport(boolean enabled) {
+    FeatureManager.registerCommand("citybuild", new CitybuildTpExecutor(), new EmptyTabCompleter(), enabled);
+    FeatureManager.registerCommand("farming", new FarmingTpExecutor(), new EmptyTabCompleter(), enabled);
+    FeatureManager.registerCommand("lobby", new LobbyTpExecutor(), new EmptyTabCompleter(), enabled);
+    FeatureManager.registerCommand("arcadeattack", new ArcadeAttackTpExecutor(), new EmptyTabCompleter(), enabled);
   }
-  private void initRank(){
-    PermissionManager.initialize();
-    getCommand("setrank").setExecutor(new SetRankExecutor());
-    getCommand("setrank").setTabCompleter(new SetRankTabCompleter());
-    Bukkit.getPluginManager().registerEvents(new PlayerNameManager(), this);
-    Bukkit.getPluginManager().registerEvents(new PermissionManager(), this);
-    getCommand("getcustomitem").setExecutor(new GetCustomItemExecutor());
-    getCommand("getcustomitem").setTabCompleter(new GetCustomItemTabCompleter());
+  private void initArcadeAttack(boolean enabled) {
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new ArcadeAttackEggListener(), this);
+      ArcadeAttackEggListener.startEggParticleTask();
+    }
   }
-  private void initNameColor(){
-    getCommand("namecolor").setExecutor(new NamecolorExecutor());
-    getCommand("namecolor").setTabCompleter(new EmptyTabCompleter());
-    Bukkit.getPluginManager().registerEvents(new NamecolorCouponManager(), this);
-    Bukkit.getPluginManager().registerEvents(new NamecolorGuiListener(), this);
+  private void initLobby(boolean enabled) {
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new LobbyProtectListener(), this);
+      LobbyProtectListener.startVoidProtection();
+    }
   }
-  private void initMute(){
-    getCommand("mute").setExecutor(new MuteExecutor());
-    getCommand("mute").setTabCompleter(new MuteTabCompleter());
-    getCommand("unmute").setExecutor(new UnmuteExecutor());
-    getCommand("unmute").setTabCompleter(new OfflinePlayerTabCompleter());
-    getCommand("tempmute").setExecutor(new TempmuteExecutor());
-    getCommand("tempmute").setTabCompleter(new TempmuteTabCompleter());
-    getCommand("muteinfo").setExecutor(new MuteinfoExecutor());
-    getCommand("muteinfo").setTabCompleter(new OfflinePlayerTabCompleter());
-    Bukkit.getPluginManager().registerEvents(new MuteManager(), this);
+  private void initSpawn(boolean enabled) {
+    FeatureManager.registerCommand("spawn", new SpawnExecutor(), new EmptyTabCompleter(), enabled);
   }
-  private void initTpa(){
-    getCommand("tpa").setExecutor(new TpaExecutor());
-    getCommand("tpa").setTabCompleter(new TpaTabCompleter());
+  private void initServerStructure(boolean enabled) {
+    FeatureManager.registerCommand("performaction", new PerformactionExecutor(), null, enabled);
+    FeatureManager.registerCommand("testcom", new TestCom(), null, enabled);
+    FeatureManager.registerCommand("sql", new SqlExecutor(), null, enabled);
+    if (enabled) {
+      if (featureManager.getState("proxy")) Bukkit.getPluginManager().registerEvents(new TabListManager(), this);
+      Bukkit.getPluginManager().registerEvents(new CustomGuiHolder(), this);
+      Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
+    }
   }
-  private void initInvsee(){
-    Bukkit.getPluginManager().registerEvents(new InvseeManager(), this);
-    getCommand("invsee").setExecutor(new InvseeExecutor());
-    getCommand("invsee").setTabCompleter(new InvseeTabCompleter());
+  private void initRank(boolean enabled) {
+    FeatureManager.registerCommand("setrank", new SetRankExecutor(), new SetRankTabCompleter(), enabled);
+    FeatureManager.registerCommand("getcustomitem", new GetCustomItemExecutor(), new GetCustomItemTabCompleter(), enabled);
+    if (enabled) {
+      PermissionManager.initialize();
+      Bukkit.getPluginManager().registerEvents(new PlayerNameManager(), this);
+      Bukkit.getPluginManager().registerEvents(new PermissionManager(), this);
+    }
   }
-  private void initPosition(){
-    getCommand("position").setExecutor(new PositionExecutor());
-    getCommand("position").setTabCompleter(new PositionTabCompleter());
+  private void initNameColor(boolean enabled) {
+    FeatureManager.registerCommand("namecolor", new NamecolorExecutor(), new EmptyTabCompleter(), enabled);
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new NamecolorCouponManager(), this);
+      Bukkit.getPluginManager().registerEvents(new NamecolorGuiListener(), this);
+    }
   }
-  private void initSign(){
-    getCommand("sign").setExecutor(new SignExecutor());
-    getCommand("sign").setTabCompleter(new EmptyTabCompleter());
+  private void initMute(boolean enabled) {
+    FeatureManager.registerCommand("mute", new MuteExecutor(), new MuteTabCompleter(), enabled);
+    FeatureManager.registerCommand("unmute", new UnmuteExecutor(), new OfflinePlayerTabCompleter(), enabled);
+    FeatureManager.registerCommand("tempmute", new TempmuteExecutor(), new TempmuteTabCompleter(), enabled);
+    FeatureManager.registerCommand("muteinfo", new MuteinfoExecutor(), new OfflinePlayerTabCompleter(), enabled);
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new MuteManager(), this);
+    }
   }
-  private void initSidBar(){
-    Bukkit.getPluginManager().registerEvents(new SidebarManager(), this);
-    Bukkit.getPluginManager().registerEvents(new ChatMessageManager(), this);
-    getCommand("configsidebar").setExecutor(new ConfigSidebarExecutor());
-    getCommand("configsidebar").setTabCompleter(new ConfigSidebarTabCompleter());
+  private void initTpa(boolean enabled) {
+    FeatureManager.registerCommand("tpa", new TpaExecutor(), new TpaTabCompleter(), enabled);
   }
-  private void initBan(){
-    getCommand("tempban").setExecutor(new TempBanExecutor());
-    getCommand("tempban").setTabCompleter(new TempbanTabCompleter());
+  private void initInvsee(boolean enabled) {
+    FeatureManager.registerCommand("invsee", new InvseeExecutor(), new InvseeTabCompleter(), enabled);
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new InvseeManager(), this);
+    }
   }
-  private void initMüll(){
-    getCommand("müll").setExecutor(new MuellExecutor());
-    getCommand("müll").setTabCompleter(new EmptyTabCompleter());
+  private void initPosition(boolean enabled){
+    FeatureManager.registerCommand("position", new PositionExecutor(), new PositionTabCompleter(), enabled);
   }
-  private void initPing(){
-    getCommand("ping").setExecutor(new PingExecutor());
-    getCommand("ping").setTabCompleter(new PlayerTabCompleter());
+  private void initSign(boolean enabled){
+    FeatureManager.registerCommand("sign", new SignExecutor(), new EmptyTabCompleter(), enabled);
   }
-  private void initDiscord(){
-    getCommand("discord").setExecutor(new DiscordExecutor());
-    getCommand("discord").setTabCompleter(new EmptyTabCompleter());
+  private void initSidebar(boolean enabled){
+    FeatureManager.registerCommand("configsidebar", new ConfigSidebarExecutor(), new ConfigSidebarTabCompleter(), enabled);
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new SidebarManager(), this);
+      Bukkit.getPluginManager().registerEvents(new ChatMessageManager(), this);
+      SidebarManager.startUpdateCycle();
+    }
   }
-  private void initVanish(){
-    getCommand("vanish").setExecutor(new VanishExecutor());
-    getCommand("vanish").setTabCompleter(new EmptyTabCompleter());
-    getCommand("unvanish").setExecutor(new UnvanishExecutor());
-    getCommand("unvanish").setTabCompleter(new EmptyTabCompleter());
+  private void initBan(boolean enabled) {
+    FeatureManager.registerCommand("tempban", new TempBanExecutor(), new TempbanTabCompleter(), enabled);
   }
-  private void initFriends(){
-    getCommand("friends").setExecutor(new FriendsExecutor());
-    getCommand("friends").setTabCompleter(new FriendsTabCompleter());
+  private void initTrash(boolean enabled){
+    FeatureManager.registerCommand("müll", new TrashExecutor(), new EmptyTabCompleter(), enabled);
   }
-  private void initMail(){
-    getCommand("mail").setExecutor(new MailExecutor());
-    getCommand("mail").setTabCompleter(new MailTabCompleter());
-    Bukkit.getPluginManager().registerEvents(new MailListener(), this);
+  private void initPing(boolean enabled){
+    FeatureManager.registerCommand("ping", new PingExecutor(), new PlayerTabCompleter(), enabled);
   }
-
-  private void initSql() {
-    getCommand("sql").setExecutor(new SqlExecutor());
+  private void initDiscord(boolean enabled){
+    FeatureManager.registerCommand("discord", new DiscordExecutor(), new EmptyTabCompleter(), enabled);
   }
-  private void initPerks() {
-    getCommand("perks").setExecutor(new PerkExecutor());
-    getCommand("perks").setTabCompleter(new EmptyTabCompleter());
-    Bukkit.getPluginManager().registerEvents(new PerkEffectListener(), this);
-    Bukkit.getPluginManager().registerEvents(new PerkCouponManager(), this);
-    Bukkit.getScheduler().runTaskTimer(this, () -> {
-      for (Player player : Bukkit.getOnlinePlayers()) {
-        PerkManager.updatePerks(player);
-      }
-    }, 0L, 20L * 10L);
+  private void initVanish(boolean enabled){
+    FeatureManager.registerCommand("vanish", new VanishExecutor(), new EmptyTabCompleter(), enabled);
+    FeatureManager.registerCommand("unvanish", new UnvanishExecutor(), new EmptyTabCompleter(), enabled);
+  }
+  private void initFriends(boolean enabled){
+    FeatureManager.registerCommand("friends", new FriendsExecutor(), new FriendsTabCompleter(), enabled);
+  }
+  private void initMail(boolean enabled){
+    FeatureManager.registerCommand("mail", new MailExecutor(), new MailTabCompleter(), enabled);
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new MailListener(), this);
+    }
   }
 
-  private void initRemoteCommands() {
-    CommandPoller.start();
-    getLogger().info("PollingPlugin aktiviert.");
-    getCommand("fastpoll").setExecutor(new FastPollingExecutor());
-    getCommand("fastpoll").setTabCompleter(new EmptyTabCompleter());
+  private void initPerks(boolean enabled) {
+    FeatureManager.registerCommand("perks", new PerkExecutor(), new EmptyTabCompleter(), enabled);
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new PerkEffectListener(), this);
+      Bukkit.getPluginManager().registerEvents(new PerkCouponManager(), this);
+      Bukkit.getScheduler().runTaskTimer(this, () -> {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+          PerkManager.updatePerks(player);
+        }
+      }, 0L, 20L * 10L);
+    }
   }
 
-  private void initShop() {
-    shopManager = new ShopManager();
-    ShopManager.registerShelfRecipes();
-    Bukkit.getPluginManager().registerEvents(new ShopListener(), this);
-    Bukkit.getPluginManager().registerEvents(new ShopConfigGuiListener(), this);
-    Bukkit.getPluginManager().registerEvents(new ShopStorageGuiListener(), this);
+  private void initRemoteCommands(boolean enabled) {
+    FeatureManager.registerCommand("fastpoll", new FastPollingExecutor(), new EmptyTabCompleter(), enabled);
+    if (enabled) {
+      CommandPoller.start();
+    }
+  }
+
+  private void initShop(boolean enabled) {
+    if (enabled) {
+      shopManager = new ShopManager();
+      ShopManager.registerShelfRecipes();
+      Bukkit.getPluginManager().registerEvents(new ShopListener(), this);
+      Bukkit.getPluginManager().registerEvents(new ShopConfigGuiListener(), this);
+      Bukkit.getPluginManager().registerEvents(new ShopStorageGuiListener(), this);
+    }
   }
 }
 

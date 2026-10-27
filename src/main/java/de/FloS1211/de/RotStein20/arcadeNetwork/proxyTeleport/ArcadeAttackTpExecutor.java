@@ -1,5 +1,6 @@
-package de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure;
+package de.FloS1211.de.RotStein20.arcadeNetwork.proxyTeleport;
 
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.ProxyManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

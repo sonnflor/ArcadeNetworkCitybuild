@@ -187,6 +187,7 @@ public final class ArcadeNetwork extends JavaPlugin {
       if (featureManager.getState("proxy")) Bukkit.getPluginManager().registerEvents(new TabListManager(), this);
       Bukkit.getPluginManager().registerEvents(new CustomGuiHolder(), this);
       Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
+      Bukkit.getPluginManager().registerEvents(new PlayerNameManager(), this);
     }
   }
   private void initRank(boolean enabled) {
@@ -194,7 +195,6 @@ public final class ArcadeNetwork extends JavaPlugin {
     FeatureManager.registerCommand("getcustomitem", new GetCustomItemExecutor(), new GetCustomItemTabCompleter(), enabled);
     if (enabled) {
       PermissionManager.initialize();
-      Bukkit.getPluginManager().registerEvents(new PlayerNameManager(), this);
       Bukkit.getPluginManager().registerEvents(new PermissionManager(), this);
     }
   }

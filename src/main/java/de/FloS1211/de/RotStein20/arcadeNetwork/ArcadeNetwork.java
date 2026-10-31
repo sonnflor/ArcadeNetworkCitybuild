@@ -6,6 +6,9 @@ import de.FloS1211.de.RotStein20.arcadeNetwork.coins.AuszahlenExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.coins.CoinRightclickListener;
 import de.FloS1211.de.RotStein20.arcadeNetwork.coins.PayAllExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.coins.PayExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetwork.ec.EcExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetwork.ec.EcGuiListener;
+import de.FloS1211.de.RotStein20.arcadeNetwork.ec.EcTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetwork.friends.FriendsExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.friends.FriendsTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetwork.gui.GuiManager;
@@ -140,6 +143,7 @@ public final class ArcadeNetwork extends JavaPlugin {
     initPerks(featureManager.getState("perks"));
     initRemoteCommands(featureManager.getState("remote"));
     initShop(featureManager.getState("shop"));
+    initEc(featureManager.getState("ec"));
   }
   private void initCoins(boolean enabled){
     FeatureManager.registerCommand("auszahlen", new AuszahlenExecutor(), new EmptyTabCompleter(), enabled);
@@ -286,6 +290,13 @@ public final class ArcadeNetwork extends JavaPlugin {
       Bukkit.getPluginManager().registerEvents(new ShopListener(), this);
       Bukkit.getPluginManager().registerEvents(new ShopConfigGuiListener(), this);
       Bukkit.getPluginManager().registerEvents(new ShopStorageGuiListener(), this);
+    }
+  }
+
+  private void initEc(boolean enabled) {
+    FeatureManager.registerCommand("ec", new EcExecutor(), new EcTabCompleter(), enabled);
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new EcGuiListener(), this);
     }
   }
 }

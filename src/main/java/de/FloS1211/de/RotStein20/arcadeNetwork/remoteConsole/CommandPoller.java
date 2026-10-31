@@ -35,7 +35,7 @@ public class CommandPoller {
     if (!polling.compareAndSet(false, true)) return;
 
     String serverName = ProxyManager.getServerName();
-    String url = "https://myberry.v6.rocks/arcade-network-console/commands.php?server="
+    String url = "https://myberry.ddnsfree.com/private/arcade-network-console/commands.php?server="
         + URLEncoder.encode(serverName, StandardCharsets.UTF_8);
 
     String apiKey = "aWd-u-G;n&CLeRiGzK>[b<:fN;;[5@FH{3K|Cb_GSx[n6Ze35+p?G=)^(lOf]F61?E]Fm7bYGS+DzUz%jSJH)1$D6TQe7hle7vC~{+Gs%jUr-N+#cvOP?WAFki9pN1V=/p~nvkb$/,:i*9n:+MYun}oOGfXspe>oE~Sj+Sa)qy[0c#4O58Ebk~E5%]hF^5mYamv-UvVt";

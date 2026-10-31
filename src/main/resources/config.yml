@@ -35,3 +35,4 @@ features:
   remote: true
   shop: true
   proxy: true
+  ec: true

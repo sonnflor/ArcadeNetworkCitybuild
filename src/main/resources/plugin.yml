@@ -110,6 +110,8 @@ commands:
     description: "Gives you the polling speed an lets you enable fastpoll"
   spawn:
     usage: /spawn
+  ec:
+    usage: /ec (<player>) ([edit])
 
 permissions:
   ac.crafter:

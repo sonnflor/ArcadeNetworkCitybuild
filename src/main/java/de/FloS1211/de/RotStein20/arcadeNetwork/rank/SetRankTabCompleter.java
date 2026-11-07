@@ -36,7 +36,7 @@ public class SetRankTabCompleter implements TabCompleter {
         result.add("owner");
       } else if (args[1].equalsIgnoreCase("extrarank")) {
         result.add("builder");
-        result.add("creator");
+        result.add("fame");
         result.add("supporter");
         result.add("testsupporter");
         result.add("moderator");

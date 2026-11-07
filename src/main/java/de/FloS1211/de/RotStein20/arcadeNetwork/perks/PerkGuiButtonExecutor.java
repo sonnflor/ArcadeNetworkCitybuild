@@ -27,7 +27,7 @@ public class PerkGuiButtonExecutor implements GuiButtonExecutor {
 
   @Override
   public void accept(String buttonId, Gui gui, Player player, ClickType clickType) {
-    String perk = gui.customData.get("couponName").substring(10);
+    String perk = gui.customData.get("couponName").substring(5);
     YamlConfiguration config = new YamlConfiguration();
     try {
       config.loadFromString(gui.customData.get("couponItem"));

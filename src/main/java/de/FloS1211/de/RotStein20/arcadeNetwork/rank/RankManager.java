@@ -13,11 +13,11 @@ import java.util.UUID;
 public class RankManager {
   public static List<String> ranks = List.of("default", "crafter", "expert", "elite", "king", "master", "admin", "owner");
   public static List<String> rankPrefixes = List.of(
-      "", "§9§lCrafter§7 • ", "§a§lExperte§7 • ", "§e§lElite§7 • ", "§6§lKing§7 • ", "§c§lMaster§7 • ", "§c§lA§6§ld§e§lm§a§li§9§ln§7 • ", "§c§lO§6§lw§e§ln§a§le§9§lr§7 • "
+      "", "§9§lCrafter", "§a§lExperte", "§e§lElite", "§6§lKing", "§c§lMaster", "§c§lA§6§ld§e§lm§a§li§9§ln", "§c§lO§6§lw§e§ln§a§le§9§lr"
   );
-  public static List<String> extraRanks = List.of("none","testsupporter","supporter","testmoderator","moderator","builder","creator","developer");
+  public static List<String> extraRanks = List.of("none","testsupporter","supporter","testmoderator","moderator","builder","fame","developer");
   public static List<String> rankSuffixes = List.of(
-      "","§7 • §9§lT§b§l-§9§lS§b§lu§9§lp","§7 • §9§lS§b§lu§9§lp","§7 • §2§lT§a§l-§2§lM§a§lo§2§ld","§7 • §2§lM§a§lo§2§ld","§7 • §c§lBuilder","§7 • §5§lCreator","§7 • §4§lDev"
+      "","§9§lT§b§l‐§9§lS§b§lu§9§lp","§9§lS§b§lu§9§lp","§2§lT§a§l‐§2§lM§a§lo§2§ld","§2§lM§a§lo§2§ld","§c§lBuilder","§5§lFame","§4§lDev"
   );
 
   public static void setRank(String uuid, String rank) {

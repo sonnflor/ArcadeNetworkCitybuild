@@ -5,6 +5,9 @@ import de.FloS1211.de.RotStein20.arcadeNetwork.perks.Perk;
 import de.FloS1211.de.RotStein20.arcadeNetwork.perks.PerkManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.mariadb.jdbc.Driver;
 
 import java.sql.Connection;
@@ -13,7 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-public class DatabaseManager {
+public class DatabaseManager implements Listener {
   public DatabaseManager() {
 
   }
@@ -68,7 +71,8 @@ public class DatabaseManager {
             unlocked_namecolors TEXT NOT NULL DEFAULT '',
             is_muted BOOLEAN NOT NULL DEFAULT FALSE,
             mute_data TEXT NOT NULL DEFAULT '',
-            vanished BOOLEAN NOT NULL DEFAULT FALSE
+            vanished BOOLEAN NOT NULL DEFAULT FALSE,
+            clan VARCHAR(6) NOT NULL DEFAULT ''
           );
           """);
       statement.execute("""
@@ -114,6 +118,13 @@ public class DatabaseManager {
       }
       createPerksTableSQL.append("\n);");
       statement.execute(createPerksTableSQL.toString());
+      statement.execute("""
+          CREATE TABLE IF NOT EXISTS clans (
+            name VARCHAR(6) PRIMARY KEY,
+            owner VARCHAR(36) NOT NULL,
+            color TINYINT UNSIGNED NOT NULL
+          );
+          """);
     }
   }
 
@@ -130,5 +141,12 @@ public class DatabaseManager {
 
   public static SQLTable getTable(String tableName, String condition, List<Object> args) {
     return new SQLTable(tableName,condition,args);
+  }
+
+  @EventHandler
+  public void onJoin (PlayerJoinEvent event) {
+    if (getTable("player_data", "uuid = ?", List.of(event.getPlayer().getUniqueId().toString())).isEmpty()) {
+      executeSQL("INSERT INTO player_data (uuid) VALUES (?)", List.of(event.getPlayer().getUniqueId().toString()));
+    }
   }
 }

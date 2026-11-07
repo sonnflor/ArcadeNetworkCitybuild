@@ -4,7 +4,6 @@ database:
   database: arcadenetwork
   username: mcuser
   password: T(cZ<EjxiB-U?8P
-  #password: a-bsdciisMOLIa-cdsb12das
 forbidden_words: ["hurensohn","spast","käsiger michael"]
 features:
   coins: true
@@ -36,3 +35,5 @@ features:
   shop: true
   proxy: true
   ec: true
+  clan: true
+  molimessage: true

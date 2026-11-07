@@ -227,3 +227,10 @@ shop:
     storage:
       title: "Shop Lagerbestand"
       item_move-failed: "<white>[<green>Shop<white>]<gray> Du kannst nur <green><material></green> in dieses Fach legen!"
+
+clan:
+  chat:
+    invitation: "<white>[<green>Clan<white>]<gray> Du wurdest von <player> eingeladen, dem Clan <clan> beizutreten. <green><green><click:run_command:'/performaction <token>'><hover:show_text:'<gray>Klicke, um dem Clan beizutreten'>[Annehmen]</hover></click></green>"
+    create-failed-already_exists: "<white>[<green>Clan<white>]<gray> Es existiert bereits ein Clan mit dem Namen <clan>"
+    create-failed-already_in_clan: "<white>[<green>Clan<white>]<gray> Du bist bereits in einem Clan. Du kannst ihn mit <green><click:suggest_command:'/clan delete <clan>'><hover:show_text:'<gray>Klicke, um den Clan zu löschen'>/clan delete <clan></hover></click></green> löschen. "
+    delete_failed_no-permission: "<white>[<green>Clan<white>]<gray> Du bist nicht der Eigentümer dieses Clans. Verlasse ihn mit <green><click:suggest_command:'/clan leave <clan>'><hover:show_text:'<gray>Klicke, um den Clan zu verlassen'>/clan leave <clan></hover></click></green> verlassen. "

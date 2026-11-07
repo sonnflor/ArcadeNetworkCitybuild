@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetwork.clickableMessages;
 
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.MessageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,7 +17,7 @@ public class PerformactionExecutor implements CommandExecutor {
     }
     String token = args[0];
     if (!ClickableMessageManager.performAction(token, commandSender)) {
-      commandSender.sendMessage(MessageManager.get("clickablemessage-invalid-token", Map.of("token",token)));
+      LanguageManager.send(commandSender, "clickablemessage.chat.invalid-token", "token", token);
       return true;
     }
     return true;

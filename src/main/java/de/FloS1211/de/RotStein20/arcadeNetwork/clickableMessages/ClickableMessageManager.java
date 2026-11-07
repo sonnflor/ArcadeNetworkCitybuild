@@ -2,11 +2,13 @@ package de.FloS1211.de.RotStein20.arcadeNetwork.clickableMessages;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import de.FloS1211.de.RotStein20.arcadeNetwork.clan.ClanManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.friends.FriendsManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.position.PositionManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.ChatMessageManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.tpa.TpaManager;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.time.Duration;
 import java.util.*;
@@ -32,6 +34,7 @@ public class ClickableMessageManager {
       case "pos" -> PositionManager.handleShareMessageClick(clickAction.args(),commandSender);
       case "openitem" -> ChatMessageManager.handleOpenItemMessageClick(clickAction.args(),commandSender);
       case "friends" -> FriendsManager.handleMessageClick(clickAction.args(), commandSender);
+      case "clan" -> ClanManager.joinClan(clickAction.args()[0], ((commandSender instanceof Player player) ? player : null));
       default -> {
         return false;
       }

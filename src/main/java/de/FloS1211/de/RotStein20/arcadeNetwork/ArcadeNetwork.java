@@ -1,6 +1,8 @@
 package de.FloS1211.de.RotStein20.arcadeNetwork;
 
 import de.FloS1211.de.RotStein20.arcadeNetwork.arcadeattack.ArcadeAttackEggListener;
+import de.FloS1211.de.RotStein20.arcadeNetwork.clan.ClanExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetwork.clan.ClanTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetwork.clickableMessages.PerformactionExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.coins.AuszahlenExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.coins.CoinRightclickListener;
@@ -73,6 +75,14 @@ public final class ArcadeNetwork extends JavaPlugin {
     saveDefaultConfig();
     getConfig().options().copyDefaults(true);
     saveConfig();
+    databaseManager = new DatabaseManager();
+    try {
+      databaseManager.connect();
+      databaseManager.createTables();
+    } catch (Exception e) {
+      e.printStackTrace();
+      getServer().getPluginManager().disablePlugin(this);
+    }
     FeatureVisibilityListener.disabledCommands.clear();
     featureManager = new FeatureManager(getConfig());
     saveResource("messages.yml", true);
@@ -89,15 +99,6 @@ public final class ArcadeNetwork extends JavaPlugin {
       getServer().getMessenger().registerIncomingPluginChannel(this, "arcadenetwork:tpa", new TpaListener());
     }
     LanguageManager.load();
-
-    databaseManager = new DatabaseManager();
-    try {
-      databaseManager.connect();
-      databaseManager.createTables();
-    } catch (Exception e) {
-      e.printStackTrace();
-      getServer().getPluginManager().disablePlugin(this);
-    }
   }
 
   public static ArcadeNetwork getInstance() {
@@ -144,6 +145,8 @@ public final class ArcadeNetwork extends JavaPlugin {
     initRemoteCommands(featureManager.getState("remote"));
     initShop(featureManager.getState("shop"));
     initEc(featureManager.getState("ec"));
+    initClan(featureManager.getState("clan"));
+    initMoliMessage(featureManager.getState("molimessage"));
   }
   private void initCoins(boolean enabled){
     FeatureManager.registerCommand("auszahlen", new AuszahlenExecutor(), new EmptyTabCompleter(), enabled);
@@ -188,6 +191,7 @@ public final class ArcadeNetwork extends JavaPlugin {
       Bukkit.getPluginManager().registerEvents(new CustomGuiHolder(), this);
       Bukkit.getPluginManager().registerEvents(new GuiManager(), this);
       Bukkit.getPluginManager().registerEvents(new PlayerNameManager(), this);
+      Bukkit.getPluginManager().registerEvents(databaseManager, this);
     }
   }
   private void initRank(boolean enabled) {
@@ -298,6 +302,21 @@ public final class ArcadeNetwork extends JavaPlugin {
     if (enabled) {
       Bukkit.getPluginManager().registerEvents(new EcGuiListener(), this);
     }
+  }
+
+  private void initClan(boolean enabled) {
+    FeatureManager.registerCommand("clan", new ClanExecutor(), new ClanTabCompleter(), enabled);
+  }
+  private void initMoliMessage(boolean enabled) {
+    try {
+      saveResource("moli/notify.ps1", true);
+    } catch (Exception e) {
+      getLogger().severe("Konnte notify.ps1 nicht bereitstellen!");
+      e.printStackTrace();
+      return;
+    }
+    getLogger().info("Notification-System geladen!");
+    FeatureManager.registerCommand("molimessage", new MoliMessageExecutor(), new EmptyTabCompleter(), enabled);
   }
 }
 

@@ -39,6 +39,7 @@ public class NamecolorGuiButtonExecutor implements GuiButtonExecutor {
       NamecolorManager.unlockNamecolor(player.getUniqueId().toString(), colName);
       LanguageManager.send(player, "namecolor.chat.unlock", "color", colName.replace('_',' '));
       if (!player.getGameMode().equals(org.bukkit.GameMode.CREATIVE)) item.setAmount(item.getAmount() - 1);
+      player.closeInventory();
     } catch (IllegalArgumentException e) {
       e.printStackTrace();
     }
@@ -46,7 +47,7 @@ public class NamecolorGuiButtonExecutor implements GuiButtonExecutor {
 
   @Override
   public void reject(String buttonId, Gui gui, Player player, ClickType clickType) {
-
+    player.closeInventory();
   }
 
   @Override

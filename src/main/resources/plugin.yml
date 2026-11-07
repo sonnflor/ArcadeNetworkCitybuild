@@ -112,6 +112,12 @@ commands:
     usage: /spawn
   ec:
     usage: /ec (<player>) ([edit])
+  clan:
+    usage: /clan [create <name> (<color>)|invite <player>|delete|leave]
+  molimessage:
+    description: "An Moli: Nichts interresanntes..."
+    usage: /molimessage <message>
+    permission: ac.admin
 
 permissions:
   ac.crafter:
@@ -161,7 +167,7 @@ permissions:
     children:
       ac.moderator: true
 
-  ac.creator:
+  ac.fame:
     default: op
     children:
       ac.elite: true

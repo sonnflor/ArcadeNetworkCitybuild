@@ -184,7 +184,7 @@ public final class LanguageManager {
 
     for (int i = 0; i < placeholders.length; i += 2) {
       resolver.resolver(
-          Placeholder.unparsed(
+          Placeholder.parsed(
               placeholders[i],
               placeholders[i + 1]
           )

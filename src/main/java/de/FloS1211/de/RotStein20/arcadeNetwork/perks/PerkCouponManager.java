@@ -31,7 +31,13 @@ public class PerkCouponManager implements Listener {
     if (couponName == null || !couponName.startsWith("perk_")) return;
     YamlConfiguration config = new YamlConfiguration();
     config.set("item", itemStack);
-    player.openInventory(Gui.getConfirmationGui(Map.of("couponName",couponName,"couponItem",config.saveToString()), new PerkGuiButtonExecutor(), LanguageManager.getString(player, "perk.gui.confirmation.accept")).buildInventory());
+    player.openInventory(Gui.getConfirmationGui(
+        Map.of(
+            "couponName",couponName,
+            "couponItem",config.saveToString()),
+        new PerkGuiButtonExecutor(),
+        LanguageManager.getString(player, "perk.gui.confirmation.accept")
+    ).buildInventory());
   }
 
   public static ItemStack getPerkCoupon(String perk) {

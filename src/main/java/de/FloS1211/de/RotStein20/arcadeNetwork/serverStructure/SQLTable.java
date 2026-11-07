@@ -3,6 +3,7 @@ package de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure;
 import de.FloS1211.de.RotStein20.arcadeNetwork.ArcadeNetwork;
 import org.bukkit.Bukkit;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +44,12 @@ public class SQLTable {
     if (sortColumn != null && !sortColumn.isBlank()) {
       sql += " ORDER BY " + sortColumn;
     }
-    try (PreparedStatement preparedStatement = ArcadeNetwork.getInstance().getDatabaseManager().getConnection().prepareStatement(sql)) {
+    try (
+        Connection connection =
+            ArcadeNetwork.getInstance().getDatabaseManager().getConnection();
+        PreparedStatement preparedStatement =
+            connection.prepareStatement(sql)
+    ) {
       if (condition != null && !condition.isBlank()) {
         if (condition.contains("?")) {
           int i = 0;

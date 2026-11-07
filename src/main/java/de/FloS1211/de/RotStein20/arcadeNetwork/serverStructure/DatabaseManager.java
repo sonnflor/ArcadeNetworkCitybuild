@@ -1,5 +1,7 @@
 package de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import de.FloS1211.de.RotStein20.arcadeNetwork.ArcadeNetwork;
 import de.FloS1211.de.RotStein20.arcadeNetwork.perks.Perk;
 import de.FloS1211.de.RotStein20.arcadeNetwork.perks.PerkManager;
@@ -21,7 +23,7 @@ public class DatabaseManager implements Listener {
 
   }
 
-  private Connection connection;
+  //private Connection connection;
 
   FileConfiguration config =
       ArcadeNetwork.getInstance().getConfig();
@@ -32,7 +34,22 @@ public class DatabaseManager implements Listener {
   String username = config.getString("database.username");
   String password = config.getString("database.password");
 
+  private HikariDataSource dataSource;
+
+
   public void connect() throws SQLException {
+    HikariConfig config = new HikariConfig();
+    config.setJdbcUrl("jdbc:mariadb://" + host + ":" + port + "/" + database);
+    config.setUsername(username);
+    config.setPassword(password);
+    config.setMaximumPoolSize(10);
+    config.setMinimumIdle(2);
+    config.setConnectionTimeout(10000);
+    config.setMaxLifetime(1800000);
+    config.setKeepaliveTime(120000);
+    config.setPoolName("ArcadeNetwork-Database");
+    dataSource = new HikariDataSource(config);
+    /*
     if (connection != null && !connection.isClosed()) {
       return;
     }
@@ -42,25 +59,31 @@ public class DatabaseManager implements Listener {
 
     connection = DriverManager.getConnection(url, username, password);
     Bukkit.getLogger().info("MariaDB connection established.");
+    */
   }
 
-  public Connection getConnection() {
-    return connection;
+  public Connection getConnection() throws SQLException{
+    //return connection;
+    return dataSource.getConnection();
   }
 
   public void disconnect() {
-    if (connection != null) {
+    if (dataSource != null) {
+      dataSource.close();
+    }
+    System.out.println("MariaDB connection closed.");
+    /*if (connection != null) {
       try {
         connection.close();
         System.out.println("MariaDB connection closed.");
       } catch (SQLException e) {
         System.err.println("Error closing MariaDB connection: " + e.getMessage());
       }
-    }
+    }*/
   }
 
   public void createTables() throws SQLException {
-    try (Statement statement = connection.createStatement()) {
+    try (Statement statement = getConnection().createStatement()) {
       statement.execute("""
           CREATE TABLE IF NOT EXISTS player_data (
             uuid VARCHAR(36) PRIMARY KEY,
@@ -129,7 +152,7 @@ public class DatabaseManager implements Listener {
   }
 
   public static void executeSQL(String sql, List<Object> args) {
-    try (var preparedStatement = ArcadeNetwork.instance.getDatabaseManager().connection.prepareStatement(sql)) {
+    try (var preparedStatement = ArcadeNetwork.getInstance().getDatabaseManager().getConnection().prepareStatement(sql)) {
       for (int i = 0; i < args.size(); i++) {
         preparedStatement.setObject(i + 1, args.get(i));
       }

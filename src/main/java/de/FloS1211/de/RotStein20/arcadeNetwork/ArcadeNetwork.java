@@ -51,15 +51,10 @@ import de.FloS1211.de.RotStein20.arcadeNetwork.tabcompleters.PlayerTabCompleter;
 import de.FloS1211.de.RotStein20.arcadeNetwork.vanish.UnvanishExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.vanish.VanishExecutor;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.*;
-
 public final class ArcadeNetwork extends JavaPlugin {
-  //Sidebar
-  public Map<UUID, Location> lastPos = new HashMap<>();
   //SQL
   public String databasePath = getDataFolder().getAbsolutePath() + "/ArcadeCraftPlugin.db";
   public static ArcadeNetwork instance;

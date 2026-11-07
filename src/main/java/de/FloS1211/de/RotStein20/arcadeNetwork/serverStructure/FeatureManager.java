@@ -14,7 +14,19 @@ public class FeatureManager {
   ConfigurationSection features;
 
   public Boolean getState(String feature) {
-    return features.getBoolean(feature);
+    return features.getConfigurationSection(feature).getBoolean("active");
+  }
+
+  public String getSettingString(String feature, String setting) {
+    return features.getConfigurationSection(feature).getString(setting);
+  }
+
+  public Integer getSettingInteger(String feature, String setting) {
+    return features.getConfigurationSection(feature).getInt(setting);
+  }
+
+  public Boolean getSettingBoolean(String feature, String setting) {
+    return features.getConfigurationSection(feature).getBoolean(setting);
   }
 
   public FeatureManager(FileConfiguration config) {

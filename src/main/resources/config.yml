@@ -6,35 +6,71 @@ database:
   password: T(cZ<EjxiB-U?8P
 forbidden_words: ["hurensohn","spast","käsiger michael"]
 features:
-  coins: true
-  pay: true
-  colorcodes: true
-  proxy_teleport: true
-  arcade_attack: true
-  server_structure: true
-  sidebar: true
-  anti_xashinn: true
-  spawn: true
-  lobby: true
-  rank: true
-  namecolor: true
-  mute: true
-  tpa: true
-  invsee: true
-  position: true
-  sign: true
-  ban: true
-  trash: true
-  ping: true
-  discord: true
-  vanish: true
-  friends: true
-  mail: true
-  perks: true
-  remote: true
-  shop: true
-  proxy: true
-  ec: true
-  clan: true
-  molimessage: true
-  invisible_itemframe: true
+  coins:
+    active: true
+  pay:
+    active: true
+  colorcodes:
+    active: true
+  proxy_teleport:
+    active: true
+  arcade_attack:
+    active: true
+  server_structure:
+    active: true
+  sidebar:
+    active: true
+  anti_xashinn:
+    active: true
+  spawn:
+    active: true
+  lobby:
+    active: true
+  rank:
+    active: true
+  namecolor:
+    active: true
+  mute:
+    active: true
+  tpa:
+    active: true
+  invsee:
+    active: true
+  position:
+    active: true
+  sign:
+    active: true
+  ban:
+    active: true
+  trash:
+    active: true
+  ping:
+    active: true
+  discord:
+    active: true
+  vanish:
+    active: true
+  friends:
+    active: true
+  mail:
+    active: true
+  perks:
+    active: true
+  remote:
+    active: true
+  shop:
+    active: true
+  proxy:
+    active: true
+    farming: true
+    citybuild: true
+    arcadeattack: true
+    lobby: true
+  ec:
+    active: true
+  clan:
+    active: true
+  molimessage:
+    active: true
+  invisible_itemframe:
+    active: true

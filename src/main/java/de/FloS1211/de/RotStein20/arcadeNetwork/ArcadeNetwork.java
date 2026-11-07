@@ -163,10 +163,26 @@ public final class ArcadeNetwork extends JavaPlugin {
     FeatureManager.registerCommand("colorcodes", new ColorcodesExecutor(), new EmptyTabCompleter(), enabled);
   }
   private void initProxyTeleport(boolean enabled) {
-    FeatureManager.registerCommand("citybuild", new CitybuildTpExecutor(), new EmptyTabCompleter(), enabled);
-    FeatureManager.registerCommand("farming", new FarmingTpExecutor(), new EmptyTabCompleter(), enabled);
-    FeatureManager.registerCommand("lobby", new LobbyTpExecutor(), new EmptyTabCompleter(), enabled);
-    FeatureManager.registerCommand("arcadeattack", new ArcadeAttackTpExecutor(), new EmptyTabCompleter(), enabled);
+    FeatureManager.registerCommand(
+        "citybuild",
+        new CitybuildTpExecutor(),
+        new EmptyTabCompleter(),
+        enabled && featureManager.getSettingBoolean("proxy","citybuild"));
+    FeatureManager.registerCommand(
+        "farming",
+        new FarmingTpExecutor(),
+        new EmptyTabCompleter(),
+        enabled && featureManager.getSettingBoolean("proxy","farming"));
+    FeatureManager.registerCommand(
+        "lobby",
+        new LobbyTpExecutor(),
+        new EmptyTabCompleter(),
+        enabled && featureManager.getSettingBoolean("proxy","lobby"));
+    FeatureManager.registerCommand(
+        "arcadeattack",
+        new ArcadeAttackTpExecutor(),
+        new EmptyTabCompleter(),
+        enabled && featureManager.getSettingBoolean("proxy","arcadeattack"));
   }
   private void initArcadeAttack(boolean enabled) {
     if (enabled) {

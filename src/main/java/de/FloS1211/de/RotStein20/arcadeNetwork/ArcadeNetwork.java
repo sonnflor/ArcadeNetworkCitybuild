@@ -147,6 +147,7 @@ public final class ArcadeNetwork extends JavaPlugin {
     initEc(featureManager.getState("ec"));
     initClan(featureManager.getState("clan"));
     initMoliMessage(featureManager.getState("molimessage"));
+    initInvisibleItemFrame(featureManager.getState("invisible_itemframe"));
   }
   private void initCoins(boolean enabled){
     FeatureManager.registerCommand("auszahlen", new AuszahlenExecutor(), new EmptyTabCompleter(), enabled);
@@ -317,6 +318,12 @@ public final class ArcadeNetwork extends JavaPlugin {
     }
     getLogger().info("Notification-System geladen!");
     FeatureManager.registerCommand("molimessage", new MoliMessageExecutor(), new EmptyTabCompleter(), enabled);
+  }
+  private void initInvisibleItemFrame(boolean enabled) {
+    if (enabled) {
+      Bukkit.getPluginManager().registerEvents(new InvisibleItemframeManager(), this);
+      InvisibleItemframeManager.registerRecipe();
+    }
   }
 }
 

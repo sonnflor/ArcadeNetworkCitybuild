@@ -37,3 +37,4 @@ features:
   ec: true
   clan: true
   molimessage: true
+  invisible_itemframe: true

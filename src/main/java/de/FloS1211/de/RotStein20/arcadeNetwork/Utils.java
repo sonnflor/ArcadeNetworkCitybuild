@@ -31,6 +31,7 @@ public class Utils {
   public static NamespacedKey key_shop_owner = new NamespacedKey(ArcadeNetwork.getInstance(),"shop_owner");
   public static NamespacedKey key_shop_trades = new NamespacedKey(ArcadeNetwork.getInstance(),"shop_trades");
   public static NamespacedKey key_shop_interaction = new NamespacedKey(ArcadeNetwork.getInstance(),"shop_interaction");
+  public static NamespacedKey key_invisible_itemframe = new NamespacedKey(ArcadeNetwork.getInstance(), "invisible_itemframe");
 
   public static String formatDate(long unixSec, String pattern) {
     ZoneId zone = ZoneId.systemDefault();

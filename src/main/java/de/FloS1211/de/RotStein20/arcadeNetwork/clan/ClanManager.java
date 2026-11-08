@@ -4,17 +4,20 @@ import de.FloS1211.de.RotStein20.arcadeNetwork.clickableMessages.ClickableMessag
 import de.FloS1211.de.RotStein20.arcadeNetwork.rank.PlayerNameManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.DatabaseManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.ProxyManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.SQLTable;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ClanManager {
-  public static void createClan(String clan, OfflinePlayer owner, Integer color) {
+  public static void createClan(String clan, Player owner, Integer color) {
     if (!new SQLTable("clans", "name = ?", List.of(clan)).isEmpty()) {
       throw new IllegalArgumentException("clan.chat.create-failed-already_exists");
     }
@@ -28,6 +31,7 @@ public class ClanManager {
     DatabaseManager.executeSQL(
         "INSERT INTO clans (name, owner, color) VALUES (?,?,?)",
         List.of(clan, owner.getUniqueId().toString(), color));
+    LanguageManager.send(owner, "clan.chat.create-succeed", "clan", MiniMessage.miniMessage().serialize(getPrefix(clan)));
     joinClan(clan, owner);
   }
 
@@ -61,6 +65,12 @@ public class ClanManager {
             .serialize(PlayerNameManager.getPlayerName(owner.getUniqueId().toString())),
         "clan", MiniMessage.miniMessage().serialize(getPrefix(clan)),
         "token", token);
+    LanguageManager.send(
+        owner,
+        "clan.chat.invitation-sender",
+        "player", MiniMessage.miniMessage().serialize(targetPlayer.displayName()),
+        "clan", MiniMessage.miniMessage().serialize(getPrefix(clan))
+    );
   }
 
   public static void joinClan(String clan, OfflinePlayer player) {
@@ -71,6 +81,28 @@ public class ClanManager {
         "UPDATE player_data SET clan = ? WHERE uuid = ?",
         List.of(clan, player.getUniqueId().toString()));
     PlayerNameManager.updatePlayerName(player.getUniqueId().toString());
+    if (player.isOnline()) LanguageManager.send(
+        player.getPlayer(), "clan.chat.join-succeed",
+        "clan", MiniMessage.miniMessage().serialize(getPrefix(clan)));
+    DatabaseManager.getTable(
+            "player_data",
+            "clan = ?",
+            List.of(clan)
+        ).getStringColumn("uuid")
+        .forEach(
+            (memberUuid) -> {
+              OfflinePlayer member = Bukkit.getOfflinePlayer(UUID.fromString(memberUuid));
+              if (member.isOnline())
+                LanguageManager.send(
+                    member.getPlayer(),
+                    "clan.chat.join-clan",
+                    "player",
+                    MiniMessage.miniMessage().serialize(
+                        PlayerNameManager.getPlayerName(player.getUniqueId().toString())
+                    )
+                );
+            }
+        );
   }
 
   public static void leaveClan(String clan, OfflinePlayer player) {
@@ -87,6 +119,28 @@ public class ClanManager {
         List.of("", uuid)
     );
     PlayerNameManager.updatePlayerName(uuid);
+    if (player.isOnline()) LanguageManager.send(
+        player.getPlayer(), "clan.chat.leave-succeed",
+        "clan", MiniMessage.miniMessage().serialize(getPrefix(clan)));
+    DatabaseManager.getTable(
+        "player_data",
+        "clan = ?",
+        List.of(clan)
+    ).getStringColumn("uuid")
+        .forEach(
+            (memberUuid) -> {
+              OfflinePlayer member = Bukkit.getOfflinePlayer(UUID.fromString(memberUuid));
+              if (member.isOnline())
+                LanguageManager.send(
+                    member.getPlayer(),
+                    "clan.chat.leave-clan",
+                    "player",
+                    MiniMessage.miniMessage().serialize(
+                        PlayerNameManager.getPlayerName(uuid)
+                    )
+                );
+            }
+            );
   }
 
   public static String getClan(String uuid) {

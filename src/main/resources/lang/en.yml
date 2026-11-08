@@ -1,26 +1,29 @@
 general:
   chat:
-    invalid-player: "<white>[<green>ArcadeNetwork<white>]<gray> Please provide a valid player"
-    invalid-number: "<white>[<green>ArcadeNetwork<white>]<gray> Please provide a valid number"
+    invalid-player: "<white>[<green>ArcadeNetwork<white>]<gray> Please enter a valid player"
+    invalid-number: "<white>[<green>ArcadeNetwork<white>]<gray> Please enter a valid number"
     invalid-executor: "<white>[<green>ArcadeNetwork<white>]<gray> This command can only be executed by a player"
 
 coins:
   chat:
-    auszahlen-succeed: "<white>[<green>Coins<white>]<gray> You paid out <amount> Coins in <coin-value>-coin units"
-    auszahlen-failed-negative: "<white>[<green>Coins<white>]<gray> You cannot pay out negative Coins"
-    auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> You do not have enough Coins"
+    auszahlen-succeed: "<white>[<green>Coins<white>]<gray> You withdrew <amount> Coins in <coin-value>-Coin denominations"
+    auszahlen-failed-negative: "<white>[<green>Coins<white>]<gray> You cannot withdraw negative Coins"
+    auszahlen-failed-poor: "<white>[<green>Coins<white>]<gray> You don't have enough Coins"
     deposit-succeed: "<white>[<green>Coins<white>]<gray> You deposited <amount> Coins"
     pay-failed-negative: "<white>[<green>Coins<white>]<gray> You cannot give away negative Coins"
-    pay-failed-poor: "<white>[<green>Coins<white>]<gray> You do not have enough Coins. You need <amount>"
-    pay-succeed: "<white>[<green>Coins<white>]<gray> The transaction was successfully completed."
+    pay-failed-poor: "<white>[<green>Coins<white>]<gray> You don't have enough Coins. You need <amount>"
+    pay-succeed: "<white>[<green>Coins<white>]<gray> The transaction was completed successfully"
+    pay-succeed-target: "<white>[<green>Coins<white>]<gray> <player> gave you <amount> Coins"
+    pay-failed-steel: "<white>[<green>Coins<white>]<gray> You cannot steal Coins"
+    payall-succeed: "<white>[<green>Coins<white>]<gray> <player> gave everyone <amount> Coins <green><hover:show_text:'<gray>Simply click'><click:suggest_command:'thx <player>'>[send thanks back]</click></hover><green>"
 
 mute:
   chat:
     unmute-succeed-sender: "<white>[<green>Mute<white>]<gray> You unmuted <player>"
-    unmute-succeed-target: "<white>[<green>Mute<white>]<gray> You have been unmuted (You may celebrate now, yay!! :D)"
+    unmute-succeed-target: "<white>[<green>Mute<white>]<gray> You have been unmuted (now you can celebrate, yay!! :D)"
     mute-succeed-sender: "<white>[<green>Mute<white>]<gray> You permanently muted <player>. Reason: <reason>"
     mute-succeed-target: "<white>[<green>Mute<white>]<gray> You have been permanently muted. Reason: <reason>"
-    tempmute-succeed-sender: "<white>[<green>Mute<white>]<gray> You temporarily muted <player> for <days> days, <hours> hours and <minutes> minutes. Reason: <reason>"
+    tempmute-succeed-sender: "<white>[<green>Mute<white>]<gray> You muted <player> temporarily for <days> days, <hours> hours and <minutes> minutes. Reason: <reason>"
     tempmute-succeed-target: "<white>[<green>Mute<white>]<gray> You have been temporarily muted for <days> days, <hours> hours and <minutes> minutes. Reason: <reason>"
     reject-message: "<white>[<green>Mute<white>]<gray> You are muted and cannot send messages. Details: /muteinfo"
     muteinfo-failed-no-mute: "<white>[<green>Mute<white>]<gray> Player <player> is not muted. "
@@ -29,21 +32,21 @@ mute:
       title: "Mute Information"
       player-name-title: "Player Name"
       player-uuid-title: "Player UUID"
-      unmute-timestamp-title: "Mute Expiration"
+      unmute-timestamp-title: "Mute Expiration Time"
       mute-duration-title: "Mute Duration"
       reason-title: "Mute Reason"
-      mute-timestamp-title: "Mute Start"
-      muter-name-title: "Muter Name"
-      muter-name-uuid: "Muter UUID"
+      mute-timestamp-title: "Mute Start Time"
+      muter-name-title: "Moderator Name"
+      muter-name-uuid: "Moderator UUID"
 
 tpa:
   chat:
     reject-target: "<white>[<green>Tpa<white>]<gray> <player> rejected your teleport request"
-    reject-rejecter: "<white>[<green>Tpa<white>]<gray> You rejected the teleport request from <player>"
+    reject-rejecter: "<white>[<green>Tpa<white>]<gray> You rejected <player>'s teleport request"
     me_to_player-sender: "<white>[<green>Tpa<white>]<gray> You requested to teleport to <player>"
-    me_to_player-target: "<white>[<green>Tpa<white>]<gray> <player> has requested to teleport to you <green><hover:show_text:'<gray>Click to accept the TPA'><click:run_command:'/performaction <acceptToken>'>[Accept]</click></hover></green> <red><hover:show_text:'<gray>Click to reject the TPA'><click:run_command:'/performaction <rejectToken>'>[Reject]</click></hover></red>"
-    player_to_me-sender: "<white>[<green>Tpa<white>]<gray> You requested <player> to teleport to you"
-    player_to_me-target: "<white>[<green>Tpa<white>]<gray> <player> has requested to teleport to you <green><hover:show_text:'<gray>Click to accept the TPA'><click:run_command:'/performaction <acceptToken>'>[Accept]</click></hover></green> <red><hover:show_text:'<gray>Click to reject the TPA'><click:run_command:'/performaction <rejectToken>'>[Reject]</click></hover></red>"
+    me_to_player-target: "<white>[<green>Tpa<white>]<gray> <player> requested to teleport to you <green><hover:show_text:'<gray>Click to accept the TPA request'><click:run_command:'/performaction <accept_token>'>[Accept]</click></hover></green> <red><hover:show_text:'<gray>Click to reject the TPA request'><click:run_command:'/performaction <reject_token>'>[Reject]</click></hover></red>"
+    player_to_me-sender: "<white>[<green>Tpa<white>]<gray> You asked <player> if they want to teleport to you"
+    player_to_me-target: "<white>[<green>Tpa<white>]<gray> <player> asked if you want to teleport to them <green><hover:show_text:'<gray>Click to accept the TPA request'><click:run_command:'/performaction <accept_token>'>[Accept]</click></hover></green> <red><hover:show_text:'<gray>Click to reject the TPA request'><click:run_command:'/performaction <reject_token>'>[Reject]</click></hover></red>"
 
 clickablemessage:
   chat:
@@ -51,7 +54,7 @@ clickablemessage:
 
 invsee:
   chat:
-    open: "<white>[<green>Invsee<white>]<gray> Opened inventory of <player>"
+    open: "<white>[<green>Invsee<white>]<gray> Opening <player>'s inventory"
   gui:
     invsee:
       title: "Inventory of <player>"
@@ -66,21 +69,21 @@ sign:
 
 position:
   chat:
-    invalid-name: "<white>[<green>Position<white>]<gray> Please provide the name of a valid position"
-    remove-succeed: "<white>[<green>Position<white>]<gray> The position \"<pos>\" has been deleted"
+    invalid-name: "<white>[<green>Position<white>]<gray> Please enter the name of a valid position"
+    remove-succeed: "<white>[<green>Position<white>]<gray> Position \"<pos>\" has been deleted"
     add-already-existing: "<white>[<green>Position<white>]<gray> This position already exists. Delete it with /position remove or move it with /position move"
     add-succeed: "<white>[<green>Position<white>]<gray> You saved your current location under the name \"<pos>\""
-    move-succeed: "<white>[<green>Position<white>]<gray> You successfully moved the position <pos> to your current location"
-    get-head: "<white>[<green>Position<white>]<gray> Information about the saved position \"<pos>\":"
+    move-succeed: "<white>[<green>Position<white>]<gray> You successfully moved position <pos> to your current location"
+    get-head: "<white>[<green>Position<white>]<gray> Information about saved position \"<pos>\":"
     get-dimension: "<gray>Dimension: <dimension>"
     get-distance: "<gray>Distance: <distance>"
-    get-elytra: "<gray>With an Elytra, this distance takes approximately <minutes> minutes"
+    get-elytra: "<gray>Traveling this distance with an Elytra takes approximately <minutes> minutes"
     get-teleport: "<green><hover:show_text:'<gray>Click to teleport'><click:run_command:'/execute in minecraft:<dim> run tp @s <x> <y> <z>'>[Teleport]</click></hover>"
-    add-too-many: "<white>[<green>Position<white>]<gray> You already have 100 positions saved. You can delete them with /position remove <name>"
+    add-too-many: "<white>[<green>Position<white>]<gray> You have already saved 100 positions. You can delete them with /position remove <name>"
     list-head: "<white>[<green>Position<white>]<gray> Your saved positions: "
-    list-no-pos: "<white>[<green>Position<white>]<gray> You have no saved positions yet. Save your current position with /position add <name>"
-    share-sender: "<white>[<green>Position<white>]<gray> You shared the position <name> with <targetPlayer>"
-    share-target: "<white>[<green>Position<white>]<gray> <player> shared their position <name> with you. <green><hover:show_text:'<gray>Add the position to your saved positions'><click:run_command:'/performaction <token>'>[Add]</click></hover></green>"
+    list-no-pos: "<white>[<green>Position<white>]<gray> You haven't saved any positions yet. Save your current location with /position add <name>"
+    share-sender: "<white>[<green>Position<white>]<gray> You shared position <name> with <targetPlayer>"
+    share-target: "<white>[<green>Position<white>]<gray> <player> shared their position <name> with you. <green><hover:show_text:'<gray>Add this position to your list'><click:run_command:'/performaction <token>'>[Add]</click></hover></green>"
 
 tempban:
   chat:
@@ -98,19 +101,20 @@ discord:
 friends:
   chat:
     double-friend: "<white>[<green>Friends<white>]<gray> You have either already sent a friend request or you are already friends"
-    request-information: "<white>[<green>Friends<white>]<gray> You sent <target> a friend request"
+    request-information: "<white>[<green>Friends<white>]<gray> You sent a request to <target>"
     request: "<white>[<green>Friends<white>]<gray> <sender> sent you a friend request. <green><click:run_command:'/performaction <token>'><hover:show_text:'<gray>Click to accept the friend request'>[Accept]</hover></click></green>"
     succeed: "<white>[<green>Friends<white>]<gray> You and <player> are now friends (yay) :D"
     delete: "<white>[<green>Friends<white>]<gray> You and <player> are no longer friends D:"
     rejected-sender: "<white>[<green>Friends<white>]<gray> Your friend request to <target> was rejected D:"
-    rejected-target: "<white>[<green>Friends<white>]<gray> You rejected the friend request from <player> (why D: ?)"
+    rejected-target: "<white>[<green>Friends<white>]<gray> You rejected <player>'s friend request (why D: ?)"
     failed-already_befriended: "<white>[<green>Friends<white>]<gray> You are already friends"
     failed-no_friend: "<white>[<green>Friends<white>]<gray> You are not friends"
   gui:
     friends:
-      button-invite: "Add Friend"
-      button-delete: "Remove Friend"
-      display-amount: "Number of Friends: "
+      title: "Friends"
+      button-invite: "<green>Add Friend"
+      button-delete: "<red>Remove Friend"
+      display-amount: "<yellow>Number of Friends: <amount>"
       display-friend-online: "<green>Online"
       display-friend-offline: "<green>Offline"
       display-friend-timespan: "Friends for <days> days (<date>)"
@@ -128,50 +132,68 @@ friends:
 
 mail:
   chat:
-    wrong-inputs: "<white>[<green>Mail<white>]<gray> Please fill in recipient, subject and message"
-    new-mail: "<white>[<green>Mail<white>]<gray> You have <green><count></green> new mails! Open your inbox with <green><click:run_command:'/mail'><hover:show_text:'<gray>Click to open the mail menu</gray>'>/mail</hover></click></green>"
-    received: "<white>[<green>Mail<white>]<gray> You received a new mail from <sender> with the subject \"<caption>\". <green><click:run_command:'/mail'><hover:show_text:'<gray>Click to open the mail menu'>/mail</hover></click></green> to open it"
-    sent: "<white>[<green>Mail<white>]<gray> You sent a mail to <target> with the subject \"<caption>\""
-    deleted: "<white>[<green>Mail<white>]<gray> You deleted the mail from <sender> with the subject \"<caption>\""
+    wrong-inputs: "<white>[<green>Mail<white>]<gray> Please fill in the recipient, subject and message"
+    new-mail: "<white>[<green>Mail<white>]<gray> You have <green><count></green> new messages! Open your mailbox with <green><click:run_command:'/mail'><hover:show_text:'<gray>Click to open the mail menu</gray>'>/mail</hover></click></green>"
+    received: "<white>[<green>Mail<white>]<gray> You received a new message from <sender> with the subject \"<caption>\". <green><click:run_command:'/mail'><hover:show_text:'<gray>Click to open the mail menu'>/mail</hover></click></green> to open it"
+    sent: "<white>[<green>Mail<white>]<gray> You sent a message to <target> with the subject \"<caption>\""
+    deleted: "<white>[<green>Mail<white>]<gray> You deleted the message from <sender> with the subject \"<caption>\""
   gui:
     send:
-      title: "New Mail"
+      title: "New Message"
       caption-inputs: "Please enter a subject and message: "
       input-target: "Recipient: "
       input-caption: "Subject: "
       input-message: "Message: "
       button-send: "Send"
+      button-cancel: "Cancel"
     post-office-box:
       title-inbox: "Inbox"
       title-outbox: "Outbox"
-      button-new_mail: "New Mail"
+      button-new_mail: "<green>New Message"
       button-favorites-only: "Favorites Only"
-      button-favorites-all: "All Mails"
+      button-favorites-all: "All Messages"
       display-mail-sender: "from: <sender>"
       display-mail-target: "to: <target>"
       display-mail-read: "<green>Read"
       display-mail-unread: "<red>Unread"
-      button-mail-controls-left: "Left-Click"
-      button-mail-controls-left-val: "Open Mail"
-      button-mail-controls-right: "Right-Click"
-      button-mail-controls-right-val: "Delete Mail"
-      button-mail-controls-shift: "Shift-Click"
-      button-mail-controls-shift-val-favorite: "Add to Favorites"
-      button-mail-controls-shift-val-no_favorite: "Remove from Favorites"
+      button-mail-controls-left: "Left-click"
+      button-mail-controls-left-val: "Open message"
+      button-mail-controls-right: "Right-click"
+      button-mail-controls-right-val: "Delete message"
+      button-mail-controls-shift: "Shift-click"
+      button-mail-controls-shift-val-favorite: "Add to favorites"
+      button-mail-controls-shift-val-no_favorite: "Remove from favorites"
     delete:
-      accept: "Accept to delete the mail"
+      accept: "Confirm to delete the message"
 
 perk:
   chat:
     gain-perk: "<white>[<green>Perks<white>]<gray> You received the perk <green><perk></green>"
     activate-perk: "<white>[<green>Perks<white>]<gray> You activated the perk <green><perk></green>"
     disable-perk: "<white>[<green>Perks<white>]<gray> You deactivated the perk <green><perk></green>"
+  gui:
+    confirmation:
+      accept: "Confirm to redeem the perk voucher"
 
 namecolor:
   chat:
     deactivate: "<white>[<green>Name Colors<white>]<gray> You deactivated your name color"
-    activate: "<white>[<green>Name Colors<white>]<gray> You activated the name color <color>"
+    activate-pre: "<white>[<green>Name Colors<white>]<gray> You selected the name color "
+    activate-aft: "<gray> successfully"
     unlock: "<white>[<green>Name Colors<white>]<gray> You unlocked the name color <color>. Activate it with <green><hover:show_text:'<gray>Click to activate it'><click:suggest_command:'/namensfarben'>/namensfarben</click></hover></green>"
+  gui:
+    namecolor:
+      title: "Name Colors"
+      deactivate: "<gray>Deactivate Name Color"
+      deactivate-lore:
+        - "<gray>Click to deactivate your name color"
+      namecolor-pre: "<green>Name Color <gray>• "
+      namecolor-lore:
+        - "<gray>Click to activate this name color"
+      forbidden-pre: "<red>Name Color • "
+      forbidden-lore:
+        - "<red>You haven't unlocked this name color yet. "
+        - "<red>You can obtain name colors from crates. "
 
 sidebar:
   gui:
@@ -180,7 +202,7 @@ sidebar:
 
 shop:
   chat:
-    click-failed-wrong_coin: "<white>[<green>Shop<white>]<gray> Please click a valid coin item with the desired price. Create coins using /auszahlen <amount> <price per coin>"
+    click-failed-wrong_coin: "<white>[<green>Shop<white>]<gray> Please click a valid Coin item with the desired price. Create Coins using /auszahlen <amount> <price per coin>"
     click-failed-filled_storage: "<white>[<green>Shop<white>]<gray> Please empty this item's storage before changing the offer!"
     interaction-failed-other_interaction: "<white>[<green>Shop<white>]<gray> Another player is already interacting with this shop"
     interaction-failed-no_trades: "<white>[<green>Shop<white>]<gray> This shop has no trades"
@@ -189,11 +211,11 @@ shop:
       title: "Shop Shelf Configuration"
       select-placeholder-name: "Select"
       select-placeholder-lore:
-        - "<gray>Click the item you want to sell in your inventory"
+        - "<gray>Click the item in your inventory that you want to sell"
       select-placeholder-coin-name: "Select"
       select-placeholder-coin-lore:
-        - "<gray>Click a coin item with the matching price."
-        - "<gray>You can withdraw coins using /auszahlen <amount> <price per item>"
+        - "<gray>Click a Coin item with the matching price. "
+        - "<gray>You can withdraw Coins using /auszahlen <amount> <price per item>"
       item-placeholder-name: "Empty"
       item-placeholder-lore:
         - "<gray>Click to configure this shelf slot"
@@ -204,4 +226,18 @@ shop:
       help: "<gray>Click an item to edit it"
     storage:
       title: "Shop Storage"
-      item_move-failed: "<white>[<green>Shop<white>]<gray> You can only place <green><material></green> in this slot!"
+      item_move-failed: "<white>[<green>Shop<white>]<gray> You can only put <green><material></green> in this slot!"
+
+clan:
+  chat:
+    invitation: "<white>[<green>Clan<white>]<gray> <player> invited you to join the clan <clan>. <green><green><click:run_command:'/performaction <token>'><hover:show_text:'<gray>Click to join the clan'>[Accept]</hover></click></green>"
+    create-failed-already_exists: "<white>[<green>Clan<white>]<gray> A clan named <clan> already exists"
+    create-failed-already_in_clan: "<white>[<green>Clan<white>]<gray> You are already in the clan <clan>. You can leave it using <green><click:suggest_command:'/clan leave'><hover:show_text:'<gray>Click to delete the clan'>/clan leave</hover></click></green>. "
+    delete_failed_no-permission: "<white>[<green>Clan<white>]<gray> You are not the owner of this clan. Leave it using <green><click:suggest_command:'/clan leave <clan>'><hover:show_text:'<gray>Click to leave the clan'>/clan leave <clan></hover></click></green>. "
+    leave-succeed: "<white>[<green>Clan<white>]<gray> You left the clan <clan>"
+    leave-clan: "<white>[<green>Clan<white>]<gray> Player <player> has left the clan"
+    join-succeed: "<white>[<green>Clan<white>]<gray> You joined the clan <clan>"
+    join-clan: "<white>[<green>Clan<white>]<gray> Player <player> has left your clan"
+    invitation-sender: "<white>[<green>Clan<white>]<gray> You invited <player> to your clan <clan>."
+    create-succeed: "<white>[<green>Clan<white>]<gray> You successfully created the clan <clan>. Invite members with <click:suggest_command:'/clan invite '><hover:show_text:'<gray>Click to invite someone'><green>/clan invite <player></green></hover></click>"
+    create-failed-name: "<white>[<green>Clan<white>]<gray> A clan name can be no longer than 6 characters"

@@ -232,5 +232,12 @@ clan:
   chat:
     invitation: "<white>[<green>Clan<white>]<gray> Du wurdest von <player> eingeladen, dem Clan <clan> beizutreten. <green><green><click:run_command:'/performaction <token>'><hover:show_text:'<gray>Klicke, um dem Clan beizutreten'>[Annehmen]</hover></click></green>"
     create-failed-already_exists: "<white>[<green>Clan<white>]<gray> Es existiert bereits ein Clan mit dem Namen <clan>"
-    create-failed-already_in_clan: "<white>[<green>Clan<white>]<gray> Du bist bereits in einem Clan. Du kannst ihn mit <green><click:suggest_command:'/clan delete <clan>'><hover:show_text:'<gray>Klicke, um den Clan zu löschen'>/clan delete <clan></hover></click></green> löschen. "
+    create-failed-already_in_clan: "<white>[<green>Clan<white>]<gray> Du bist bereits in dem Clan <clan>. Du kannst ihn mit <green><click:suggest_command:'/clan leave'><hover:show_text:'<gray>Klicke, um den Clan zu löschen'>/clan leave</hover></click></green> verlassen. "
     delete_failed_no-permission: "<white>[<green>Clan<white>]<gray> Du bist nicht der Eigentümer dieses Clans. Verlasse ihn mit <green><click:suggest_command:'/clan leave <clan>'><hover:show_text:'<gray>Klicke, um den Clan zu verlassen'>/clan leave <clan></hover></click></green> verlassen. "
+    leave-succeed: "<white>[<green>Clan<white>]<gray> Du hast den Clan <clan> verlassen"
+    leave-clan: "<white>[<green>Clan<white>]<gray> Der Spieler <player> hat den Clan verlassen"
+    join-succeed: "<white>[<green>Clan<white>]<gray> Du bist dem Clan <clan> beigetreten"
+    join-clan: "<white>[<green>Clan<white>]<gray> Der Spieler <player> ist deinem Clan verlassen"
+    invitation-sender: "<white>[<green>Clan<white>]<gray> Du hast <player> in deinen Clan <clan> eingeladen."
+    create-succeed: "<white>[<green>Clan<white>]<gray> Du hast erfolgreich den Clan <clan> erstellt. Lade Mitglieder mit <click:suggest_command:'/clan invite '><hover:show_text:'<gray>Klicke, um jemanden einzuladen'><green>/clan invite <player></green></hover></click> ein"
+    create-failed-name: "<white>[<green>Clan<white>]<gray> Der Name des Clan darf maximal 6 Zeichen lang sein"

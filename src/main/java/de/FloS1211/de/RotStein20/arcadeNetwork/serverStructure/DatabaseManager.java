@@ -12,10 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.mariadb.jdbc.Driver;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class DatabaseManager implements Listener {
@@ -152,7 +149,10 @@ public class DatabaseManager implements Listener {
   }
 
   public static void executeSQL(String sql, List<Object> args) {
-    try (var preparedStatement = ArcadeNetwork.getInstance().getDatabaseManager().getConnection().prepareStatement(sql)) {
+    try (
+        Connection connection = ArcadeNetwork.getInstance().getDatabaseManager().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql)
+    ) {
       for (int i = 0; i < args.size(); i++) {
         preparedStatement.setObject(i + 1, args.get(i));
       }

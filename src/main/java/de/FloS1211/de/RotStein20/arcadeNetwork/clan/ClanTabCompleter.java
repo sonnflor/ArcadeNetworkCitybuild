@@ -26,7 +26,7 @@ public class ClanTabCompleter implements TabCompleter {
       }
     }
     if (args.length == 3) {
-      if (args[0] == "create") {
+      if (args[0].equals("create")) {
         for (String item : ClanManager.colors) {
           if (item.toLowerCase().startsWith(args[2].toLowerCase())) {
             result.add(item);

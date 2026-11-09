@@ -37,8 +37,8 @@ public class PerkGuiButtonExecutor implements GuiButtonExecutor {
     ItemStack item = config.getItemStack("item");
     try {
       PerkManager.gainPerk(player, perk);
-      player.sendMessage("§f[§aPerk§f]§7 Du hast den Perk " + PerkManager.perks.get(perk).name() + " freigeschaltet. Aktiviere ihn mit /perks");
       if (!player.getGameMode().equals(org.bukkit.GameMode.CREATIVE)) item.setAmount(item.getAmount() - 1);
+      player.closeInventory();
     } catch (IllegalArgumentException e) {
       player.sendMessage("§f[§aPerk§f]§7 Ein kritischer Fehler ist aufgetreten. Bitte informiere einen Supporter oder Admin");
     }
@@ -46,7 +46,7 @@ public class PerkGuiButtonExecutor implements GuiButtonExecutor {
 
   @Override
   public void reject(String buttonId, Gui gui, Player player, ClickType clickType) {
-
+    player.closeInventory();
   }
 
   @Override

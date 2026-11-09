@@ -2,6 +2,7 @@ package de.FloS1211.de.RotStein20.arcadeNetwork.perks;
 
 import de.FloS1211.de.RotStein20.arcadeNetwork.gui.*;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.DatabaseManager;
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.MessageManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.SQLTable;
 import net.kyori.adventure.text.Component;
@@ -20,23 +21,23 @@ import java.util.Map;
 public class PerkManager {
   public static LinkedHashMap<String, Perk> perks = new LinkedHashMap<>() {
     {
-      put("frog", new Perk("frog", "Frosch Perk", "Lässt dich höher Springen (Jump Boost 2)", Material.FROG_SPAWN_EGG, new PotionEffect(PotionEffectType.JUMP_BOOST, 15 * 20, 1), null));
-      put("speed", new Perk("speed", "Speed Perk", "Macht dich schneller (Speed 2)", Material.DIAMOND_BOOTS, new PotionEffect(PotionEffectType.SPEED, 15 * 20, 1), null));
-      put("nokia", new Perk("nokia", "Nokia Perk", "Macht dich resistenter (Resistance 4)", Material.BRICK, new PotionEffect(PotionEffectType.RESISTANCE, 15 * 20, 3), null));
-      put("miner", new Perk("miner", "Miner Perk", "Lässt dich schneller Blöcke abbauen (Haste 2)", Material.DIAMOND_PICKAXE, new PotionEffect(PotionEffectType.HASTE, 15 * 20, 1), null));
-      put("irongolem", new Perk("irongolem", "Eisengolem Perk", "Macht dich stärker (Strength 2)", Material.MACE, new PotionEffect(PotionEffectType.STRENGTH, 15 * 20, 1), null));
-      put("heal", new Perk("heal", "Heilungs Perk", "Lässt dich schneller regenerieren (Regeneration 1)", Material.ENCHANTED_GOLDEN_APPLE, new PotionEffect(PotionEffectType.REGENERATION, 15 * 20, 0), null));
-      put("fish", new Perk("fish", "Fisch Perk", "Lässt dich unterwasser atmen (Water Breathing 1)", Material.SALMON, new PotionEffect(PotionEffectType.WATER_BREATHING, 15 * 20, 0), null));
-      put("no_hunger", new Perk("no_hunger", "Kein Hunger Perk", "Du hast nie wieder Hunger (Saturation 1)", Material.COOKED_BEEF, new PotionEffect(PotionEffectType.SATURATION, 15 * 20, 0), null));
-      put("bird", new Perk("bird", "Vogel Perk", "Lässt dich fliegen, wie im Kreativ-Modus", Material.ELYTRA, null, PerkEffectListener::switchBirdPerk));
-      put("cat", new Perk("cat", "Katzen Perk", "Du erhältst keinen Fallschaden", Material.CAT_SPAWN_EGG, null, null));
-      put("telekinesis", new Perk("telekinesis", "Telekinese Perk", "Gedropte Items werden in dein Inventar teleportiert", Material.ENDER_EYE, null, null));
-      put("dolphin", new Perk("dolphin", "Delfin Perk", "Du kannst im Wasser nach vorn schießen, wie mit einem Dreizack", Material.DOLPHIN_SPAWN_EGG, null, null));
-      put("xp", new Perk("xp", "Doppelte XP Perk", "Du erhältst doppelte XP", Material.EXPERIENCE_BOTTLE, null, null));
-      put("keep_inv", new Perk("keep_inv", "Keep Inventory Perk", "Du behältst dein Inventar nach dem Tod", Material.CHEST, null, null));
-      put("rocket", new Perk("rocket", "Raketen Perk", "Du kannst dich mit Shift im Elytraflug nach vorn boosten", Material.FIREWORK_ROCKET, null, null));
-      put("ghost", new Perk("ghost", "Geister Perk", "Du bist unsichtbar (Invisibility)", Material.VEX_SPAWN_EGG, new PotionEffect(PotionEffectType.INVISIBILITY, 15 * 20, 0), null));
-      put("lava", new Perk("lava", "Lava Perk", "Du erhällst keinen Feuerschaden (Fire Resistance)", Material.LAVA_BUCKET, new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 15 * 20, 0), null));
+      put("frog", new Perk("frog", Material.FROG_SPAWN_EGG, new PotionEffect(PotionEffectType.JUMP_BOOST, 15 * 20, 1), null));
+      put("speed", new Perk("speed", Material.DIAMOND_BOOTS, new PotionEffect(PotionEffectType.SPEED, 15 * 20, 1), null));
+      put("nokia", new Perk("nokia", Material.BRICK, new PotionEffect(PotionEffectType.RESISTANCE, 15 * 20, 3), null));
+      put("miner", new Perk("miner", Material.DIAMOND_PICKAXE, new PotionEffect(PotionEffectType.HASTE, 15 * 20, 1), null));
+      put("irongolem", new Perk("irongolem", Material.MACE, new PotionEffect(PotionEffectType.STRENGTH, 15 * 20, 1), null));
+      put("heal", new Perk("heal", Material.ENCHANTED_GOLDEN_APPLE, new PotionEffect(PotionEffectType.REGENERATION, 15 * 20, 0), null));
+      put("fish", new Perk("fish", Material.SALMON, new PotionEffect(PotionEffectType.WATER_BREATHING, 15 * 20, 0), null));
+      put("no_hunger", new Perk("no_hunger", Material.COOKED_BEEF, new PotionEffect(PotionEffectType.SATURATION, 15 * 20, 0), null));
+      put("bird", new Perk("bird", Material.ELYTRA, null, PerkEffectListener::switchBirdPerk));
+      put("cat", new Perk("cat", Material.CAT_SPAWN_EGG, null, null));
+      put("telekinesis", new Perk("telekinesis", Material.ENDER_EYE, null, null));
+      put("dolphin", new Perk("dolphin", Material.DOLPHIN_SPAWN_EGG, null, null));
+      put("xp", new Perk("xp", Material.EXPERIENCE_BOTTLE, null, null));
+      put("keep_inv", new Perk("keep_inv", Material.CHEST, null, null));
+      put("rocket", new Perk("rocket", Material.FIREWORK_ROCKET, null, null));
+      put("ghost", new Perk("ghost", Material.VEX_SPAWN_EGG, new PotionEffect(PotionEffectType.INVISIBILITY, 15 * 20, 0), null));
+      put("lava", new Perk("lava", Material.LAVA_BUCKET, new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 15 * 20, 0), null));
     }};
   public static void switchPerk(OfflinePlayer player, Perk perk, boolean state) {
     DatabaseManager.executeSQL("UPDATE perks SET " + perk.perkId() + " = ? WHERE uuid = ?", List.of(state ? 2 : 1, player.getUniqueId().toString()));
@@ -48,7 +49,7 @@ public class PerkManager {
     }
     if (player.isOnline()) {
       Player onlinePlayer = (Player) player;
-      onlinePlayer.sendMessage(MessageManager.get("perk-switch-perk", Map.of("perk", perk.name(),"state", state ? "<green>aktiviert</green>" : "<red>deaktiviert</red>")));
+      LanguageManager.send(onlinePlayer, "perk.chat." + (state ? "activate" : "disable"), "perk", perk.name(onlinePlayer));
       updatePerks(onlinePlayer);
     }
   }
@@ -57,7 +58,7 @@ public class PerkManager {
     DatabaseManager.executeSQL("UPDATE perks SET " + perkId + " = ? WHERE uuid = ?", List.of(1, player.getUniqueId().toString()));
     if (player.isOnline()) {
       Player onlinePlayer = (Player) player;
-      onlinePlayer.sendMessage(MessageManager.get("perk-gain-perk", Map.of("perkName", perks.get(perkId).name())));
+      LanguageManager.send(onlinePlayer, "perk.chat.gain-perk", "perk", perks.get(perkId).name(onlinePlayer));
     }
   }
 
@@ -80,7 +81,7 @@ public class PerkManager {
   }
 
   public static void openPerkMenu(Player player) {
-    Gui gui = new Gui(27, Component.text("Perks"));
+    Gui gui = new Gui(27, LanguageManager.get(player, "perk.gui.perks.title"));
     Map<String, Integer> perkStates = getPerkStates(player);
     gui.setElementInBottomBar(GuiButton.getPrevPageButton(new PerkGuiButtonExecutor()),0);
     gui.setElementInBottomBar(GuiButton.getNextPageButton(new PerkGuiButtonExecutor()),8);
@@ -88,19 +89,19 @@ public class PerkManager {
     for (Perk perk : perks.sequencedValues()) {
       int state = perkStates.getOrDefault(perk.perkId(), 0);
       gui.setElement(new GuiDisplay("perk_" + perk.perkId(), perk.displayedItem())
-          .title(Component.text(perk.name()))
-          .lore(List.of(Component.text(perk.description()))),(int) Math.floor(i / 4f),(i%4)*2+1);
+          .title(Component.text(perk.name(player)))
+          .lore(List.of(Component.text(perk.description(player)))),(int) Math.floor(i / 4f),(i%4)*2+1);
       GuiElement<?> stateDisplay;
       if (state == 0) {
         stateDisplay = new GuiDisplay("perk_state_" + perk.perkId(), Material.LIGHT_GRAY_DYE)
-            .title(Component.text("Nicht freigeschaltet"));
+            .title(LanguageManager.get(player, "perk.gui.perks.button-locked"));
       } else {
         stateDisplay = new GuiSwitch(
             "perk_state_" + perk.perkId(),
             new GuiDisplay("perk_state_display_active_" + perk.perkId(), Material.LIME_DYE)
-                .title(Component.text("Aktiviert").color(NamedTextColor.GREEN)),
+                .title(LanguageManager.get(player, "perk.gui.perks.button-enabled")),
             new GuiDisplay("perk_state_display_inactive_"+perk.perkId(), Material.RED_DYE)
-                .title(Component.text("Deaktiviert").color(NamedTextColor.RED)),
+                .title(LanguageManager.get(player, "perk.gui.perks.button-disabled")),
             new PerkGuiButtonExecutor(),
             state == 2
         );

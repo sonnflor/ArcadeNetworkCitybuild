@@ -1,5 +1,7 @@
 package de.FloS1211.de.RotStein20.arcadeNetwork.rank;
 
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -22,16 +24,16 @@ public class SetRankExecutor implements CommandExecutor {
     }
     OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[0]);
     if (!targetPlayer.hasPlayedBefore() && !targetPlayer.isOnline()) {
-      commandSender.sendMessage("Bitte gib einen gültigen Spielernamen an.");
+      LanguageManager.send(commandSender, "general.chat.invalid-player");
       return true;
     }
     String rankType = args[1];
     if (rankType.equalsIgnoreCase("clear")) {
       RankManager.setRank(targetPlayer.getUniqueId().toString(),"default");
       RankManager.setRank(targetPlayer.getUniqueId().toString(),"none");
-      commandSender.sendMessage("Der Rang von " + targetPlayer.getName() + " wurde gelöscht.");
+      LanguageManager.send(commandSender, "rank.chat.delete-sender", "player", targetPlayer.getName());
       if (targetPlayer.isOnline()) {
-        ((Player) targetPlayer).sendMessage("Dein Rang wurde gelöscht.");
+        LanguageManager.send(targetPlayer.getPlayer(), "rank.chat.delete-target");
       }
       return true;
     } else if (rankType.equalsIgnoreCase("rank") || rankType.equalsIgnoreCase("extrarank")) {
@@ -42,14 +44,20 @@ public class SetRankExecutor implements CommandExecutor {
         } else {
           RankManager.setRank(targetPlayer.getUniqueId().toString(),rankName);
         }
-        commandSender.sendMessage("Der Rang von " + targetPlayer.getName() + " wurde auf " + rankName + " gesetzt.");
+        LanguageManager.send(
+            commandSender,
+            "rank.chat.change-sender",
+            "player", targetPlayer.getName(),
+            "rank", rankName);
         if (targetPlayer.isOnline()) {
-          ((Player) targetPlayer).sendMessage("Dein Rang wurde auf " + rankName + " gesetzt.");
+          LanguageManager.send(
+              targetPlayer.getPlayer(),
+              "rank.chat.change-target",
+              "rank", rankName);
         }
       } catch (IllegalArgumentException e) {
-        commandSender.sendMessage("Bitte gib einen gültigen Rang an");
+        LanguageManager.send(commandSender, "rank.chat.failed-invalid_rank");
       }
-
     }
     return true;
   }

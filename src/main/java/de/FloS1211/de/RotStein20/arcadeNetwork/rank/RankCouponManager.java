@@ -3,6 +3,7 @@ package de.FloS1211.de.RotStein20.arcadeNetwork.rank;
 import de.FloS1211.de.RotStein20.arcadeNetwork.Utils;
 import de.FloS1211.de.RotStein20.arcadeNetwork.gui.Gui;
 import de.FloS1211.de.RotStein20.arcadeNetwork.namecolor.NamecolorGuiButtonExecutor;
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -33,7 +34,13 @@ public class RankCouponManager implements Listener {
     }
     YamlConfiguration config = new YamlConfiguration();
     config.set("item", itemStack);
-    player.openInventory(Gui.getConfirmationGui(Map.of("couponName",couponName,"couponItem",config.saveToString()), new NamecolorGuiButtonExecutor(), "Akzeptiere, um den Rang-Gutschein einzulösen").buildInventory());
+    player.openInventory(
+        Gui.getConfirmationGui(
+            Map.of("couponName",couponName,"couponItem",config.saveToString()),
+            new NamecolorGuiButtonExecutor(),
+            LanguageManager.getString(player, "rank.gui.confirmation.accept"),
+            player
+        ).buildInventory());
   }
 
   public static ItemStack getRankCoupon(String rank) {

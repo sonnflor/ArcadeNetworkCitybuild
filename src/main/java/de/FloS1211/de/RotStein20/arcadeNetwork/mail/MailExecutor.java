@@ -1,5 +1,6 @@
 package de.FloS1211.de.RotStein20.arcadeNetwork.mail;
 
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
 import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.MessageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,7 +14,7 @@ public class MailExecutor implements CommandExecutor {
   @Override
   public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
     if (!(commandSender instanceof Player player)) {
-      commandSender.sendMessage(MessageManager.get("general-invalid-executor"));
+      LanguageManager.send(commandSender, "general.chat.invalid-executor");
       return true;
     }
     if (args.length == 0) {

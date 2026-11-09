@@ -1,9 +1,11 @@
 package de.FloS1211.de.RotStein20.arcadeNetwork.gui;
 
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.*;
@@ -167,15 +169,15 @@ public class Gui {
     this.customData = customData;
   }
 
-  public static Gui getConfirmationGui(Map<String, String> customData, GuiButtonExecutor executor, String acceptDescription) {
+  public static Gui getConfirmationGui(Map<String, String> customData, GuiButtonExecutor executor, String acceptDescription, Player viewer) {
     GuiButton acceptButton = new GuiButton("accept", Material.LIME_DYE,executor, GuiButtonType.ACCEPT)
-        .title(Component.text("Akzeptieren").color(NamedTextColor.GREEN))
+        .title(LanguageManager.get(viewer,"general.gui.confirmation.accept"))
         .lore(List.of(Component.text(acceptDescription)))
         .sound(GuiSound.SUCCESS);
     GuiButton rejectButton = new GuiButton("reject", Material.RED_DYE, executor, GuiButtonType.REJECT)
-        .title(Component.text("Abbrechen").color(NamedTextColor.RED))
+        .title(LanguageManager.get(viewer,"general.gui.confirmation.reject"))
         .sound(GuiSound.FAILURE);
-    Gui gui = new Gui(27, Component.text("Bestätigung"));
+    Gui gui = new Gui(27, LanguageManager.get(viewer,"general.gui.confirmation.title"));
     gui.setElement(acceptButton,0,12);
     gui.setElement(rejectButton,0,14);
     gui.setCustomData(customData);

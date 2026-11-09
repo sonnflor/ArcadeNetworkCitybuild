@@ -3,6 +3,11 @@ general:
     invalid-player: "<white>[<green>ArcadeNetwork<white>]<gray> Bitte gib einen gültigen Spieler an"
     invalid-number: "<white>[<green>ArcadeNetwork<white>]<gray> Bitte gib eine gültige Zahl an"
     invalid-executor: "<white>[<green>ArcadeNetwork<white>]<gray> Dieser Command kann nur von einem Spieler ausgeführt werden"
+  gui:
+    confirmation:
+      title: "Bestätigung"
+      accept: "<green>Akzeptieren"
+      reject: "<red>Abbrechen"
 
 coins:
   chat:
@@ -168,12 +173,54 @@ mail:
 
 perk:
   chat:
-    gain-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green><perk></green> erhalten"
-    activate-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green><perk></green> aktiviert"
-    disable-perk: "<white>[<green>Perks<white>]<gray> Du hast den Perk <green><perk></green> deaktiviert"
+    gain-perk: "<white>[<green>Perk<white>]<gray> Du hast den Perk <green><perk></green> freigeschaltet. Aktiviere ihn mit <green><click:suggest_command:'/perks'><hover:show_text:'<gray>Klicke,um das Menü zu öffnen'>/perks</hover></click></green>"
+    activate-perk: "<white>[<green>Perk<white>]<gray> Du hast den Perk <green><perk></green> aktiviert"
+    disable-perk: "<white>[<green>Perk<white>]<gray> Du hast den Perk <green><perk></green> deaktiviert"
   gui:
     confirmation:
       accept: "Akzeptiere, um den Perk-Gutschein einzulösen"
+    perks:
+      title: "Perks"
+      button-locked: "<gray>Nicht freigeschaltet"
+      button-enabled: "<green>Aktiviert"
+      button-disabled: "<red>Deaktiviert"
+  general:
+    perk-name:
+      frog: "Frosch Perk"
+      speed: "Speed Perk"
+      nokia: "Nokia Perk"
+      miner: "Miner Perk"
+      irongolem: "Eisengolem Perk"
+      heal: "Heilungsperk"
+      fish: "Kiemen Perk" #an ChatGPT: das in englisch "fish" statt "gills"
+      no_hunger: "Kein Hunger Perk"
+      bird: "Vogel Perk"
+      cat: "Katzen Perk"
+      telekinesis: "Telekinese Perk"
+      dolphin: "Delfin Perk"
+      xp: "Doppelte XP Perk"
+      keep_inv: "Keep Inventory Perk"
+      rocket: "Raketen Perk"
+      ghost: "Geister Perk"
+      lava: "Lava Perk"
+    perk-description:
+      frog: "Lässt dich höher Springen (Jump Boost II)"
+      speed: "Macht dich schneller (Speed II)"
+      nokia: "Macht dich resistenter (Resistance IV)"
+      miner: "Lässt dich schneller Blöcke abbauen (Haste II)"
+      irongolem: "Macht dich stärker (Strength II)"
+      heal: "Lässt dich schneller regenerieren (Regeneration I)"
+      fish: "Lässt dich unterwasser atmen (Water Breathing I)"
+      no_hunger: "Du hast nie wieder Hunger (Saturation I)"
+      bird: "Lässt dich fliegen, wie im Kreativ-Modus"
+      cat: "Du erhältst keinen Fallschaden"
+      telekinesis: "Gedropte Items werden in dein Inventar teleportiert"
+      dolphin: "Du kannst im Wasser mit [shift] nach vorn schießen, wie mit einem Dreizack"
+      xp: "Du erhältst doppelte XP"
+      keep_inv: "Du behältst dein Inventar nach dem Tod"
+      rocket: "Du kannst dich mit [shift] im Elytra-Flug nach vorn boosten"
+      ghost: "Du bist unsichtbar (Invisibility I)"
+      lava: "Du erhällst keinen Feuerschaden (Fire Resistance I)"
 
 namecolor:
   chat:
@@ -194,6 +241,8 @@ namecolor:
       forbidden-lore:
         - "<red>Du hast diese Namensfarbe noch nicht freigeschaltet. "
         - "<red>Du kannst Namensfarben über Crates erhalten. "
+    confirmation:
+      accept-lore: "Akzeptiere, um den Namensfarben-Gutschein einzulösen"
 
 sidebar:
   gui:
@@ -241,3 +290,16 @@ clan:
     invitation-sender: "<white>[<green>Clan<white>]<gray> Du hast <player> in deinen Clan <clan> eingeladen."
     create-succeed: "<white>[<green>Clan<white>]<gray> Du hast erfolgreich den Clan <clan> erstellt. Lade Mitglieder mit <click:suggest_command:'/clan invite '><hover:show_text:'<gray>Klicke, um jemanden einzuladen'><green>/clan invite <player></green></hover></click> ein"
     create-failed-name: "<white>[<green>Clan<white>]<gray> Der Name des Clan darf maximal 6 Zeichen lang sein"
+
+rank:
+  chat:
+    unlock-succeed: "<white>[<green>Rang<white>]<gray> Du hast den Rang <rank> freigeschaltet"
+    critical_error: "<white>[<green>Rang<white>]<gray> Ein kritischer Fehler ist aufgetreten. Bitte informiere einen Supporter oder Admin"
+    delete-sender: "<white>[<green>Rang<white>]<gray> Der Rang von <player> wurde gelöscht"
+    delete-target: "<white>[<green>Rang<white>]<gray> Dein Rang wurde gelöscht"
+    change-sender: "<white>[<green>Rang<white>]<gray> Der Rang von <player> wurde auf <rank> geändert"
+    change-target: "<white>[<green>Rang<white>]<gray> Dein Rang wurde auf <rank> geändert"
+    failed-invalid_rank: "<white>[<green>Rang<white>]<gray> Bitte gib einen gültigen Rang an"
+  gui:
+    confirmation:
+      accept: "Akzeptiere, um den Rang-Gutschein einzulösen"

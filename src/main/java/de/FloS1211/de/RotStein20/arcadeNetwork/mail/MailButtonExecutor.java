@@ -40,7 +40,8 @@ public class MailButtonExecutor implements GuiButtonExecutor {
                 "onlyFavorites", gui.customData.get("onlyFavorites")
             ),
             this,
-            LanguageManager.getString(player, "mail.gui.delete.accept")
+            LanguageManager.getString(player, "mail.gui.delete.accept"),
+            player
             ).buildInventory());
       } else if (clickType.isShiftClick()) { //favorite mail
         boolean isFavorite = Boolean.parseBoolean(button.customData.get("favorite"));

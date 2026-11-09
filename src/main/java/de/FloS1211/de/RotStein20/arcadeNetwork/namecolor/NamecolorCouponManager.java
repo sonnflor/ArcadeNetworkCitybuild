@@ -2,6 +2,7 @@ package de.FloS1211.de.RotStein20.arcadeNetwork.namecolor;
 
 import de.FloS1211.de.RotStein20.arcadeNetwork.Utils;
 import de.FloS1211.de.RotStein20.arcadeNetwork.gui.Gui;
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -38,7 +39,12 @@ public class NamecolorCouponManager implements Listener {
     }
     YamlConfiguration config = new YamlConfiguration();
     config.set("item", itemStack);
-    player.openInventory(Gui.getConfirmationGui(Map.of("couponName",couponName,"couponItem",config.saveToString()), new NamecolorGuiButtonExecutor(), "Akzeptiere, um den Namensfarben-Gutschein einzulösen").buildInventory());
+    player.openInventory(
+        Gui.getConfirmationGui(
+            Map.of("couponName",couponName,"couponItem",config.saveToString()),
+            new NamecolorGuiButtonExecutor(),
+            LanguageManager.getString(player, "namecolor.gui.confirmation.accept-lore"),
+            player).buildInventory());
   }
 
   public static ItemStack getCoupon(String colName) {

@@ -36,7 +36,8 @@ public class PerkCouponManager implements Listener {
             "couponName",couponName,
             "couponItem",config.saveToString()),
         new PerkGuiButtonExecutor(),
-        LanguageManager.getString(player, "perk.gui.confirmation.accept")
+        LanguageManager.getString(player, "perk.gui.confirmation.accept"),
+        player
     ).buildInventory());
   }
 

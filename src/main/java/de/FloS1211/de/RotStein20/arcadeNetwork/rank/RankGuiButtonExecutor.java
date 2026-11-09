@@ -3,6 +3,7 @@ package de.FloS1211.de.RotStein20.arcadeNetwork.rank;
 import de.FloS1211.de.RotStein20.arcadeNetwork.gui.Gui;
 import de.FloS1211.de.RotStein20.arcadeNetwork.gui.GuiButtonExecutor;
 import de.FloS1211.de.RotStein20.arcadeNetwork.namecolor.NamecolorManager;
+import de.FloS1211.de.RotStein20.arcadeNetwork.serverStructure.LanguageManager;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -37,10 +38,10 @@ public class RankGuiButtonExecutor implements GuiButtonExecutor {
     ItemStack item = config.getItemStack("item");
     try {
       NamecolorManager.unlockNamecolor(player.getUniqueId().toString(), rank);
-      player.sendMessage("§f[§aRank§f]§7 Du hast den Rang " + rank.replace('_',' ') + " freigeschaltet. ");
+      LanguageManager.send(player, "rank.chat.unlock-succeed", "rank", rank.replace('_',' '));
       if (!player.getGameMode().equals(org.bukkit.GameMode.CREATIVE)) item.setAmount(item.getAmount() - 1);
     } catch (IllegalArgumentException e) {
-      player.sendMessage("§f[§aRank§f]§7 Ein kritischer Fehler ist aufgetreten. Bitte informiere einen Supporter oder Admin");
+      LanguageManager.send(player, "rank.chat.critical_error");
     }
   }
 
